@@ -1,0 +1,58 @@
+1. 从当前目录切换到 /usr/local
+2. 使用绝对路径，从当前目录切换到 /usr/local/lib
+3. 使用相对路径，从当前路径切换到 /usr
+4. 切换当前路径到上一次访问的目录
+5. 切换当前目录到上级目录
+6.从任何其它目录返回到用户主目录
+7.你当前目录是 /usr/local/, 现在要切换到  /home/tarena
+8.查看/home目录内容
+9.以列表形式显示/home 目录内容
+10.查看/home所有内容包括隐藏文件
+11.进入用户的主目录，查看当前路径
+12. 用户主目录下新建目录a和b
+13.进入a目录后，一个命名创建2级目录aa/aaa
+14.使用绝对路径进入用户主目录下的a/aa/aaa 目录，并新建文件rain_rain_go_away和little_star
+15. 用vim编辑题4中的文件rain_rain_go_away，写入如下内容
+
+Rain rain go away
+Come again another day
+Little Bada wants to play
+So come again another day
+Rain rain go away
+Come again another day
+Little Abby wants to play
+So come again another day
+
+16. 使用sublime 编辑题4中的文件little_start，写入如下内容
+Twinkle, twinkle, little star, 
+How I wonder what you are! 　　
+Up above the world so high, 　　
+Like a diamond in the sky! 　
+17. 使用两种方法查看rain_rain_go_away的文件内容( 方法一：直接用编辑器打开，方法二：使用cat命令)
+18. 进入／home/tarena/a/aa/aaa下，拷贝little_star ，副本名为little_star_cp
+19. 拷贝文件little_star  到题12中的b目录下并重命名为little_star2
+20. 打开little_start2，文件首行插入内容“rain_rain_go_away”,保存退出
+21. 将题5中的rain_rain_go_away文件移动到 题2中的b目录
+22. 如何查看命令ls的帮助
+23. 在／home目录，将用户主目录下的a目录拷贝到目录b下 （分别使用相对路径和绝对路径来做）
+24. 复制/etc目录下所有 l（小写L） 开头,以.conf结尾的文件到 /home/tarena/a 中
+25. 进入用户主目录，删除所有以 l（小写L） 开头，以.conf结尾的文件
+26. 查找/bin下r结尾的文件
+27. 将ls命令的打印的结果重定向到文件 ls_out里
+28. 使用命令将little_start文件内容追加到ls_out文件里
+29  查看文件/var/log/boot.log 前10行 (head ,tail默认都是10行)
+30  查看文件/var/log/boot.log  最后10行
+31  查看文件/var/log/boot.log 前5行
+32. 统计文件rain_rain_go_away一共多少行  
+33. 统计文件rain_rain_go_away一共多少个单词
+34. 进入用户主目录下的a目录， 递归查找文件内容含有“little star”的文件
+35. 查看 little_star 文件的读写权限
+36. 增加little_star文件其它用户的写权限，
+37，去掉little_star文件同组用户的写权限
+38，给文件little_star所有用户 增加写权限
+39. 以数字的方式修改文件little_star 访问权限为：文件所属用户可可读可写不可执行，同组用户可读不可写不可执行，其它用户不可读不可写不可执行
+40. 将用户主目录下的a目录打包为a.tar
+41. 将a.tar 拷贝到用户主目录的b目录下解包
+42. 将a 目录打包的同时压缩，为a.tar.gz
+43. 将a.tar.gz移动到／tmp下，解包
+

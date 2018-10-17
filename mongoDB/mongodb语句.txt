@@ -1,0 +1,278 @@
+小驼峰法 socketServer
+大驼峰法 SocketServer
+
+自动安装
+sudo apt-get install mongodb
+
+1.设置数据库的存储位置
+    mongod  --dbpath  目录
+
+2.设置数据库端口 
+    mongod  --port   8080
+
+3.mongo 进入数据库交互操作界面
+
+创建数据库
+use databaseName
+
+数据库的命名规则：
+  1.使用UTF-8字符(mongo默认支持utf-8)
+  2.不能含有空格，点  /  \  '\0'字符
+  3.长度不能超过64字节
+  4.不能和系统数据库重名
+  5.习惯使用小写字母，表达数据库功能
+
+
+查看当前系统下数据库
+show  dbs
+
+数据库的备份和恢复
+  1.备份  mongodump -h dbhost  -d  dbname  -o  dbdir
+  2.恢复  mongorestore -h  dbhost:port  -d dbname path
+
+数据库的监测
+  1.mongostat
+  2.mongotop
+    监测每个数据库的读写时长
+
+删除数据库
+  db.dropDatabase()
+  删除db当前所代表的数据库
+
+创建集合
+方法一：
+  db.createCollection("collection_name")
+方法二：  
+  当向一个集合中插入数据的时候，如果这个集合不存在则会自动创建
+  db.collectionName.insert(...)
+
+show collections
+show tables
+
+  集合命名规则：
+1.合法的utf-8字符串
+2.不能有'\0'
+3.不能以system.开头 因为这是系统的保留前缀
+4.不能和关键字重复
+
+删除集合
+  db.collectionName.drop()
+
+集合重命名
+  db.collectionName.renameCollection("new_name")
+
+插入单个文档
+  db.collectionName.insert()
+插入多个文档
+db.collectionName.insert([{},{},{}])
+
+其他的插入方法：
+  插入单个文档
+  db.collectionName.insertOne({})
+  
+  插入多个文档：
+  db.collectionName.insertMany([{},{}])
+  
+  save 插入文档
+  db.collectionName.save()
+
+获取集合对象
+db.class1
+  db.getCollection("class1")
+
+.查找操作
+  mysql : select ... from  table where  ....
+  mongo :  db.collection.find(query,field)
+
+db.collection.find()  ----> select * from table
+  1.find(query,field)
+
+query更多的筛选功能:
+操作符：使用$符号注明的一个特殊字串,表达一定的含义。比如 $lt表示小于比较操作符 
+            $eq  等于 ==
+$eq  等于
+$lt  小于 <
+$lte  小于等于  <=
+$gt  大于  >
+$gte  大于等于  >=
+$ne   不等于   !=
+$in  包含
+$nin  不包含
+
+逻辑操作符 db.collectionName.find({$and:[{条件1，条件2}]}，{筛选域})
+and
+query中多个条件为并列的关系
+$and 逻辑与
+$or 逻辑或
+
+$not  逻辑非          db.class1.find({age:{$not:{$eq:18}}},{_id:0})
+
+$nor  既不也不       db.class1.find({$nor:[{age:17},{sex:'m'}]},{_id:0})
+条件混合
+年龄大于27 并且叫阿花） 或者  叫阿喜
+  db.class0.find({$or:[{name:'阿花',age:{$gt:27}},{name:'阿喜'}]},{_id:0})
+
+6.数组查找
+1.查看数组中是否包含某一项
+    e.g.
+    db.class2.find({score:{$lt:60}},{_id:0})
+    * 只要数组中有任意一项符合查找条件即可被查找
+2.$all 
+  查找数组中同时包含多项的文档
+
+3.$size 
+    通过数组中元素个数查找
+4.$slice
+    取数组的部分进行显示 放在field中
+
+其他查询方法
+1.$exists
+    判断一个域是否存在
+2.$mod 
+    余数查找
+
+3.$type
+    查找指定数据类型的文档
+    * 如果查找数组的域则表示数组中值的类型
+
+查找结果相关的函数
+  1.distinct()
+    功能：查看集合某个域的取值范围
+  2.pretty()
+    功能：格式化显示查找结果
+  3.limit（n）
+    功能：显示查找结果的前几条
+  4.skip（n）
+    功能：显示查找结果跳过前n条
+  5.count()
+    功能：查找结果计数
+  6.sort(｛域:1/-1｝)
+    功能： 对查找结果排序显示
+    参数： 以键值对表示按照那个field排序
+           1 表示按照升序排列-1表示降序排列
+  7.复合排序  ： 当第一排序项相同时比较第二项
+    e.g.  db.class2.find({},{_id:0}).sort({age:1,name:1})
+  8.函数连续使用 
+    当函数返回的是文档集合时可以连续调用操作函数
+    e.g.  db.class2.find({},{_id:0}).sort({age:1}).limit(3)
+
+9.文档删除操作
+  delete  from  table  where  ....
+
+  alter table name drop 字段
+
+  db.collection.remove(query,justOne)
+                        条件，删除条数参数
+
+
+修改操作：
+  修改数据：db.collection.update(query,update,upsert,multi)
+  修改操作符：
+    $set
+    $unset
+    $rename
+    $setOnInsert
+    $inc
+    $mul
+    $min
+    $max
+  数组修改器：
+    $push  向数组中添加一项
+    $pushAll  向数组中添加多项
+    $pull 从数组中删除一项
+    $pullAll  从数组中删除多项
+    $each   对多个值进行逐一操作
+    $position  指定插入位置
+    $sort  对数组进行排序
+    $pop  弹出一项
+    $addToSet  向数组中添加一项，不能和其他的项重复
+
+.时间类型:
+new Date()   自动生成当前时间
+ISODate()  生成当前时间
+Date()  将生成的当前{系统时间}变为字符串
+
+时间戳
+valueof（） 
+将当前时间生成为时间戳  ISODate().valueOf()
+null
+  1. 如果某个域存在却没有值可以设置为null
+  2. 某个域不存在，可以使用null来匹配
+
+
+Object内部文档
+  文档内某个域的值是一个文档，则这个文档为内部文档
+
+.数组的下标引用:
+  使用数组时，可以使用{数组域 . 数组序列下标}的方式使用数组中的具体某一个元素
+
+查找结果的有序性
+  即可以对find查找结果使用[]引用序列下标的方式获取查找结果的第几项
+
+索引
+  指建立指定键值及所在文档中存储位置的对照清单。使用索引可以方便我们进行快速查找，减少遍历次数，提高查找效率
+  1.mongo如何创建索引
+    ensureIndex()
+    功能： 创建索引
+    参数： 索引域，索引类别，索引选项 
+  2.查看集合索引
+    db.class1.getIndexes()
+    * _id域是由系统自动为集合创建的索引
+  3.自定义索引名称
+    通过第二个参数中name选项
+  4.删除索引
+    dropIndex（）
+    功能：删除索引
+    参数：要删除的索引，可以是索引名称或者索引键值对
+
+索引类型
+  1.复合索引
+    根据多个域创建一个索引
+
+  2.数组和子文档索引
+    如果对某个域的值为数组或者子文档的域创建索引，那么通过数组或者子文档中的某一项进行查找也是索引查找
+
+  3.唯一索引 
+    创建索引时希望集合中创建索引的域的值均不重复
+
+  4.稀疏索引（间隙索引）
+    只针对有指定域的文档创建索引表，如果某个文档没有该域则不会在索引表中插入内容
+
+  5.索引约束
+    1. 索引表需要占有一定的数据库磁盘空间
+    2.当对数据进行增 删 改等写入操作时索引也需要更新，降低了数据修改的效率
+
+聚合操作
+db.collection.aggregate()
+  db.claas1.aggregare({$group:{_id:"$按什么分组", 聚类名字：{$做什么聚类："$域名"}}})
+
+$group:$sum  $avg  $max $min 求最小值
+
+$project
+    用于修改文档的显示效果
+
+$match   过滤数据
+
+$limit  显示前几条文档
+
+$skip   跳过几条文档
+
+$sort  排序
+
+聚合管道 ：将前一个聚合操作得到的结果，给后一个聚合操作继续使用
+  db.collection.aggregate([聚合1，聚合2...])
+
+固定集合：
+  db.createCollection(collectionName,{capped:true,size:10000,max:10000})
+
+文件存储:
+  文件存储数据库的方式：
+    存储路径
+    存储文件本身:
+      GridFS方案解释
+      fs.files ： 存储文件的相关信息（文件名，文件类型）
+      fs.chunks: 分块存储文件的实际内容
+      存储文件
+      mongofiles  -d  dbname  put  file
+      提取文件
+      mongofiles -d  dbname  get  file
