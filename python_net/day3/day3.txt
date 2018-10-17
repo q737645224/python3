@@ -1,0 +1,139 @@
+前情回顾
+tcp套接字
+1. 网络缓冲区：协调数据收发熟读
+2. 粘包：tcp套接字的消息粘连
+
+udp 套接字
+服务端  socket（AF_INET,SOCK_DGRAM）
+        bind（）
+	      recvfrom()   sendto()
+客户端  socket   recvfrom   sendto
+
+tcp编程和udp编程的区别
+
+套接字属性
+fileno()   getpeername()   setsockopt()
+广播 ： 一端发送多端接受  ---》udp
+
+HTTP协议（数据请求、数据响应的格式）
+请求类型 ： GET  POST   PUT   HEAD  DELETE
+    格式 ：    GET   /   HTTP/1.1
+
+响应类型 ： 2xx  4xx  5xx
+    格式 ： HTTP/1.1   200       OK
+            版本协议   响应码    附加信息
+******************************************************
+1.tcp应用之 httpserver
+    * 接收http请求
+    * 查看http请求
+    * 返回一个网页给客户端
+
+2.IO（input  output）
+  1.在内存中存在{数据交换}的操作可以认为是IO操作(输入输出）
+  2.e.g.：
+    内存和磁盘进行数据交换：文件的读写（read/write)  数据库更新(updata)
+    内存和终端数据交换：input   print  
+                        sys.stdin sys.stdout  sys.stderr  stand
+    内存和网络数据的交换： 网络连接  recv  send  recvfrom
+    IO密集型程序:在程序执行中有大量的IO操作，而较少的cpu运算操作。消耗cpu较少，IO运行时间长
+    cpu（计算）密集型程序：程序中存在大量的cpu运算，IO操作相对较少，消耗cpu大，运行速度快。
+  3.IO分类：
+    阻塞IO   非阻塞IO    IO多路复用  {事件驱动IO  异步IO}
+    1.阻塞IO：io的默认形态，是效率较低的一种IO情形。
+      程序运行中遇到IO条件没有达成或者传输过程较慢的情况会出现阻塞状态
+      * 阻塞IO是 IO最简单的逻辑情形，也是默认状态
+      * 阻塞IO是效率很低的IO形态
+      阻塞情况 ：
+      * 因为某种IO条件没有达到形成阻塞
+       e.g.   accept  recv   recvfrom   input
+      * 处理IO事件的时候耗时较长形成阻塞
+       e.g.  文件读写过程，网络数据发送过程    
+    2.非阻塞IO ：在程序运行中遇到IO的情形不让其产生阻塞，通过修改IO事件的属性，使其变为非阻塞状态。
+                （让一些条件阻塞函数不再阻塞）
+      * 通常会和循环一起使用，进行条件的循环监控
+      1.s.setblocking(False)
+        功能 ：将套接字设置为非阻塞
+        参数 ：默认为阻塞状态 设置为False则为非阻塞
+      超时检测
+      将原本阻塞的函数，设置一个{阻塞的最长时间}。如果时间内条件达成则
+      2.s.settimeout(sec)
+        功能 ： 设置套接字的超时时间
+        参数 ： 时间（秒）
+    3.IO多路复用
+      1.定义：通过一个监测，可以同时监控多个IO事件的行为。当哪个IO事件准备就绪就执行那个IO事件，以此形成可以同时操作多个IO的并发行为，避免一个IO堵塞，造成所有IO都无法执行。
+      2.IO准备就绪:是一种IO必然就要发生的临界状态
+        1.将IO设置为关注IO
+        2.将关注IO提交给内核监测
+        3.处理内核给我们反馈的准备就绪的IO 
+      3.具体方案：
+        select ---》 Windows Linux Unix
+        poll ---》 Linux Unix
+        epoll --》linux unix
+        import  select
+        rs, ws, xs = select(rlist, wlist, xlist[, timeout])
+      功能 ： 监控IO事件，阻塞阻塞等待IO事件发生
+      参数 ：rlist   列表  存放我们监控需要等待处理的IO事件（读IO事件）  accept
+             wlist   列表  存放我们想主动操作的IO事件（写IO事件）        send
+      	     xlist   列表  存放出错，希望去处理的IO
+      	     timeout  超时时间
+      返回值:  rs   列表  rlist中准备就绪的IO
+               ws   列表  wlist中准备就绪的IO
+      	       xs   列表  xlist中准备就绪的IO
+      注意：1.wlist中如果有IO事件，则select立即返回为ws
+            2.在处理IO过程中不要处理一个客户端长期占有服务端，使服务端无法运行到select的情况
+            3.IO多路复用占用计算机资源少，IO效率高
+      * 在处理IO时不要形成死循环，让一个客户端单独占有服务端
+      * IO多路复兴形成一种可以同时处理多个IO的效果，效率较高
+
+
+3.位运算
+  按照二进制位进行运算操作
+  & 按位与    | 按位或     ^ 按位异或 
+  << 左移       >>  右移 
+  11    1011  32 16 8 4 2 1
+  14    1110
+
+  &     1010   一0则0  10
+  |     1111   一1则1  
+  ^     0101   相同0不同1
+
+  11 << 2  ===> 44   右侧补0
+  14 >> 2  ===> 3    挤掉右侧的数字
+ 
+  使用：1. 在做底层硬件时操作寄存器
+        2. 做标志位的过滤
+        3.检查某位  与其相同位为1 计算按位与 &
+        4.增加功能  与其相同位为1 计算按位或 |
+
+4.poll方法实现IO多路复用 select.poll/ p.register(s,POLLIN | POLLERR)/unregister  event = p.poll
+  1. 创建poll对象
+    p = select.poll()
+  2.添加注册关注的IO事件
+    p.register(s,POLLIN | POLLERR)
+      事件类别
+      POLLIN   POLLOUT   POLLERR   POLLHUP   POLLNVAL         POLLPRI  （整数）  
+      rlist    wlist     xlist     断开      无效数据        紧急处理
+    p.unregister(s)   从关注IO事件中移除
+  3.阻塞等待IO发生 监控IO 
+    events = p.poll()
+    功能:监控关注的IO事件
+    返回值：events 是一个列表，列表中给每个元素都是一个元组，代表一个发生的IO事件
+      [(fileno,               evnet),(),()....]
+      就绪IO的文件描述符    具体就绪事件
+      *需要通过文件描述符(fileno)找到对应的IO对象
+      每个就绪IO对应列表中一个元组：（描述符，就绪事件）
+      IO地图 ： {s.fileno():s}
+  4.处理具体的IO
+
+作业 ： 1. 熟练 select server 代码
+        2.理解多路复用的工作流程和原理
+        3.巩固HTTP协议内容
+        4.类的使用(继承 super  __init__)
+
+	3.写一个select服务端，同时关注客户端连接，客户端发送和终端输入。将客户端发送和终端输入的内容全都写入到一个文件中。sys.stdin
+
+
+
+
+
+
