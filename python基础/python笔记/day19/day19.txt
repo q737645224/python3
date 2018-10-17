@@ -1,0 +1,263 @@
+day18回顾
+   对象 ---------- > 类
+ 实例变量(属性)     类变量
+ 实例方法          类方法(@classmethod)
+
+静态方法   @staticmethod
+
+类内的预置属性:
+    __doc__ 绑定文档字符串
+    __base__ 属性 绑定父类
+
+
+__slots__ 列表
+  限定一个类创建的对象只能有固定的属性(对象没有字典__dict__)
+
+
+继承 / 派生
+    一个父类 <----> 多个子类
+    一个子类,只有一个父类的继承关系称为单继承
+
+覆盖 override
+  
+子类要想调用父类中的被覆盖的方法:
+  super(类, 对象)
+  super()
+
+子类对象重新实现了 __init__(self, ...)  方法
+
+class B(A):
+    def __init__(self, aaa):
+        super().__init__(aaa)
+
+
+
+
+
+
+day19笔记
+用于类的函数
+  issubclass(cls, class_or_tuple) 判断一个类是否继承自其它类,如果此cls 是class 或tuple中的一个派生子类,则返回True, 否则返回False
+
+示例:
+  class A:
+      pass
+
+  class B(A):
+      pass
+
+  class C(B):
+      pass
+
+  issubclass(C, B)  # True
+  issubclass(B, C)  # False
+  issubclass(C, (int, str))  # False
+  issubclass(C, (int, B, str))  # True
+
+
+
+
+
+
+封装 enclosure
+  封装是指隐藏类的实现细节,让使用者不关心这些细节
+  封装的目的是让使用者通过尽可能少的方法(或属性)操作对象
+
+
+私有属性和方法
+  python类中以双下划线('__') 开头,不以双下划线结尾的标识符为私有成员,私有成员或只能用类内的方法进行访问和修改
+    以__开头的实例变量有私有属性
+    以__开头的方法为私有方法
+  示例见:
+    enclosure.py
+
+
+
+多态 polymorphic
+  什么是多态:
+    字面意思: 多种状态
+    多态是指在有继承/派生关系的类中,调用基类对象的方法,实际能调用子类的覆盖方法的现象叫多态
+
+  状态:
+    静态(编译时状态)
+    动态(运行时状态)
+  说明:
+    多态调用方法与对象相关,不与类相关
+    Python的全部对象都只有"运行时状态(动态)", 没有"C++语言"里的"编译时状态(静态)"
+  示例:
+   poly.py
+
+
+
+
+
+面向对象的语言的特征:
+  继承
+  封装
+  多态
+
+多继承 multiple inheritance
+  多继承是指一个子类继承自两个或两个以上的基类
+语法:
+  class 类名(基类名1, 基类名2, ...):
+      ...
+说明:
+  1. 一个子类同时继承自多个父类,父类中的方法可以同时被继承下来
+  2. 如果两个父类中有同名的方法,而在子类中又没有覆盖此方法时,调用结果难以确定
+
+示例见:
+  multi_inherit.py
+
+多继承的问题(缺陷)
+  标识符(名字空间)冲突的问题
+    要谨慎使用继承
+  示例见:
+    multi_inherit2.py
+
+
+多继承的 MRO (Method Resolution Order) 问题
+  类的 __mro__ 属性
+    此属性用来记录类的方法查找顺序
+    
+
+  示例见:
+    mro.py
+
+
+
+练习:
+  写一个类Bicycle类 ,有 run方法.调用时显示骑行里程km
+    class Bicycle:
+        def run(self, km):
+            print('自行车骑行了', km, '公里')
+  再写一个类EBicycle(电动自行车类), 在Bicycle类的基础上添加了电池电量 volume 属性, 有两个方法:
+     1. fill_charge(self, vol)  用来充电, vol为电量
+     2. run(self, km) 方法每骑行10km消耗电量1度,同时显示当前电量,当电量耗尽时调用 父类的run方法继续骑行
+
+    b = EBicycle(5)  # 新买的电动有内有5度电
+    b.run(10)  # 电动骑行了10km还剩 4 度电
+    b.run(100)  #电动骑行了40km,还剩0度电,其余60用脚登骑行
+    b.fill_charge(10)  # 又充了10度电
+    b.run(50)  # 骑行了50公里剩5度电
+
+
+
+
+
+
+
+
+函数重写
+  在自定义类内添加相应的方法,让自定义类创建的实例能像内建对象一样进行内建函数操作
+
+对象转字符串函数:
+  repr(obj)  返回一个能代表此对象的表达式字符串,通常
+      eval(repr(obj)) == obj  (这个字符串通常是给python解释执行器运行用的)
+
+  str(obj)  通过给定的对象返回一个字符串(这个字符串通常是给人阅读的)
+
+
+对象转字符串函数的重写方法
+  repr(obj) 函数的重写方法:
+      def __repr__(self):
+
+  str(obj) 函数的重写方法:
+      def __str__(self):
+
+  说明:
+    1. str(obj) 函数先查找, obj.__str__()方法,调用此方法并返回结果
+    2. 如果没有obj.__str__()方法时,则返回obj.__repr__()方法的结果并返回
+    3. 如果obj.__repr__方法不存在,则调用object类的__repr__实例方法显示<__main__.XXXX object at 0xAABBCCDD>格式的字符串
+  示例见:
+    mynumber.py
+
+其它内建函数的重写方法:
+  __abs__       abs(obj)  函数
+  __len__       len(obj)  函数(必须返回整数)
+  __reversed__  reversed(obj) 函数(必须返回可迭代对象
+  __round__     round(obj)  函数
+
+示例见:
+  myinteger.py
+
+
+
+数值转换函数的重写
+  __complex__  complex(obj) 函数
+  __int__      int(obj) 函数
+  __float__    float(obj) 函数
+  __bool__     bool(obj) 函数
+
+示例见:
+  mynumber3.py
+
+
+布尔测试函数重写
+  格式:
+    __bool__
+  作用:
+    用于bool(obj)　函数取值
+    用于if语句的真值表达式中
+    用于while 语句的真值表达式中
+  说明:
+    1. 当自定义的类内有 __bool__(self) 方法时，以此方法的返回值作为bool(obj) 的返回值
+    2. 当不存在__bool__(self) 方法时，bool(x) 返回__len__(self) 方法的返回值是否为零来测试布尔值
+    3. 当不存在__len__(self) 方法时，则直接返回True
+  示例见:
+    bool.py
+
+
+迭代器(高级)
+
+什么是迭代器
+  可以通过next(it)函数取值的对象就是迭代器
+
+迭代器协议
+  迭代器协议是指对象能够使用next函数获取下一项数据，在没有下一项数据时触发一个StopIteration异常来终止迭代的约定
+
+迭代器协议实现方法:
+  __next__(self) 方法来实现迭代器协议
+
+语法形式:
+  class MyIterator:
+      def __next__(self):
+          迭代器协议
+          return 数据
+什么是可迭代对象:
+  是指能用iter(obj) 函数返回迭代器的对象(实例)
+  可迭代对象内部需要定义__iter__(self)　方法来返回迭代器对象
+
+练习:
+  1. 修改原有的学生信息管理系统, 将学生对象的,全部属性 
+  都变为私有属性,不让外部直接访问来实现封装
+
+  2. 写一个列表类MyList实现存储整数列表,写类的定义如下:
+    class MyList:
+        def __init__(self, iterator):
+            self.data = ...
+    让此类的对象能用for语句进行迭代访问
+
+    L = MyList(range(5))
+    print(L)
+    L2 = [x ** 2 for x in L]
+    print(L2)  # [0, 1, 4, 9, 16]
+
+  3. 写一个类Fibonacci 实现迭代器协议 ,此类的对象可以作为可迭代对象生成相应的斐波那契数
+     1 1 2 3 5
+    class Fibonacci:
+        def __init__(self, n)  # n代表数据的个数
+            ...
+        ...
+    实现如下操作:
+      for x in Fibonacci(10):
+          print(x)  # 1 1 3 5 8 ....
+      L = [x for x in Fibonacii(50)]
+      print(L)
+      F = fibonicci(30)
+      print(sum(F))  
+
+
+
+
+
+

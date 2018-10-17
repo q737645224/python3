@@ -1,0 +1,309 @@
+day12回顾:
+  装饰器：
+  def decoretor(fuc):
+      def fn():
+          fuc()
+      return fn
+
+  @装饰器函数名
+  def myfun(a, b):
+      pass
+
+  等同于:
+  def myfun(a, b):
+      pass
+  myfun = 装饰器函数名(myfun)
+
+def f1(a, *args, b, **kwargs):
+    return a + b
+f1 = lambda a, *args, b, **kwargs: a + b
+   f1.__name__ == '<lambda>'
+
+__name__属性
+函数的文档字符串
+  函数的文档字符串由函数的  __doc__ 属性绑定
+
+模块 
+  模块的分类:
+    内建模块
+    标准库模块  .py
+    第三方模块 (如: $ pip3 install tensorflow)
+    用户自己编写的模块
+
+  模块的导入语句有三种:
+  import 模块
+  from 模块 import 函数 as  小名，函数，...
+  from 模块 import *  #导入模块的所有函数
+    import 语句
+       例:
+          import math
+          math.factorial(5)
+          import math as m
+          m.factorial(5)
+    from import 语句
+       例:
+         from math import factorial
+         factorial(5)
+         from math import factorial as f
+         f(5)
+    from import * 语句
+       例:
+         from math import *
+         sin(pi/2)
+  
+    dir() 函数 返回当前作用域内有哪儿些变量
+         ..
+
+内建模块:
+  math
+  sys
+  time
+
+
+
+day13笔记:
+1·系统模块 sys
+  文档参见:
+    python_base_docs_html/系统模块sys.html
+
+
+2.自定义模块
+  要求：
+     模块名".py"结尾
+     模块名必须是标识符的命名规则
+     避免名称和内键模块名冲突
+  示例见:
+    mymod.py  # 自定义模块
+    test_mymod.py  # 主模块，用于使用mymod模块
+  注意事项： 
+    自定义模块的文件要求以.py结尾，文件名必须是标识符的规则
+
+
+导入 语句 import 语句等 搜索块的路径顺序
+  1.搜索内键模块 butiltin
+  2.搜索程序的运行时路径（当前路径）
+  3.sys.path提供的路径
+    两种方法让用户自定义模块被导入：
+        1)将模块安装(复制)到sys.path提供的路径
+        2)在运行程序时，在sys.path里添加自定义的路径
+
+  import mymod
+  from mymod import myfac
+  from mymod import *
+    去哪儿找这个mymod.py?
+  搜索顺序:
+    1. 搜索程序运行时的路径(当前路径)
+    2. sys.path 提供的路径
+        sys.path是一个列表，里面放的都是模块的搜索路径
+    3. 搜索内建模块
+  
+3.模块的加载过程:
+  1.在模块导入时，模块的所有语句都会执行
+  2.如果一个模块已经导入，则再次导入时不会重新执行模块内的语句
+
+4.模块的重新加载
+  import mymod
+  import imp
+  imp.reload(mymod)  # 重新加载mymod模块
+
+模块以导入和执行的过程:
+  1. 先搜索相关的路径，找到模块名.py
+  2. 判断是否有此模块对应的.pyc文件。如果.pyc比.py文件新,则直接加载.pyc文件
+  3. 否则 用模块.py,文件生成.pyc，并加载执行
+
+pyc python的编译
+             编译                 解释执行
+  mymod.py  --------> mymod.pyc  --------> python3
+
+
+
+模块的属性：
+  1)模块的文档字符串:
+    模块内第一个没有赋值给任何变量的字符中称为[模块的文档字符串]
+    模块内的文档字符串绑定在模块的__doc__属性上
+  2)模块的 __doc__ 属性
+    此属性用于绑定模块的文档字符串
+
+  3)模块的 __file__属性
+    此属性用于记录模块对应的文件路径名
+
+  示例见:
+    mymod2.py
+
+  模块的 __name__属性 
+    作用：
+     1. __name__属性 用来记录模块自身名字
+     2.用来判断是否为模块（注：主模块是指程序最先被python 
+    
+
+
+            没写完
+
+
+
+    作用:
+      1. 记录模块名
+      2. 用来判断是否为主模块
+    说明:
+      当此模块为主模块(也就是第一个运行的模块时)运行时, __name__绑定 '__main__'
+      当此模块不是主模块时,而是被其它模块导入时，此时 __name__ 绑定模块名
+    示例见:
+      mymod3.py
+
+
+
+模块的 __all__列表：
+  模块中的__all__列表必须是一个字符串列表
+  是一个用来存放可导出属性的字符串列表
+
+  作用:
+    当用 from xxx import *语句导入时，只导入 __all__ 列表内的属性
+
+  示例见:
+    mymod4.py
+
+模块的隐藏属性
+  模块中以'_'开头的属性，在from xxx import * 导入时，9将不被导入，通常称这些属性为隐藏属性
+
+  示例见:
+    mymod5.py
+
+
+随机模块 random
+  模块名: random
+    作用:
+      用于模拟或生成随机输出的模块
+
+  文档参见:
+    python_base_docs_html/随机模块random.html
+
+
+1. 猜数字游戏
+    随机生成一个0~100之间的一个整数，用变量x绑定
+    让用户输入一个数y,输出猜数字的结果:
+      1) 如果y大于x则提示: "您猜大了"
+      2) 如果y小于x则提示: "您猜小了"
+      3) 如果y等于生成的数x,则提供示用户"恭喜您猜对了 "并退出猜数字
+    循环重复上述步聚，直到猜对为止。
+    猜对了，显示用户猜数字的次数，然后退出程序
+
+
+包(模块包) package
+  包的定义
+    包是将模块以文件夹的组织形式进行分组管理的管理方法
+  作用:
+    将一系列模块进行分类管理，有利于防止命名冲突
+    可以在需要时加载一个或部分模块则不是全部模块
+  包示例:
+    mypack/
+        __init__.py
+        menu.py
+        games/
+            __init__.py
+            contra.py
+            supermario.py
+            tanks.py
+        office/
+            __init__.py
+            word.py
+            excel.py
+            powerpoint.py
+
+
+
+
+包内的__init__.py 文件
+  __init__.py是常规包内必须存在的文件
+  __init__.py会在包加载时自动调用
+
+  作用:
+    1. 编写此包的内容
+    2. 在内部填写文档字符串
+    3. 在__init__.py文件内可以加载此包所依懒的一些其它模块
+
+包的导入
+  规则类似于模块的导入规则
+  # import 语句
+  import 包名 [as 包新名]
+  import 包名.模块名 [as 模块新名]
+  import 包名.子包名.模块名 [as 模块新名]
+
+  # from import语句
+  from 包名 import 模块名 [as 模块新名]
+  from 包名.子包名 import 模块名 [as 模块新名]
+  from 包名.子包名.模块名 import 属性名 [as 属性新名]
+
+  # from import *语句
+  from 包名 import *
+  from 包名.模块名 import *
+  ...
+
+import 语句搜索引 包的路径顺序
+  1. 搜索程序运行的路径（当前路径） 
+  2. sys.path 提供的路径
+
+
+__init__.py内的 __all__ 列表
+  作用:
+    用来记录此包中有哪儿些子包或模块需要导入
+    当在用from import *语句时，只查找__all__列表中所有的模块或子包
+  说明:
+    __all__列表只对 from xxx import *语句起作用
+  示例见:
+    mypack/games/__init__.py
+#绝对导入：
+    # 1)import mypack.menu
+        mypack.menu.show_menu()
+    # 2)from mypack.menu import show)menu
+        show_menu
+    # 3)from mypack.menu import *
+        show_menu
+    #相对导入
+    #1）from ..menu import show_menu
+        from ..menu import *
+    show_menu
+
+包的相对导入:
+  包的相对导入是指包内模块的相互导入
+  语法:
+    from 相对路径包或模块 import 属性或模块名
+    from 相对路径包或模块 import *
+  相对路径
+    . 代表当前目录
+    .. 代表上一级目录
+    ... 代表上二级目录
+    .... 以此类推
+    注: 相对导入时不能超出包的外部
+
+
+练习:
+  1. 模拟斗地主发牌,扑克牌共54张
+      黑桃('\u2660'), 梅花('\u2663'), 方块('\u2665'), 红桃('\u2666')
+      A2-10JQK
+      大王、小王
+    三个人玩，每人发17张牌，底牌留三张
+    输入回车, 打印出第1个人的17张牌
+    输入回车, 打印出第2个人的17张牌
+    输入回车, 打印出第3个人的17张牌
+    输入回车, 打印三张底牌
+2.打印 九九乘法表：
+  1x1=1
+  1x2=2 2x2=4
+  1x3=3 2x3=6 3x3=9
+  ....
+  1x9=9 ...................9x9=81
+
+3. 修改学生信息管理程序，将原student_info.py 拆分为模块
+    要求:
+      1. 主事件循环放在main.py中
+      2. show_menu 函数放在menu.py中
+      3. 与学生操作相关的函数放在 student_info.py中
+
+
+
+
+
+
+
+
+

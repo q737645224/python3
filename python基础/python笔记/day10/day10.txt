@@ -1,0 +1,416 @@
+day09回顾:
+  传参
+    把数据传递给函数
+
+    传递方式:
+      位置传参
+        序列传参   *[]
+      关键字传参         拆解
+        字典关键字传参**{}
+
+  形参:
+    1.缺省参数，用来设置参数的默认值，当调用者没有传入确定的参数时，直接使用默认值
+    2.把调用函数的实参拿到(接收实参)
+      形参的定义方式有四种:
+        位置形参
+        *元组形参(接收多余的位置传参)   *args  *a   *b 
+        命名关键字形参(强制必须使用关键字传参)    *, b,c       *args, a, b
+        ** 字典形参(接收多余的关键字传参)   **kwargs  定义函数时，没有确定所需要传入的数据多少
+    函数的缺省参数 default argument  
+        def fx(a, b=0, c=100):
+            pass
+
+全局变量 和 局部变量 
+全局变量和局部变量
+  局部变量: local variable
+    1. 定义在函数内部的变量称为局部变量(函数的形参也是局部变量)
+    2. 局部变量只能在函数内部使用
+    3. 局部变量在函数调用时才能够被创建，在函数调用之后会自动销毁
+
+  全局变量 global variable
+    定义在函数外部，模块内部的变量称为全局变量
+    全局变量所有函数都可以直接访问(但函数内不能将其直接赋值)
+  说明：
+      1.局部变量只能在其被声明的函数内部访问，而全局变量可以在整个模块范围内访问
+      2.在函数㕯部赋值语句不会对全局变量造成影响
+  示例见:
+    global_local.py
+    a = 100 #全局变量
+    b = 200 #全局变量
+    def fx(c):    #c是局部变量
+        d = 400
+        print(a, b, c, d)
+fx(300)
+print(a,b)
+
+示意：
+ L = []
+ def input_number():
+      L2 = []
+      while True：
+      n = int(input("请输入正整数"))
+      if n < 0:
+         break
+      L2.append(n)
+    L = L2   #创建局部变量，未改变全局变量L的绑定关系
+    L.extend(L2)  #根据变量找到列表，改变的是列表而不是变量
+    L += L2 #出错   L = L + L2
+练习:
+  创建一个全局变量 L = []
+  写一个函数:
+    def input_number():
+        ....
+    此函数每次调用将从键盘读入一些数字追加到列表L中 
+
+  如:
+    L = []
+    def input_number():
+        ....
+    input_number()
+    print(L)  # [ .... 这些是您从键盘输入的数..]
+
+在函数内赋值语句
+   变量 = 表达式
+全局变量的操作方式：
+      变量 = 表达方式   #创建变量
+      del 变量          #删除变量
+
+
+globals() / locals()函数:
+  globals() 返回当前全局作用域内变量的字典
+  locals()  返回当前局部作用域内变量的字典
+
+示例见:
+  globals_locals.py
+  a = 1
+  b = 2
+  c = 3
+  def fn(c, d):
+      e = 300
+      print("locals返回：", locals())
+      print("globals返回", globals())
+      print(c)
+      print(globals()["c"])  #访问全局变量c
+
+函数变量:
+  函数名是变量，它在def语句创建函数时绑定一个函数
+    abs 函数名   abs()函数
+
+示例见:
+  function_variable.py
+     def fn():
+         print("hello world!")
+  f1 = fn
+  print(f1)   #<function fn at 0xXXXXXXXX>
+  print(f1())  #None
+
+  def f1():
+      print("函数f1被调用")
+  def f2():
+      print("函数f1被调用")
+  f1, f2 = f2, f1   #交换变量的绑定函数
+
+
+
+
+一个函数 可以作为另一个函数的实参传递
+示例见:
+  give_function_as_args.py
+  give_function_as_args2.py
+
+看懂如下代码:
+  def myinput(fn):
+      L = [5, 3, 1, 9, 7]
+      return fn(L)
+
+  print(myinput(max))
+  print(myinput(min))
+  print(myinput(sum))
+  print(myinput(len))
+
+
+
+函数可以作为另一个函数的返回值
+  示例见:
+    return_function.py
+    def get_tunction():
+        s = input("请输入您要做的操作：")
+        if s == "求最大"：
+            return max
+        elif s == "求最小":
+            return min
+        elif s == '求和：'：
+             return sum
+
+L = [2, 3, 4, 6, 8, 10]
+f = get_function()
+print(f(L))
+
+
+
+
+函数的嵌套定义
+  函数嵌套定义是指一个函数里用def语句来创建其它的函数的情况
+  示例:
+    1.def fn_outter():
+        3.print("fn_outter被调用")
+        4.def fn_inner():     #每次调用fn_outter()时，都会重新创建fn_inner()
+            6.8.print("fn_inner被调用")
+        5.fn_inner()
+        7.fn_inner()
+        9.print("fn_outter调用结束")
+        return fn_inner
+    2.fn_outter()
+
+fn_outter() #调用外层
+fn_inner() #不可以调用
+
+fx = fn_outter()  #传出fn_inner ,将fx与fn_inner()绑定
+fx()        #调用fn_inner函数
+
+
+
+
+
+练习:
+  写一个计算公式的解释执行器
+    已知有如下一些函数：
+        def myadd(x, y):
+            return x + y
+        def mysub(x, y):
+            return x - y
+        def mymul(x, y):
+            return x * y
+    写一个函数，传入字符串，返回相应的函数
+        def get_op(s):
+            # 此函数根据字符串来返回相应的函数.
+            # 如果传入字符串"加" 则返回myadd函数
+            # ....        '乘',则返回mymul函数
+            ... 此处自己实现 
+    主程序如下:
+        while True:
+          s = input("请输入计算公式: ")# 10 加 20
+          L = s.split()
+          a = int(L[0])
+          b = int(L[2])
+          fn = get_op(L[1])
+          print("结果是:", fn(a, b))  # 30
+
+
+
+python3的作用域
+  作用域也叫名字空间，是访问变量时查找变量名的范围空间
+
+python的四个作用域:
+  作用域               英文解释          英文缩写
+局部作用域(函数内)    Local(function)         L
+外部嵌套函数作用域 Enclosing function locals  E
+函数定义所在模块(文件)作用域  Global(module)   G
+Python内建模块的作用域      Builtin(Python)   B
+
+示例见:
+  namespace.py
+
+变量名的查找规则
+  在变量访问时，先查找本地变量，然后是包裹此函数外部的函数内部的变量，之后是全局变量，最后是内建变量
+    即：
+      L ----> E ----> G ----> B
+    在默认的情况下，变量名赋值会创建或者改变当前作用域的变量
+
+
+
+
+global 语句
+  作用:
+    1.告诉解释执行器 global 语句声明的一个或多个变量，这些变量的作用域为模块级的作用域，也称作全局变量
+    2.全局声明(global)将赋值语句操作的变量映射到模块文件内部的作用域
+
+  语法:
+    global 变量1, 变量2, ...
+  示例见:
+    global.py
+  说明:
+    1. 全局变量如果要在函数内部被赋值，则必须经过全局声明（否则会被认为是创建局部变量)
+    2. 全局变量在函数内部不经过声明就可以直接访问(变量已经存在并关联一个对象)
+    3. 不能先声明局部变量，再用global声明为全局变量，此做法不附合规则
+    4. global变量列表里的变量名不能出现在此作用域的形参列表里
+
+nonlocal 语句
+  作用:
+    告诉解释执行器，nonlocal声明的变量不是局部变量，也不是全局变量，它是[外部嵌套函数内的变量]
+
+  语法:
+    nonlocal 变量名1, 变量名2, ....
+  示例见:
+    nonlocal.py
+  说明:
+    1. nonlocal 语句只能在被嵌套的函数内部进行使用
+    2. 对nonlocal变量进行赋值操作，、将对外部嵌套函数作用域内的变量进行操作
+    3. 当有两层或两层以上函数嵌套时，访问nonlocal变量只对最近的一层变量进行操作
+    4. nonlocal语句的变量列表里的变量名，不能出现在此函数的参数列表中
+
+
+练习:
+  写一个函数叫hello(name),部分代码如下:
+  count = 0
+  def hello(name):
+      print('你好', name)
+      ... 此处代码省略,需要同学们自己填写
+      ... 此处代码需要改变全局变量来记录此函数曾经被调用过多少次.
+  
+  hello('小张')
+  hello('小李')
+  print('hello 函数被调用', count, '次')  # 2次
+
+
+
+
+
+
+
+
+
+
+
+
+def 语句:
+  语法：
+      def 变量/函数名(形参)：
+      ...
+   作用:
+     创建函数
+
+lambda 表达式(又称匿名函数)
+  作用:
+    创建一个匿名函数对象
+    同 def 类似,但不提供函数名
+  语法:
+    lambda : [形参名1，形参名2，性参名3，...]：表达式
+  示例见:
+    lambda.py
+    #def myadd(x,y):
+        return x+y
+    myadd = lambada x, y:x + y     #为表达式可以添加的内容{1,1+2,sum(),[x for i in ...],..}
+  说明:
+    1. [lambda 只是一个表达式]，它用来创建一个[函数对象]
+    2. 当lambda表达式调用时，先执行冒号(:)后的表达式，并返回表达式的结果的引用关系
+    3. lambda 表达式创建的函数[只能包含一条表达式]
+    4. lambda 比函数简单且可以随时创建和销毁，有利于[减少程序的偶合度] (程序的耦合度越低的越好)
+    注：lambda a, *args, b : 表达式
+注：
+  关键字lambda表示匿名函数，冒号前面的x表示函数参数。
+  匿名函数有个限制，就是只能有一个表达式，不用写return，返回值就是该表达式的结果。
+  用匿名函数有个好处，因为函数没有名字，不必担心函数名冲突。此外，匿名函数也是一个函数对象，也可以把匿名函数赋值给一个变量，再利用变量来调用该函数
+练习:
+  1. 写一个lambda 表达式，判断这个数的2次方+1是否能被5整除，如果能被整除返回True, 否则返回False
+     例:
+        fa = lambda x: .....
+        print(fa(2))  # True
+        print(fa(4))  # False
+
+  2. 写一个lambda表达式，求两个变量的最大值
+     例如:
+        def mymax(x, y):
+           ...
+        mymax = lambda ...
+        print(mymax(100, 200))  # 200
+
+
+eval() / exec() 函数
+
+  格式：eval(source, globals=None, local=None)  
+       字符串    2,3位置可以为空
+  作用:把一个字符串 srouce当成一个表达式来执行，返回表达式执行的结果
+
+  格式：exec(source, globals=None, locals=None) 
+  作用：把一个字符串source 当成程序来执行
+
+eval示例见:
+   eval.py
+   x = 100
+   y = 200
+   s = "x + y"
+   a = eval(s)
+   eval2.py
+   c = eval(s, {'x': 10, 'y': 20}, {'x' = 1})
+exec 示例见:
+  exec.py
+
+
+
+
+
+练习:
+  1. 给出一个整数n,写一个函数myfac来计算n!(n的阶乘)
+    n! = 1 * 2 * 3 * 4 * ..... * n
+    如:
+      print(myfac(5))  # 120
+  2. 给出一个整数n,写一个函数计算myfn(n):
+      1 + 2**2 + 3**3 + .... + n**n的和
+    如:
+      print(myfn(10)) # ???
+  3. 完全数:
+     1 + 2 + 3 = 6 (6为完全数)
+     1,2,3都为6的因数(因数是能被一个数x整除的整数为y,则y为x的因数)
+     1 x 6 = 6
+     2 x 3 = 6
+     完全数是指除自身以外的所有因数相加之和等于自身的数
+     求 4~5个完全数并打印出来
+     答案:
+       6
+       28
+       496
+       ...
+
+3.杨辉三角定义如下：
+          1
+         / \
+        1   1
+       / \ / \
+      1   2   1
+     / \ / \ / \
+    1   3   3   1
+   / \ / \ / \ / \
+  1   4   6   4   1
+ / \ / \ / \ / \ / \
+1   5   10  10  5   1
+
+def easy(r):
+    n = 0
+    N = [1]
+    while n <  r:
+        N = [1] + [N[i] + N[i + 1] for i in range(len(N) - 1)] + [1]
+        n += 1
+        print(N)
+print(easy(5))
+
+
+
+4 实现带有界面的学生信息管理系统
+  程序启动时先弹出操作菜单:
+    +-------------------------+
+    | 1)  添加学生信息          |
+    | 2)  显示学生信息          |
+    | 3)  删除学生信息          |
+    | 4)  修改学生成绩          |
+    | q)  退出                 |
+    +-------------------------+
+    请选择: 1
+  要求 ：
+      每个选择都要有一个函数来实现
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

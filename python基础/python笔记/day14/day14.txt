@@ -1,0 +1,320 @@
+day13回顾
+模块和包
+  import 语句
+  示例：
+      import math
+      import mypack.games.contra
+      math.xxx
+      mypack.games.contra.xxx
+  from import
+  自定义模块
+    xxx.py
+      模块名必须是'标识符'
+      全局变量----->属性
+      预置属性：
+         __doc__属性
+         __file__属性
+         __name__属性（用来绑定模块名，区分主模块和非主模块）
+
+  from import * 语句导入
+  __all__ = ['aaa', 'bbb']
+  _xxxx = 1000 #隐藏属性
+
+  三条导入语句：
+    import 语句
+    from import 语句
+    from import * 语句
+
+  __all__列表和 以'_'隐藏属性 会对 from import 语句或 from import * 语句产生影响
+
+  搜索路径的顺序
+    1. 当前路径
+    2. sys.path列表提供的路径
+    3. 索引系统内建模块
+  
+  .pyc 文件
+
+
+模块的预置属性
+  __doc__属性
+  __file__属性
+  __name__属性
+    常用来判断是否是主模块
+
+
+标准库模块
+  随机模块 random
+  
+包 package
+  __init__.py
+
+包的导入
+  import 语句
+     import xxx.yyy.zzz 
+  form import 语句
+     from xxx.yyy.zzz import aaa
+  form import *语句
+     from xxx.yyy.zzz import *
+
+包的 __init__也有 __all__列表
+  
+包的相对导入:
+  .
+  ..
+  ...
+
+
+
+
+
+day14笔记
+
+异常(基础) except
+  什么是错误
+    错误是指由于[逻辑或语法]等导致一个程序已无法正常执行的问题
+
+  什么是异常
+    异常是[程序出错]时标识的一种状态
+    当异常发生时，程序不会再向下执行，而转去调用此函数的地方待处理此错误并恢复为正常状态
+  错误并恢复为正常状态
+      作用：
+       作用信号，通知上层作用者有错误产生需要处理
+
+  异常作用:
+    用作信号，通知上层调用者有错误产生需要处理
+
+
+1.try语句的两种用法:
+  两种语法:
+    try-except语句
+    try-finally语句
+  
+  try-except语句语法:                                   try:
+    try:    #必须存在                                       可能出现异常的语句
+        可能触发异常的语句                              except  错误类型:
+    except 错误类型1 [as 变量1]:   #至少有一条              异常时，做的处理语句
+        异常处理语句1
+    except 错误类型2 [as 变量2]:   #as 变量 绑定错误的信息
+        异常处理语句2  print(变量2)
+    except (错误类型3,错误类型4, ....) [as 变量3]
+        异常处理语句3
+    ...
+    except:     #所有的类型都能匹配
+        异常处理语句(其它)
+    else:
+        末发生异常语句    #只有一条，或省略
+    finally:
+        最终语句          #只有一条，或省略
+  作用:
+    尝试捕获异常，将程序由异常状态转为正常状态并正常执行
+  
+  try-except语句说明:
+    1. as 子句是用于 [绑定错误对象] 的变量,可以省略
+    2. except 子句可以有一个或多个,但至少要有一个
+    3. else子句 [最多只能有一个] ,也可以省略不写
+    4. finally子句[最多只能有一个] ,也可以省略不写
+    5. else子句的语句将在此try语句没有发生异常时被执行
+    6. finally子句的语句在任何情况下都会被执行 
+
+    #当没有错误时except不会被执行，但是finally如果有，则一定会被执行（可以没有finally语句）
+    #不需要在每个可能出错的地方去捕获错误，只要在合适的层次去捕获错误就可以了。这样一来，就大大减少了写try...except...finally的麻烦
+    #当错误处理方式一样时，可用
+    except （valueError, ZeroDivisionError,....):
+       处理方式
+    def foo(s):
+    return 10 / int(s)
+
+    def bar(s):
+        return foo(s) * 2
+
+    def main():
+        try:
+            bar('0')   #在第二层使用，try ...except ....finally
+        except Exception as e:
+            print('Error:', e)
+        finally:
+            print('finally...')
+
+
+注：调用栈
+    如果错误没有被捕获，它就会一直往上抛，最后被Python解释器捕获，
+    打印一个错误信息，然后程序退出
+
+  示例见:
+    try-except.py
+    def div_apple(n)
+       .....
+
+    try:   #把错误状态转为正常，减少程序的崩溃率
+      div_apple(10)
+      print("分苹果完成")
+    except valueError:
+        print("在try的内部语句发生了值错误，已处理并转为正常状态")
+    except ZeroDivisionErrror：
+        print（"输入人数为零"）
+
+练习:
+  写一个函数 get_score() 来获取学生成绩,
+    要求用户输入 1~100的整数,输果输入出现异常,返此函数返回0,
+    否则返回用户输入的成绩
+  示例:
+    def get_score():
+        ...
+    score = get_score()
+    print("学生的成绩是:", score)
+
+python中全部的错误类型:
+    参见文档:
+      python_base_docs_html/Python全部的异常类型.html
+
+
+
+
+
+2.try-finally 语句
+  语法:
+    try:
+        可能触发异常的语句
+    finally:     #关煤气
+        最终语句
+
+  说明:
+    1. finally 子句不可以省略
+    2. 一定不存在except子句
+  作用:
+    通常用try-finally语句来做[触发异常时必须要处理的事情]
+    无论异常是否发生,finally子句都会被执行
+   注意:
+    try-finally 语句不会改变程序的(正常/异常)状态
+  示例见:
+    try_finally.py
+try语句嵌套
+  try嵌套是指一个try语句嵌套在另一个
+      #可以分别接收不同的错误，然后做不同的错误处理
+
+
+
+
+3.raise 语句
+  作用:
+    触发一个错误,让程序进入异常状态
+    发送错误通知给调用者
+  语法:
+    raise 异常类型
+    或
+    raise 异常对象
+  示例见:
+    raise.py
+def make_except():
+    print("开始")
+    raise  ValueError #故意发送以一个错误通知
+   
+    e = ValueError("这是故意制作的一个错误！")
+    raise e
+    
+    print("结束")
+try：
+  make_except()
+except ValueError as err:
+    print("make_except发出了ValueError类型的错误，已捕获")
+    print("错误的值是", err)
+print("程序结束")
+
+练习:
+  写一个函数 get_age()用来获取一个人的年龄信息
+  此函数规定用户只能输入1~140之间的整数,如果用户输入其它的数则直接触发ValueError类型的错误通知
+     如果用户输入的年龄大于140,则触发
+       ValueError("年龄超出了正常值")
+     如果用户输入的年龄小于1,则触发
+       ValueError("年龄太小...")
+  def get_age():
+      ...
+  try:
+      age = get_age()
+      print("用户输入的年龄是:", age)
+  except ValueError as err:
+      print('用户输入的不是1~140的整数,获取年龄失败')
+      print("原因是:", err)
+
+
+
+4.assert 语句(断言语句)  #发送错误通知 与rasie 差不多
+  语法:
+    assert 真值表达式, 错误数据(通常是字符串)
+  作用:
+    当真值表达式为False时,用错误数据创建一个AssertionError类型的错误rasie出去,并进入异常状态
+  等同于:
+    if 真值表达式 == False
+       raise AssertionError(错误数据)
+  示例见:
+    assert.py
+    def foo(s):
+    n = int(s)
+    assert n != 0, 'n is zero!'  #错误数据
+           真值表达式
+    return 10 / n
+
+    def main():
+        foo('0')
+
+logging
+import logging
+except Exception as e:
+        logging.exception(e)   #把错误的内容打印出来，并且程序没有中断
+通过配置，logging还可以把错误记录到日志文件里，方便事后排查。
+  
+
+小结:
+  异常处理语句(四条):
+    try-except 语句:
+        用于接收异常通知,捕获异常
+    try-finally 语句:
+        执行必须要执行的语句
+    raise 语句   #raise语句如果不带参数，就会把当前错误原样抛出
+        发送异常知通,并进入异常状态
+    assert 语句
+        根据条件选择性的发送AssertionError类型的异常通知
+
+def foo(s):
+    n = int(s)
+    if n==0:
+        raise ValueError('invalid value: %s' % s)
+    return 10 / n
+def bar():
+    try:
+        foo('0')
+    except ValueError as e:
+        print('ValueError!')
+        raise
+bar()
+这种错误处理方式不但没病，而且相当常见。捕获错误目的只是记录一下，便于后续追踪。但是，由于当前函数不知道应该怎么处理该错误，所以，最恰当的方式是继续往上抛，让顶层调用者去处理。好比一个员工处理不了一个问题时，就把问题抛给他的老板，如果他的老板也处理不了，就一直往上抛，最终会抛给CEO去处理。
+，。  
+
+为什么要异常处理机制:
+  在程序调用层数较深时,向主调函数传递错误信息需要层层return 返回比较麻烦,用异常处理机制可以较简单的传送错误信息
+
+示意代码见:
+  exception.py
+
+练习:
+  1. 一个球从100米高空落下,每次落地后反弹高度是原高度的一半,再落下,
+     1) 写程序算出皮球在第10次落地后反弹高度是多高?
+     2) 打印出球共经过多少米的路程
+
+  2. 分解质因数, 输入一个正整数,分解质因数,
+    如:
+      输入: 90
+    则打印:
+      '90=2*3*3*5'
+      (质因数是指最小能被原数整除的素数(不包括1))
+
+  3. 修改原学生信息管理程序,加入异常处理语句,让程序在任何情况下都能够按逻辑正常执行.
+     例如:
+       输入成绩和年龄时,如果用户输入非法字符串也不会导致程序崩溃
+  
+
+
+
+
+
+
