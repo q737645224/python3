@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+	function closeWindow () {
+		var res = confirm("真的要关闭吗？");
+		if(res) {
+			setTimeout(function () {
+				window.close();
+			},5000);	
+		}
+	}
+  </script>
+ </head>
+ <body>
+	<button onclick="closeWindow()">确认</button>
+ </body>
+</html>

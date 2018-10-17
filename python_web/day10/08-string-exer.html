@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+		function subMail(){
+			var input = prompt("请输入邮箱");
+			//用户名 0 - @符号的前一位
+			var uname = input.substring(0,input.indexOf("@"));
+			//运营商 @符号后面的字符串
+			var atIndex = input.indexOf("@");
+			var mailServer = input.substring(atIndex + 1);
+			console.log(uname,mailServer);
+		}
+		//subMail();
+
+		//提取身份证号
+		function getBirth(){
+			var userID = "10062220031008563X";
+			var year = userID.substring(6,10);
+			var month = userID.substring(10,12);
+			var day = userID.substring(12,14);
+			console.log(year,month,day);
+		}
+		getBirth();
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

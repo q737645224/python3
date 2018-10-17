@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+	//1. toString() 将数组元素转成字符串并返回
+	var arr = [10,20,30];
+	var s = arr.toString();
+	console.log(arr,s); //[10,20,30] "10,20,30"
+
+	//2. join() 
+	console.log(arr.join()); //"10,20,30"
+	var s2 = arr.join('-');
+	var s3 = arr.join(' ');
+	console.log(s2,s3);
+
+	//3. reverse()反转数组元素
+	var arr2 = arr.reverse();
+	console.log(arr2,arr);
+
+	//4. sort()
+	var array = [11,15,20,25,22];
+	console.log(arr.sort(),array.sort());
+	var array2 = ["h","A","z","V"];
+	//console.log(array2.sort());
+	//自定义排列函数
+	function sortAsc(a,b){
+		//升序
+		return a-b;
+	}
+	function sortDec(a,b){
+		//降序
+		return b-a;
+	}
+	//由于非数字字符串没有办法做减操作
+	console.log(array2.sort(sortDec));
+	console.log(array.sort(sortDec));
+
+	
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

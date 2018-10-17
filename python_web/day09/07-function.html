@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		// 1. 声明一个无参数无返回值的函数
+		function fn1 () {
+			console.log("这是一个无参数无返回值的函数");
+		}
+		// 函数调用
+		fn1();
+
+		//2. 声明一个带参数无返回值的函数
+		function fn2 (a){
+			console.log(a);
+		}
+		fn2("hello");
+
+		// 3. 声明带参数带返回值的函数
+		function sum (a,b){
+			var sum = a + b;
+			// return sum;
+			return a + b;
+		}
+		// 传参的过程，就是给函数中形参变量赋值的过程 a=10;
+		var r1 = sum(10,20);  
+		console.log(r1);
+
+		// a=100;b为undefined 100 + undefined = NaN
+		var r2 = sum(100);
+		console.log(r2);
+
+		// 4.匿名函数
+		var fn = function (){
+			console.log("匿名函数");
+		};
+		fn();
+
+		//元素绑定
+		function sayHi() {
+			alert("Hi");
+		}
+	</script>
+</head>
+<body>
+	<button onclick="sayHi();">点击</button>
+</body>
+</html>

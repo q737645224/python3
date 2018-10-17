@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="jquery-1.11.3.js"></script>
+ </head>
+ <body>
+	<p id="p1" class="c1">床前明月光</p>
+	<p class="c2">疑是地上霜</p>
+	<p class="c1">举头望明月</p>
+	<p id="p2" class="c2s">低头思故乡</p>
+ </body>
+ <script>
+	//属性选择器
+	$('[id]').css('font-size','32px');
+	//id='p1'
+	$('[id=p1]').css('color','red');
+	//id属性值不是p1的元素 包含属性值为空的元素
+	$('[id!=p1]').css('color','green');
+
+	//匹配class属性值是以c开头的元素
+	$('[class^=c]').css('background','yellow');
+
+	//匹配class属性值是以1结尾的元素
+	$('[class$=1]').css('background','orange');
+
+	//匹配class属性值包含2的元素
+	$('[class*=2]').css('border','1px solid red');
+	
+
+
+ </script>
+</html>

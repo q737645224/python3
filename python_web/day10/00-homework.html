@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+	//1.存储数据
+		var arr = [];
+		while(true){
+			var input = prompt("请输入数据");
+			if(input == "exit"){
+				break;
+			}
+			arr[arr.length] = input;
+		}
+		console.log(arr);
+	//2.找数组中的最大值
+		var arr2 = [12,3,54,65,123,-123,-56,666,78];
+		//保存最大值
+		var maxNum = arr2[0];
+		//遍历数组
+		for(var i = 0;i < arr2.length; i ++){
+			if(arr2[i] > maxNum){
+				maxNum = arr2[i];
+			}
+		}
+		//alert(maxNum);
+	//3. 排序
+		var arr3 = [67,128,34];
+		//两两比较，交换位置
+		if(arr3[0] > arr3[1]){
+			arr3[0] ^= arr3[1];
+			arr3[1] ^= arr3[0];
+			arr3[0] ^= arr3[1];
+		}
+		if(arr3[1] > arr3[2]){
+			arr3[1] ^= arr3[2];
+			arr3[2] ^= arr3[1];
+			arr3[1] ^= arr3[2];
+		}
+		if(arr3[0] > arr3[1]){
+			arr3[0] ^= arr3[1];
+			arr3[1] ^= arr3[0];
+			arr3[0] ^= arr3[1];
+		}
+		console.log(arr3);
+	//4. 查询数组元素
+		function findIndex () {
+			var arr = [12,34,32,54,65,8,99];
+			//定义变量，保存最终下标
+			var index = -1;
+			var input = prompt("请输入一个数字");
+			for(var i = 0; i < arr.length; i ++ ){
+				if(input == arr[i]){
+					//1. 如果找到对应数据，结束循环
+					//2. 输出对应的下标
+					index = i;
+					break;
+				}
+			}
+			//循环结束之后判断index是否为-1
+			if(index == -1){
+				console.log("数据不存在");
+			}else{
+				console.log(input + "对应的下标为" + index);
+			}
+
+		}
+  </script>
+ </head>
+ <body>
+	<button onclick = "findIndex();">查询</button>
+ </body>
+</html>

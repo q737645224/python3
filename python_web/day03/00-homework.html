@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<h1>增加管理员</h1>
+	<form action="" method="">
+		<table>
+			<tr>
+				<td>姓名 ：</td>
+				<td>
+					<input type="text" name="uname" maxlength="10">
+				</td>
+				<td>十个字符以内</td>
+			</tr>
+			<tr>
+				<td>密码 ：</td>
+				<td>
+					<input type="password" name="upwd" maxlength="10">
+				</td>
+				<td>十个字符以内</td>
+			</tr>
+			<tr>
+				<td>性别 ：</td>
+				<td>
+					<input type="radio" name="gender" value="male"> 男士
+					<input type="radio" name="gender" value="female"> 女士
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>角色 ：</td>
+				<td>
+					<input type="checkbox" name="role" value="superAdmit"> 超级管理员
+					<br>
+					<input type="checkbox" name="role" value="admit"> 账单管理员
+				</td>
+				<td>至少选择一个角色</td>
+			</tr>
+			<tr>
+				<td>头像 ：</td>
+				<td>
+					<input type="file" name="uImg">
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input type="submit" name="submit" value="保存">
+					<input type="reset" name="reset" value="重置">
+				</td>
+				<td></td>
+			</tr>
+
+		</table>
+	</form>
+</body>
+</html>
+

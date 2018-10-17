@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		// 行数与该行的星星个数相等
+		for(var i = 1; i <= 5; i ++){
+			//由于console.log语句会自动换行，所以定义一个字符串来表示最终显示的内容
+			var showMsg = '';
+			for(var j = 1; j <= i;j ++){
+				showMsg += '*';
+			}
+			console.log(showMsg);
+		}
+
+		console.log("----------------------");
+
+		for(var i = 1; i <= 5; i ++){
+			var show = '';
+			// 空格数
+			for(var j = 1; j <= 5-i; j ++){
+				show += ' ';
+			}
+			// 星星数
+			for(var k = 1; k <= 2*i - 1;k ++){
+				show +="*";
+			}
+
+			console.log(show);
+		}
+		console.log("-------------------------");
+
+		// 第一个操作数
+		for(var i = 1; i <= 9; i ++){
+
+			var show = '';
+			// 第二个操作数
+			for(var j = 1; j <= i; j++){
+				// show += i + "*" + j +'=' + i * j; 
+				show += j + "*" + i +'=' + i * j + "\t";
+			}
+
+			console.log(show);
+
+		}
+	</script>
+</head>
+<body>
+
+</body>
+</html>

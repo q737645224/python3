@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+	var timerID ;
+	function startTimeout(){
+		//开启超时调用
+		timerID = setTimeout(function(){
+			alert("已经三秒了");
+		},3000);
+	}
+	function stopTimeout(){
+		clearTimeout(timerID);
+	}
+  </script>
+ </head>
+ <body>
+	<button onclick="startTimeout()">开始</button>
+	<button onclick="stopTimeout()">结束</button>
+ </body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+	//1. 创建正则对象
+	var reg1 = /microsoft/;
+	var reg2 = /\d{6}/g;
+	//匹配以6为数字开头 格式
+	//     /^\d{6}/
+	var reg3 = new RegExp('^\\d{6}','ig');
+
+	//2. 验证字符串是否满足匹配模式
+	var str = "hello123456789";
+	var str2 = "12345678hello";
+	var str3 = "12345678";
+	var r1 = reg2.test(str);
+	var r2 = reg2.test(str2);
+	var r3 = reg2.test(str3);
+	console.log(str,r1);
+	console.log(str2,r2);
+	console.log(str3,r3);
+
+	console.log(str2,reg3.test(str2));
+	console.log(str3,reg3.test(str3));
+
+
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

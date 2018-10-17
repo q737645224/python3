@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<button onclick="minus()">-</button>
+	<input type="text" name="uinput">
+	<button onclick="add()">+</button>
+ </body>
+ <script>
+	//1. 获取元素节点
+	var input = document.getElementsByTagName('input')[0];
+	//2. + -
+	function minus(){
+		console.log(input.value, typeof input.value);
+		//字符串类型与number类型做数学运算，首先把字符串转换为number（自动）
+		// input.value -= 1;		
+		if(input.value > 1){
+			input.value --;
+		}
+	}
+	function add(){
+		//input.value += 1;
+		input.value ++;
+	}
+ </script>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+	var str = "Hello World";
+	//1. 获取指定位置的字符
+	var s = str.charAt(9);
+	console.log(s);
+
+	//2. 获取指定位置字符对应的Unicode编码
+	var s2 = str.charCodeAt(9);
+	console.log(s2);
+	var str2 = "杨超越";
+	var s3 = str2.charCodeAt(0);
+	console.log(s3);
+	console.log(s3.toString(16));
+	//已知中文字符对应的16进制编码为 6768
+	var str3 = "\u6768";
+
+	//3. 获取指定字符对应的下标
+	var index = str.indexOf("l"); //hello world
+	console.log(index); //2
+	var lastIndex = str.lastIndexOf("l");
+	console.log(lastIndex);
+
+	//邮箱 ： zhang.san@163.com
+	var mailStr = "zhang.san@163.com";
+	var atIndex = mailStr.indexOf("@");
+	//获取最后一个n的下标
+	console.log(mailStr.lastIndexOf('n',atIndex));
+	console.log(mailStr.indexOf('b'));
+
+	//分割字符串
+	var str = "abc-def-tgb-kda";
+	var res2 = str.split('-');
+	console.log(res2);
+	var res3 = str.split('.');
+	console.log(res3);
+
+
+
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

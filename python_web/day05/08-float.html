@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{
+			margin: 0;
+		}
+		#nav,#main{
+			width: 800px;
+			margin: 0 auto;
+		}
+		#nav{
+			background: pink;
+			/*父元素指定高度*/
+			/*height: 50px;*/
+			/*overflow: hidden;*/
+		}
+		#nav ul{
+			/*取消列表的项目符号*/
+			list-style: none;
+			padding:0;
+		}
+		#nav li{
+			float: left;
+			width: 200px;
+			height: 50px;
+			background-color: rgba(255,0,0,.5);
+			text-align: center;
+			line-height: 50px;
+
+		}
+		#nav p{
+			clear: both;
+		}
+
+		#main{
+			height: 500px;
+			background-color: green;
+		}
+	</style>
+</head>
+<body>
+	<div id="nav">
+		<ul>
+			<li>首页</li>
+			<li>天气</li>
+			<li>首页</li>
+			<li>天气</li>
+		</ul>
+		<p></p>
+	</div>
+	<div id="main"></div>
+</body>
+</html>

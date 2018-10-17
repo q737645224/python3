@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="jquery-1.11.3.js"></script>
+  <style>
+	.c2{
+			width:200px;
+			height:200px;
+			border: 1px solid red;
+	}
+	.c1{
+		color:red;
+		font-size:32px;
+	}
+  </style>
+ </head>
+ <body>
+	<h1>jQuery操作样式</h1>
+	<p>切换样式</p>
+	<button onclick="changeStyle()">切换</button>
+ </body>
+ <script>
+ 	//添加样式
+ 	$('h1').addClass('c1').addClass('c2');
+ 	//$('h1').addClass('c2');
+ 
+ 	//移除样式
+ 	//$('h1').removeClass('c2');
+
+	$('h1').removeClass();
+
+	function changeStyle(){
+		//切换p元素样式
+		$('p').toggleClass('c1');
+	}
+ 
+ 
+ </script> 
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<h1 class="c1">杨超越</h1>
+	<h1 id="wxy">吴宣仪</h1>
+	<h1 class="c1">应采儿</h1>
+	<p class="c1">谢娜</p>
+	兴趣 ：<input type="checkbox" name="hobby" class="c1">抽烟
+		<input type="checkbox" name="hobby">喝酒
+	
+ </body>
+ <script>
+	//1. 获取元素节点对象
+	var elems = document.getElementsByTagName('h1');
+	console.log(elems,elems[0]);
+	//2. 根据class属性值获取元素节点列表
+	var elems2 = document.getElementsByClassName('c1');
+	console.log(elems2);
+	//3. 根据name属性值获取元素节点
+	var elems3 = document.getElementsByName('hobby');
+	console.log(elems3);
+	//4. 通过id获取元素节点
+	var h1 = document.getElementById('wxy');
+	console.log(h1);
+
+	//修改元素节点的内容
+	elems[0].innerHTML = "<span>就是pick吴宣仪</span>";
+	elems[1].innerText = "<span>就是pick吴宣仪</span>";
+
+ </script>
+</html>

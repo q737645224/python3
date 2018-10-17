@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="jquery-1.11.3.js"></script>
+ </head>
+ <body>
+	<ul>
+		<li>白山依山尽</li>
+		<li>黄河入海流</li>
+		<li>白山依山尽</li>
+		<li>黄河入海流</li>
+	</ul>
+	<ul>
+		<li>白山依山尽</li>
+		<li>黄河入海流</li>
+		<li>白山依山尽</li>
+		<li>黄河入海流</li>
+	</ul>
+ </body>
+ <script>
+	//:first 表示匹配文档中第一个该元素
+	$('li:first').css('color','red');
+	$('li:last').css('background','pink');
+
+	//:first-child 表示匹配所有作为第一个子元素存在的该元素
+	$('li:first-child').css('color','green');
+	$('li:last-child').css('background','cyan');
+
+	//:nth-child(n) 匹配作为第n个子元素存在的该元素
+	// the index of each child to match, start with 1
+	$('li:nth-child(2)').css('border','1px blue solid');
+	$('li:nth-child(odd)').css('font-size','32px');
+
+	//偶数行 在计算机中存储时，对应的是奇数下标
+	//偶数行 [0,1,2,3] 偶数行对应的下标为1,3
+	//nth-child(odd) ==> nth-child(1)
+
+	
+ </script>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="jquery-1.11.3.js"></script>
+  <title>Document</title>
+ </head>
+ <body>
+	<p>床前明月光</p>
+	<p>疑是地上霜</p>
+	<p>举头望明月</p>
+	<p>低头思故乡</p>
+	<p>床前明月光</p>
+	<p>疑是地上霜</p>
+	<p>举头望明月</p>
+	<p>低头思故乡</p>
+	
+	<button onclick="changeFirst()">匹配第一个元素</button>
+	<button onclick="changeLast()">匹配最后一个元素</button>
+	<button onclick="notSelector()">否定选择器</button>
+	<button onclick="oddSelector()">匹配偶数行</button>
+	<button onclick="evenSelector()">匹配奇数行</button>
+
+	<button onclick="eqSelector()">匹配指定行</button>
+	<button onclick="gtSelector()">大于指定下标</button>
+	<button onclick="ltSelector()">小于指定下标</button>
+
+
+
+ </body>
+ <script>
+	function changeFirst() {
+		$('p:first').css('color','red');
+	}
+
+	function changeLast() {
+		$('p:last').css('color','green');
+	}
+	function notSelector() { 
+		$(':not(html,body,p)').css('border','1px solid blue');
+	}
+
+	function oddSelector(){
+		$('p:odd').css('background','yellow');
+	}
+	function evenSelector(){
+		$('p:even').css('background','pink');
+	}
+
+	function eqSelector (){
+		$('p:eq(3)').css('font-weight','bold');
+	}
+
+	function gtSelector (){
+		$('p:gt(3)').css('font-size','36px');
+	}
+
+	function ltSelector (){
+		$('p:lt(3)').css('font-size','13px');
+	}
+
+ </script>
+</html>

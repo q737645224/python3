@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#nav{
+			width: 600px;
+			height: 50px;
+			background-color: pink;
+			margin: 0 auto;
+		}
+		.c1,.c2,.c3{
+			/*将块元素转换为行内块元素*/
+			display: inline-block;
+			/*width: 180px;
+			height: 50px;
+			padding: 0 10px;*/
+
+			width: 200px;
+			height: 50px;
+			box-sizing: border-box;
+			padding: 0 10px;
+		}
+		.c1{
+			background-color: orange;
+			/*margin-right: 5px;
+			width: 175px;*/
+		}
+		.c2{
+			background-color: green;
+			/*margin-right: 5px;
+			width: 175px;*/
+		}
+		.c3{
+			background-color: blue;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="nav">
+		<div class="c1">首页</div><div class="c2">首页</div><div class="c3">首页</div>
+	</div>
+</body>
+</html>

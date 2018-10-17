@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		// 1. 全局变量
+		var a = 100,b = 200;
+		c = 300;
+
+		function fn() {
+			console.log("fn中访问变量",a,b,c);
+			// 只要省略var关键字来定义变量，一律为全局变量
+			d = 1000;
+		}
+		fn();
+		console.log("函数外部访问变量",a,b,c,d);
+
+		// 2. 局部变量
+		function fn2() {
+			var a = 10;
+			var b = 20;
+			console.log("fn2中访问变量",a,b);
+		}
+		fn2();
+		console.log("fn2外部访问变量",a,b);
+	</script>
+</head>
+<body>
+
+</body>
+</html>

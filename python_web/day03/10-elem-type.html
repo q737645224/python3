@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		div{
+			width: 500px;
+			height: 100px;
+			background-color: red;
+		}
+		span{
+			width: 500px;
+			height: 50px;
+			background-color: pink;
+		}
+		img{
+			width: 200px;
+			height :200px;
+			/*设置图片左右元素与图片垂直对齐*/
+			vertical-align: bottom;
+		}
+		.c1{
+			width: 200px;
+			height: 100px;
+			vertical-align: bottom;
+		}
+		.c2{
+			width: 100px;
+			height: 50px;
+			vertical-align: bottom;
+		}
+	</style>
+</head>
+<body>
+	<!-- 1. 块级元素 -->
+	<div>
+		块元素 ：独占一行，可以设置宽高
+	</div>
+	<!-- 2. 行内元素 -->
+	<span>
+		行内元素 ：可以与其他元素共行，不能手动设置宽高，尺寸由内容自适应
+	</span>
+	<label>行内元素label</label>
+
+	<!-- 3, 行内块元素 -->
+	<b>加粗</b>
+	<img src="../day01/img/cat.jpg">
+	<img src="../day01/img/cat.jpg">
+	<img src="../day01/img/cat.jpg">
+	<b>加粗标签</b>
+	<input type="text" name="uname" class="c1">
+	<input type="radio" name="" class="c2">
+	<input type="submit" name="" class="c2">
+	<label>xxx</label><label>xxx</label>
+	<label>xxx</label>
+</body>
+</html>

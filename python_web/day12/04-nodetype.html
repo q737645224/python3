@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<div>
+		<h1 style="text-align:center;color:red;">节点的层次属性</h1>
+		div中的普通文本
+		<p>p元素中的文本</p>
+
+	</div>
+	<script>
+		//1. 获取元素节点
+		var div = document.getElementsByTagName('div')[0];
+		var h1 = document.getElementsByTagName('h1')[0];
+		var p = document.getElementsByTagName('p')[0];
+
+		//2. 获取元素的父节点对象
+		console.log(div.parentNode);
+		console.log(h1.parentNode);
+
+		//3. 获取子节点数组
+		console.log(div.childNodes);
+		console.log(div.children);
+		
+		for(var i = 0;i < div.childNodes.length; i ++){
+			//console.log(div.childNodes[i]); //获取子节点
+
+			console.log(div.childNodes[i].nodeType,div.childNodes[i].nodeName);
+		}
+		//4. 兄弟节点
+		//获取h1的下一个兄弟节点
+		console.log(h1.nextSibling);
+		console.log(h1.nextElementSibling);//下一个元素兄弟节点
+
+		console.log(p.previousSibling);
+		console.log(p.previousElementSibling);
+
+		//5. 属性节点的操作
+		console.log(h1.attributes);
+		//获取属性节点
+		console.log(h1.attributes[0].nodeType,h1.attributes[0].nodeName);
+
+
+
+	</script>
+ </body>
+</html>

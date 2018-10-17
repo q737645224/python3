@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		var score = prompt("请输入分数");
+		if(score >= 90){
+			console.log("当前成绩为优秀");
+		}
+
+		// 省略{}
+		if(score >= 80 && score < 90) console.log("当前成绩为良好");
+		console.log("普通语句");
+
+		// 以下条件结果都为假
+		console.log(Boolean(0));
+		console.log(Boolean(0.0));
+		console.log(Boolean(''));
+		console.log(Boolean(NaN));
+		console.log(Boolean(undefined));
+		console.log(Boolean(null));
+		console.log(Boolean(100));
+		console.log(Boolean('a'));
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

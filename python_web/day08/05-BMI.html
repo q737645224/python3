@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		var height = prompt("请输入身高（m）");
+		var weight = prompt("请输入体重（kg）");
+		var bmi = weight / (height * height);
+		// 保留小数点后两位
+		bmi = bmi.toFixed(2);
+		var res = bmi >= 23.9 ? "偏胖" : bmi >= 18.5 ? "健康" : "偏瘦";
+		console.log("您的BMI为"+bmi+"属于"+res);
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

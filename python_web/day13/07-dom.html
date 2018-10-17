@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="jquery-1.11.3.js"></script>
+  <style>
+	#box{
+			width:200px;
+			height:200px;
+			border: 1px solid red;
+	}
+	.c1{
+		color:red;
+		font-size:32px;
+	}
+  </style>
+ </head>
+ <body>
+	<input type="text" id="uname" value="first">
+	<button onclick="showText()">显示</button>
+	<div></div>
+	<h1></h1>
+	<p></p>
+	<input type="text" id="uname" value="second">
+ </body>
+ <script>
+	function showText(){
+		console.log($('#uname').val());
+		$('div').html('<h1>'+$('#uname').val()+'</h1>');
+
+	}
+	//链式调用 永远返回当前的jQuery对象
+	$('h1').html("西游记").css("text-align","center");
+	$('p').html('<strong>吴承恩</strong>');
+
+	$('p').text('<strong>吴承恩</strong>');
+	
+	//val() 获取表单控件的值，只返回第一个表单元素的value
+	console.log($('input').val());
+
+	//操作属性
+	$('div').attr('id','box');
+	$('h1').attr('class','c1');
+	console.log($('div').attr('id'));
+	
+	//移除属性
+	$('h1').removeAttr('class');
+	console.log($('h1').attr('class'));
+	
+
+
+	
+
+	
+
+ </script>
+</html>

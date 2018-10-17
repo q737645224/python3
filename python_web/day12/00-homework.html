@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<div></div>
+	<input type="text" name="utext">
+	<button onclick="showText()">显示</button>
+ </body>
+ <script>
+	 function showText(){
+		//1. 获取元素节点
+		var div = document.getElementsByTagName('div')[0];
+		var input = document.getElementsByName('utext')[0];
+		//2. 传值
+		div.innerHTML = "<h1>"+ input.value + "</h1>";
+		
+	 }
+ </script>
+</html>

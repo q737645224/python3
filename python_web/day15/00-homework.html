@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+	table{
+		width: 600px;
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+	th,td{
+		border: 1px solid black;
+		text-align:center;
+	}
+  </style>
+  <script src="jquery-1.11.3.js"></script>
+ </head>
+ <body>
+	<p>
+		<input type="text" name="gname" placeholder="商品名称">
+		<input type="text" name="gprice" placeholder="商品价格">
+		<input type="text" name="gcount" placeholder="商品数量">
+		<button onclick="addGoods()">添加</button>
+	</p>
+	<table>
+		<thead>
+			<tr>
+				<th>商品名称</th>
+				<th>商品价格</th>
+				<th>商品数量</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+ </body>
+ <script>
+	function addGoods(){
+		//1. 获取元素节点
+		var gname = $("[name=gname]").val();
+		var gprice = $("[name=gprice]").val();
+		var gcount = $("[name=gcount]").val();
+		
+		var tbody = $('tbody');
+		
+		//2. 创建行
+		var tr = $("<tr></tr>");
+
+		//3. 创建四个单元格并且赋值
+		var tdName = $("<td>"+gname+"</td>");
+		var tdPrice = $("<td></td>");
+		tdPrice.html(gprice);
+		var tdCount = $("<td>"+gcount+"</td>");
+
+		var tdOper = $("<td></td>");
+		//操作按钮
+		var btnUpdate = $("<button>修改</button>");
+		var btnDelete = $("<button>删除</button>");
+		
+		//单元格中添加按钮
+		tdOper.append(btnUpdate);
+		tdOper.append(btnDelete);
+
+		//4. 向网页中添加元素
+		tr.append(tdName);
+		tr.append(tdPrice);
+		tr.append(tdCount);
+		tr.append(tdOper);
+		tbody.append(tr);
+	}
+ </script>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+	div{
+		width: 200px;
+		height:200px;
+		background : red;
+	}
+  </style>
+  <script>
+	window.onload = function (){
+		//1. 获取元素
+		var div = document.getElementsByTagName('div')[0];
+		//2. 添加鼠标事件
+		div.onmouseover = function (evt){
+			//接收事件对象并输出
+			console.log(evt);
+			//鼠标坐标信息
+			console.log(evt.offsetX,evt.offsetY);
+			console.log(evt.clientX,evt.clientY);
+			console.log(evt.screenX,evt.screenY);
+		};
+		div.onmousemove = function (event){
+			//输出事件源
+			//console.log(event.target);
+			
+
+		};
+	};
+
+  </script>
+ </head>
+ <body>
+	<div></div>
+ </body>
+</html>

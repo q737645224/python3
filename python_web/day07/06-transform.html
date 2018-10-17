@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		// 1. 自动类型转换
+		var r1 = 15 + "18";
+		var r2 = 15 + 18 + "18";
+		var r3 = "20" + true;
+		var r4 = 10 + true;
+		var r5 = true + false;
+		console.log(r1,r2,r3,r4,r5);
+
+		//2. 强制类型转换
+		//2.1 toString()
+		var n1 = 100;
+		var n2 = true;
+
+		var res1 = n1.toString();
+		var res2 = n2.toString();
+		console.log(res1,res2);
+		console.log(typeof n1, typeof res1);
+		console.log(typeof n2, typeof res2);
+
+		//2.2 Number() 将非数字转换为数字类型
+		console.log(Number("18"),Number(true),Number("18a"));
+
+		//2.3 parseInt()解析字符串中的整数
+		console.log(parseInt("35.5"),parseInt("20Hello"),parseInt("10Hello20"),parseInt("hao123"));
+
+
+		//2.4 parseFloat() 解析字符串中的数字，包含整数和小数部分
+		console.log(parseFloat("35.5"),parseFloat("3.14PI"),parseFloat("1.5e3"),parseFloat("hao123.5"),parseFloat("1.5a3"));
+	</script>
+</head>
+<body>
+
+</body>
+</html>

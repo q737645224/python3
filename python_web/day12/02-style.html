@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+	#redBack{
+		background:red;
+	}
+	.greenText{
+		color : green;
+		text-align : center;
+	}
+  </style>
+ </head>
+ <body>
+	<h1>动态修改元素样式</h1>
+	<div>div</div>
+ </body>
+ <script>
+	//1.获取元素节点
+	var h1 = document.getElementsByTagName('h1')[0];
+	var div = document.getElementsByTagName('div')[0];
+
+	//2. 设置元素样式
+	h1.setAttribute('id','redBack');
+	h1.className = "greenText";
+
+	//添加行内样式
+	div.style.background = "pink";
+	div.style.width = "200px";
+	div.style.height = "200px";
+	
+ </script>
+</html>

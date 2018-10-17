@@ -1,0 +1,37 @@
+/*1. 清除浏览器默认样式*/
+body,h2,p{
+	margin:0;
+}
+#container{
+	width: 990px;
+	margin: 0 auto;
+}
+#container h2{
+	font-weight: normal;
+	color: #999;
+	border-bottom: 1px solid #ccc;
+	padding: 20px 0;
+	margin-bottom: 20px;
+}
+.left{
+	float: left;
+}
+.right{
+	float: right;
+	margin-top : 70px;
+	margin-right: 40px;
+}
+.form-line>p{
+	float: left;
+	color: #999;
+	width: 64px;
+	/*跟输入框高度保持一致*/
+	height: 40px;
+	text-align: right;
+	line-height: 40px;
+	margin-right: 40px;
+
+}
+.form-line>input,.form-line>div{
+	float: right;
+}

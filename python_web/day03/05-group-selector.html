@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#nav,#main,#footer{
+			width: 800px;
+			color: red;
+			/*为元素设置边框 ：宽度 颜色 样式*/
+			border: 1px solid green;
+		}
+		/*#nav li{
+			color: blue;
+		}*/
+		#nav>ul>li{
+			text-decoration: underline;
+		}
+	</style>
+</head>
+<body>
+	<!-- 群组选择器 -->
+	<div id="nav">
+		<ul>
+			<li>首页
+				<ol>
+					<li>登录</li>
+					<li>注册</li>
+				</ol>
+			</li>
+			<li>男装</li>
+			<li>女装</li>
+		</ul>
+	</div>
+	<div id="main">主要内容</div>
+	<div id="footer">页面尾部</div>
+</body>
+</html>

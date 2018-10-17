@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		var num = Number(prompt("请输入数字"));
+		var isSu = true;
+		// 从2开始到num-1之间不能再有其他数字可以被整除
+		for(var i = 2; i < num;i ++){
+			if (num % i == 0) {
+				isSu = false;
+				break;
+			}
+		}
+		if(isSu){
+			console.log(num+"是素数");
+		}else{
+			console.log(num+"不是素数");
+		}
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

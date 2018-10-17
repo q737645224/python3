@@ -1,0 +1,241 @@
+1. 获取或设置属性节点的值
+		操作标签属性
+		1. getAttribute(attrName)
+				作用 ： 获取指定属性的值
+				attrName : 属性名
+		2. setAttribute(attrName,value)
+				作用 ：设置属性和对应的值
+				attrName : 属性名
+				value ：属性值
+		3. removeAttribute(attrName)
+				作用 ：移除指定属性
+				attrName : 属性名
+		4. 可以使用点语法访问元素节点的属性
+				元素节点.属性名
+				et :
+					h1.id
+					input.value
+			练习 ：
+				1. 创建超链接，链接地址为百度
+				2. 创建按钮，点击时修改超链接的链接地址
+						改为 http://www.tmooc.cn
+2. 操作元素样式
+	1. setAttribute()
+			可以设置元素 class / id 的属性值，对应选择器
+	2. 针对类选择器的样式，可以为元素属性className赋值
+		  元素.className = "";
+	3. 使用内联方式添加样式
+			<h1 style="color:red;"></h1>
+			元素.style.css属性名
+			元素.style.css属性名 = "";
+			注意 ：
+				如果CSS属性名中有连接符 - ，在JS中访问时一律
+				改成驼峰标识：
+					font-size 在JS中 使用 fontSize
+					background-color  backgroundColor
+			练习 ：
+				1. 创建div 按钮 输入框
+				2. 验证输入用户名是否在6 - 18 位之间，
+					在6-18位之间的视为通过，在div中显示绿色的
+					文本"用户名合法"
+					如果不合法，div中显示红色文本“用户名不合法”
+3. 读取节点信息
+		1. 节点类型
+				属性 ：nodeType
+				值   ：
+								1   表示元素节点
+								2		表示属性节点
+								3   表示文本节点
+								8		表示注释节点
+								9		表示文档节点
+		2. 获取节点名称
+				属性 ：nodeName
+				取值情况 ：
+						元素节点&属性节点  返回元素名 或者 属性名
+						文本节点						返回 #text
+						注释节点						返回 #comment
+						文档节点						返回 #document
+4. 节点对象的层次属性
+		1. parentNode
+				表示获取当前节点的父节点
+		2. childNodes
+				表示获取当前节点下所有的子节点，返回子节点数组
+				注意 ：文本节点和属性节点都会作为当前元素节点的
+				子节点, 换行和空格都会作为空的文本节点计算在内
+		3. children
+				返回当前节点的所有子节点数组
+				注意 ：只返回子元素节点，不包含文本节点和属性节点
+		4. nextSibling
+				表示下一个兄弟节点
+				et :
+					<h1></h1>
+					文本
+					<div></div>
+				注意 ：nextElementSibling
+								表示下一个元素兄弟节点
+		5. previousSibling
+				表示上一个兄弟节点
+				注意 ：previousElementSibling
+								表示上一个元素兄弟节点
+		6. attributes
+				获取当前元素节点对象的所有属性节点集合
+				<input type="" value="" maxlength="">
+DOM节点操作
+	1. 增加节点
+		1. 创建元素节点和文本节点
+			语法 ：
+				元素节点 : var div = document.createElement('div');
+				文本节点 : var text = document.createTextNode('');
+			注意 ：
+				属性节点可以通过元素节点的点语法直接访问和设置
+			练习 ：
+				使用JS创建div元素节点，
+				设置div的id为container
+				设置div的文本为“动态创建的div”
+				控制台输出div
+		2. 添加节点
+			DOM中对节点的插入 删除 追加操作，都由父元素执行
+			1. 在父元素中动态追加子节点
+					语法 ：
+							父节点.appendChild(子节点);
+							et :
+								var div = document.createElement('div');
+								//将div追加到body中
+								document.body.appendChild(div);
+								div.parentNode.append(div);
+					注意 ：文本节点也是元素的子节点
+							et :
+								var text = document.createTextNode('hello');
+								//追加到div中显示
+								div.appendChild(text);
+			2. 在文档的指定位置插入节点
+					语法 ：
+						parentNode.insertBefore(newElem,oldElem);
+						将newElem节点插入到oldElem节点之前
+							et:
+								var h1 = document.createElement('h1');
+								//将h1插入在div之前
+								document.body.insertBefore(h1,div);
+		3. 删除节点
+			1. 如果是删除body的子元素
+					document.body.removeChild(elem);
+			2. 如果元素层级结构较多，就需要通过父节点parentNode
+			执行删除操作
+					parentNode.removeChild(elem);
+			作业 ：
+				1. 上方包含三个输入框，一个添加按钮
+				2. 下方为商品信息展示区域，点击添加之后
+						将商品信息显示在当前区域，同时显示操作按钮
+				3. JS动态创建节点并显示（商品信息展示）
+2. 事件
+	1. 事件 ： 由用户行为激发的操作
+	2. 事件处理函数(都以on为前缀)
+			1. 鼠标事件
+					onclick   鼠标单击事件
+					ondbclick 鼠标双击事件
+					onmouseover 鼠标移入元素时触发
+					onmouseout  鼠标移出元素时触发
+					onmousemove 鼠标在元素内移动时触发
+			2. onload 事件
+					文档或元素加载完毕之后触发
+			3. 状态改变事件
+					常用于表单控件
+					onfocus	元素获取焦点时触发
+					onblur	元素失去焦点时触发
+					onchange 元素内容发生改变时触发，在元素失去焦点
+										之后才触发
+					oninput	元素的value值发生变化时触发，
+									实时监听输入
+					onsubmit	当表单被提交时触发
+			4. 键盘事件
+					onkeydown 键位被按下时触发
+					onkeypress 键位被按下时触发
+					onkeyup		键位抬起时触发
+		3. 事件的绑定方式
+				1. 内联方式 ：在标签中绑定事件函数
+					<button onclick="执行函数()"></button>
+				2. 在JS中动态绑定事件处理函数
+					语法 ：
+						元素节点.事件函数名 = function (){};
+					et :
+						div.onclick = function () {
+							执行函数
+						};
+				3. W3C标准事件监听函数
+						elem.addEventListener('click',fun);
+						elem.removeEventListener();
+				4. this关键字
+						this表示触发当前事件的元素节点对象，
+						用在事件函数内部
+						div.onclick = function (){
+							console.log(this); //div
+						};
+				练习 ：
+					1. 创建div标签
+					2. JS中获取div
+					3. 为div添加点击事件，实现点击时出现对话框
+3. 事件行为
+	1. onload事件
+		 常用于为body绑定load事件，表示等待body内容加载完毕再
+		 执行事件函数
+		 et :
+				<body onload = "fun();"></body>
+				//JS动态绑定
+				window.onload = function () {
+					//等待文档加载完毕之后再执行
+				};
+	2. onsubmit事件
+			只有在表单提交时才触发
+				注意 ：该事件需要一个Boolean返回值来通知表单是否
+							要提交，返回true表示表单可以提交，
+							返回false表示阻止表单提交
+			常用于验证表单是否可以提交
+4. 事件对象
+	1. 事件对象 event 
+			伴随事件触发产生，包含了当前事件所有的信息
+	2. 获取事件对象
+			由于事件对象伴随事件触发自动产生，浏览器会
+			自动将其作为参数传递给事件处理函数，所以我们
+			需要在事件处理函数出接收参数，就可以获取事件对象
+			et:
+					function sum (a,b){
+						return a + b;
+					}
+					sum(10,20);
+
+					div.onclick = function (evt) {
+							console.log(evt);
+					};
+	3. 事件对象的常用操作
+			不同的事件对应不同的事件对象，其所包含的信息也不同
+			1. 获取事件源
+					触发事件的节点对象
+					evt.target;
+			2. 鼠标事件对象包含的属性
+					1. offsetX,offsetY
+							获取鼠标在元素上的坐标点（以元素左上角为原点）
+					2. clientX,clientY
+							获取鼠标在网页中的坐标点
+					3. screenX,screenY
+							获取鼠标在屏幕中的坐标点
+			3. 键盘事件对象包含的信息
+					键盘事件 ：onkeypress onkeydown onkeyup
+					1. keypress 事件
+							只有在输入字符（键盘输入）时才触发
+							事件对象的属性 ：
+							1. which 属性
+									获取当前按下字符的ASC码
+							2. key
+									获取当前键位表示的字符
+					2. keydown
+							1. which
+									获取当前键位的键码
+									值区分按键，不区分大小写
+					注意 ：键盘事件的监听顺序 keydown keypress keyup
+					
+
+					
+
+
+								
+

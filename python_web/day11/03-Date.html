@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+	//1. 创建日期对象 默认显示格式就是客户端的日期格式
+	var date1 = new Date();
+	console.log(date1);
+
+	var date2 = new Date('2018-10-10');
+	var date3 = new Date("2018/11/11 11:11:11");
+	console.log(date2);
+	console.log(date3);
+
+	//获取毫秒数
+	var s = date1.getTime();
+	console.log(s);
+
+	//2. 读取时间分量
+	var year = date1.getFullYear();
+	var month = date1.getMonth(); //month默认0-11，手动+1
+	var date = date1.getDate(); //天数
+	var day = date1.getDay(); //星期数
+	console.log(year,month+1,date,day);
+	
+	var hour = date1.getHours();
+	var min = date1.getMinutes();
+	var sec = date1.getSeconds();
+	console.log(hour,min,sec);
+
+	//转换字符串
+	console.log(date1.toString());
+	console.log(date1.toLocaleString());
+	console.log(date1.toLocaleTimeString());
+	console.log(date1.toLocaleDateString());
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

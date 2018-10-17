@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		//接收用户输入的年 月 日
+		var year = Number(prompt("请输入年份"));
+		var month = Number(prompt("请输入月份"));
+		var day = Number(prompt("请输入日期"));
+		//总天数
+		var totalDays = 0;
+		//判断闰年
+		var isRun = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+		//计算天数
+		if(month == 1){
+			totalDays = day;
+		}else if(month == 2){
+			totalDays = 31 + day;
+		}else if(month == 3){
+			totalDays = 31 + 28 + day; 
+		}else if(month == 4){
+			totalDays = 31 + 28 + 31 + day;
+		}
+
+		//如果当年是闰年，并且月份大于2，总天数进行+1
+		if(isRun && month >2){
+			//totalDays = totalDays + 1;
+			totalDays += 1;
+		}
+		console.log(year+"年"+month+"月"+day+"日"+"是当年的第"+totalDays+"天");
+	</script>
+</head>
+<body>
+
+</body>
+</html>

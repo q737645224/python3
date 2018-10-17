@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		//改写日期计算器
+		//接收用户输入的年 月 日
+		var year = Number(prompt("请输入年份"));
+		var month = Number(prompt("请输入月份"));
+		var day = Number(prompt("请输入日期"));
+		//总天数
+		var totalDays = 0;
+		var i = 1;
+		//循环体中是month-1个月的天数累加
+		//month = 6
+		while(i < month){ 
+			//进行月份及天数区分
+			switch(i){
+				case 1 :
+				case 3 :
+				case 5 :
+				case 7 :
+				case 8 :
+				case 10 :
+					totalDays += 31;
+					break;
+				case 4 :
+				case 6 :
+				case 9 :
+				case 11 :
+					totalDays += 30;
+					break;
+				case 2 :
+					totalDays += 28;
+					if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+						totalDays += 1;
+						break;
+					}
+
+			}
+			//更新循环变量
+			i ++;
+		}
+		//添加当月的天数
+		totalDays += day;
+		console.log(year+"年"+month+"月"+day+"日"+"是当年的第"+totalDays+"天");
+	</script>
+</head>
+<body>
+
+</body>
+</html>

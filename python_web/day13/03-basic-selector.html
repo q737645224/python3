@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="jquery-1.11.3.js"></script>
+ </head>
+ <body>
+	<h1>登鹳雀楼</h1>
+	<h2>王之涣</h2>
+	<p id="p1">白日依山尽</p>
+	<p class="c1">黄河入海流</p>
+	<p>欲穷千里目</p>
+	<p>更上一层楼</p>
+	<hr>
+	<div>
+		<h1>登鹳雀楼</h1>
+		<h2>王之涣</h2>
+		<p id="p1">白日依山尽</p>
+		<p class="c1">黄河入海流</p>
+		<p>欲穷千里目</p>
+		<p>更上一层楼</p>
+	</div>
+ </body>
+ <script>
+	//获取元素
+	console.log($('p'));
+	//为元素添加样式 css('attrName','value')
+	$('p').css('font-size','32px');
+	$('#p1').css("color","red");
+	$('.c1').css('color','orange');
+	$('h1,h2,p').css("text-align","center");
+
+	//层级选择器
+	$('body h1').css('color','red');
+	$('body>p').css('border','1px dashed green');
+
+	//相邻兄弟选择器 通用兄弟选择器
+	$('h1+p').css('background','pink');
+
+	//匹配紧跟在h1后面的兄弟元素p
+	//$('h2+p').css('background','pink');
+	
+	//匹配h1后面所有的兄弟元素p
+	$('h1~p').css('background','pink');
+
+
+
+
+
+
+ </script>
+</html>

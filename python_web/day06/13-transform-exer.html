@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#box{
+			width: 200px;
+			height: 160px;
+			/*background-color: pink;*/
+			margin: 100px auto;
+			position: relative;
+		}
+		#box:hover{
+			transform: scale(1.2);
+		}
+		.c1,.c2{
+			width: 100px;
+			height: 160px;
+			position: absolute;
+			border-radius: 50px 50px 0 0;
+			background-color: red;
+		}
+		.c1{
+			top:0;
+			left:0;
+			
+			transform:rotate(45deg);
+			transform-origin: right bottom; 
+		}
+		.c2{
+			top:0;
+			right: 0;
+			transform:rotate(-45deg);
+			transform-origin: left bottom;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="box">
+		<span class="c1"></span>
+		<span class="c2"></span>
+	</div>
+</body>
+</html>

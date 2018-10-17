@@ -1,0 +1,195 @@
+/* 统一设置页面样式 */
+body{
+	/*字体样式*/
+	font : 12px "Microsoft Yahei","黑体",sans-serif;
+	color : #9a9a9a;
+}
+/*清除默认样式*/
+body,h1,h2,h3,h4,h5,h6,p,ul,ol{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+a{
+	color: #9a9a9a;
+	text-decoration:none;
+}
+a:hover{
+	color:#64A131;
+}
+img{
+	vertical-align:bottom;
+}
+
+/*页面整体宽度设置及居中效果*/
+#container{
+	width: 990px;
+	margin: 0 auto;
+}
+/*1. 导航*/
+#nav{
+	height: 30px;
+	background: #eee;
+	line-height : 30px;
+}
+/*右侧导航*/
+#nav .rightNav{
+	float:right;
+}
+#nav .rightNav>li{
+	float:left;
+	padding: 0 5px;
+}
+#nav .rightNav>li>b{
+	border-left: 1px solid #9a9a9a;
+	margin-right: 10px;
+}
+/*左侧导航*/
+#nav .leftNav>li{
+	float:left;
+	padding-left:10px;
+}
+#nav .leftNav>li>u{
+	display:inline-block;
+	width:0px;
+	height:0px;
+	border:6px solid transparent;
+	border-top: 6px solid black;
+	position: relative;
+	top: 4px;
+}
+#nav .address{
+	position:relative;
+}
+#nav .select{
+	display:none;
+	position:absolute;
+	/*调整元素堆叠次序*/
+	z-index: 100;
+	color:black;
+}
+#nav .address:hover .select{
+	display:block;
+	background: rgba(255,0,0,0.5);
+}
+#nav .select>li:hover{
+	font-weight:bold;
+}
+
+
+
+/*2.横幅*/
+#banner{
+	margin: 15px 0;
+	position:relative;
+}
+#banner img{
+	width: 100%;
+	height: 207px;
+}
+/* 除第一张图片外，其他图片都隐藏 */
+#banner img:not(:first-child){
+	display:none;
+}
+
+/* 图片索引 */
+#banner .imgNav{
+	position: absolute;
+	right: 20px;
+	bottom: 10px;
+}
+
+#banner .imgNav>li{
+	float :left;
+	width : 20px;
+	height: 20px;
+	margin: 0 10px;
+	background: gray;
+	text-align: center;
+	line-height: 20px;
+	border-radius: 50%;
+}
+/*匹配作为第一个子元素的li*/
+#banner .imgNav>li:first-child{
+	background:red;
+}
+
+#banner .imgNav>li>a{
+	color:#fff;
+}
+
+
+/*3. 推荐*/
+#adv{
+	height: 112px;
+}
+#adv img{
+	float:left;
+	width: 240px;
+	margin-right:10px;
+}
+#adv .lastImg{
+	margin-right:0;
+}
+
+/*4. 主体信息*/
+#main{
+	margin-top: 25px;
+	overflow:hidden;
+}
+#main .goodsClass{
+	border-top: 1px solid #ccc;
+	padding-top: 15px;
+	margin-bottom: 10px;
+}
+#main .goodsClass>a{
+	float:right;
+	color:#333;
+}
+
+/*商品信息部分*/
+#main .item>ul>li{
+	float:left;
+	width: 190px;
+	margin-right: 10px;
+
+}
+#main .item>ul>li.no-margin{
+	margin-right:0;
+}
+/*图片缩放效果*/
+#main .item>ul>li>p{
+	width:190px;
+	height:190px;
+	overflow:hidden;
+}
+#main .item>ul>li>p>img{
+	width: 190px;
+	transition: all .3s;
+}
+#main .item>ul>li>p>img:hover{
+	transform: scale(1.1);
+}
+
+
+#main .content>a{
+	float:right;
+}
+
+#main .content{
+	margin-top: 5px;
+}
+#main .content>p{
+	color: #555;
+	margin-bottom:3px;
+	margin-left:3px;
+}
+#main .content>span{
+	margin-left:5px;
+}
+
+#footer{
+	height:100px;
+	background: red;
+}
+

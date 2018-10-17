@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<!-- 超链接标签 -->
+	<!-- URL 网络路径必须带协议 -->
+	<a href="www.baidu.com">百度</a>
+
+	<!-- target 默认在当前窗口打开_self
+		_blank表示新建窗口打开
+	 -->
+	<a href="http://www.baidu.com" target="_blank">百度-http</a>
+
+	<!-- 跳转本地文本 -->
+	<a href="C:/Users/Python/Desktop/day01/06-img.html">图片页</a>
+
+	<!-- 使用相对路径跳转本地文件 -->
+	<!-- C:\Users\Python\Desktop\day01/05-list.html
+		 C:\Users\Python\Desktop\day02/01.html
+	-->
+	<a href="../day01/05-list.html" target="_blank">列表页</a>
+
+	 <!-- C:\Users\Python\Desktop\day01/05-list.html
+	 1. 先查看浏览器地址栏中的URL
+	 2. 加上本地的文件协议
+	 	file:/// 类似于文件管理器
+	 	file:/// C:/Users/Python/Desktop/day01/05-list.html -->
+	 <a href="file:///C:/Users/Python/Desktop/day01/05-list.html">列表页</a>
+
+	 <!-- 超链接的嵌套 -->
+	 <a href="#">
+	 	<b>超链接文本</b>
+	 </a>
+	 <!-- 图片超链接 -->
+	 <a href="#">
+	 	<img src="../day01/img/cat.jpg" width="200px">
+	 </a>
+	  <a href="">
+	 	<img src="../day01/img/cat.jpg" width="200px">
+	 </a>
+
+
+
+
+</body>
+</html>

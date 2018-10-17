@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		//字符串必须使用引号
+		var s = 100; //number类型
+		var s1 = '100';
+		var s2 = "aA";
+		var s3 = "张";
+
+		console.log(s1.charCodeAt(0));
+		//查看第一个字符的Unicode码
+		console.log(s2.charCodeAt(),s2.charCodeAt(1));
+
+		var r = s3.charCodeAt(0);
+		r = r.toString(16);
+		console.log(r);
+
+		var str = "\u5f20";
+		// var str1 = '\u'+r; //语法错误
+		console.log(str);
+
+		var str2 = "\u4e00";
+		var str3 = "\u9fa5";
+		console.log(str2,str3);
+
+		var num = true;
+		console.log(typeof s1,typeof s,typeof(num));
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

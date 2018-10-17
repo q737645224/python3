@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+	.redText{
+		color : red;
+	}
+  </style>
+ </head>
+ <body>
+	<h1>JS操作标签属性</h1>
+	<button onclick="getAttr()">获取属性</button>
+	<button onclick="setAttr()">设置属性</button>
+	<button onclick="removeAttr()">删除属性</button>
+
+	<a href="http://www.baidu.com">百度</a>
+	<button onclick="changeLink()">TMOOC</button>
+ </body>
+ <script>
+	//1. 获取元素节点
+	var h1 = document.getElementsByTagName('h1')[0];
+	//2. 实现函数
+	function getAttr(){
+		//console.log(h1.getAttribute('class'));
+		console.log(h1.className);
+	}
+	function setAttr(){
+		// <h1 class="redText"></h1>
+
+		//h1.setAttribute('class','redText');
+		h1.className = "redText";
+	}
+	function removeAttr(){
+		//h1.removeAttribute('class');
+		h1.className = null;
+	}
+
+	function changeLink(){
+		//获取元素节点，并修改链接地址
+		var aLink = document.getElementsByTagName('a')[0];
+		aLink.href = "http://www.tmooc.cn";
+		//target = "_blank"
+		aLink.target = "_blank";
+		aLink.innerText = "TMOOC";
+	}
+ </script>
+</html>

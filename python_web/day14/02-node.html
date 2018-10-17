@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="jquery-1.11.3.js"></script>
+ </head>
+ <body>
+	<h1>静夜思</h1>
+	<ul>
+		<li class="c1">窗前明月光</li>
+		<li>疑是地上霜</li>
+		<li>窗前明月光</li>
+		<li>疑是地上霜</li>
+	</ul>
+	<h1 id="h1">李白</h1>
+	<ol>
+		<li>窗前明月光</li>
+		<li>疑是地上霜</li>
+		<li>窗前明月光</li>
+		<li>疑是地上霜</li>
+	</ol>
+
+ </body>
+ <script>
+	//1.获取子节点
+	console.log($('body').children());
+	console.log($('body').children('h1'));
+
+	//2.获取兄弟元素
+	console.log($('ul').next());
+	//If a selector is provide,it retrieves the next sibling only if it matches the selector
+	console.log($('ul').next('#h1'));
+
+	console.log($('ul').prev());
+
+	//3. 获取所有的兄弟元素
+	console.log($('.c1').siblings());
+	console.log($('#h1').siblings());
+	console.log($('#h1').siblings('ol'));
+
+	//4. 获取所有的后代元素,包含直接和间接子元素
+	console.log($('ul').find('.c1'));
+	console.log($('body').find('li'));
+
+	//5. 获取父元素
+	console.log($('.c1').parent());
+
+
+
+
+
+
+
+
+
+ </script>
+</html>
+

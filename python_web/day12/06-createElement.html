@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<button onclick="removeElem()">删除div</button>
+  <script>
+	var div = document.createElement('div');
+	div.id = "container";
+	div.innerText = "动态创建的div";
+	console.log(div);
+
+	//添加到文档中
+	document.body.appendChild(div);
+	var h1 = document.createElement('h1');
+	//创建文本节点
+	var text = document.createTextNode('星期五');
+	//为节点添加文本内容
+	h1.appendChild(text);
+
+	//添加到文档中
+	div.parentNode.appendChild(h1);
+	
+	//div之前插入h1
+	div.parentNode.insertBefore(h1,div);
+
+	//删除节点
+	function removeElem(){
+		document.body.removeChild(div);
+		//div.parentNode.removeChild(div);
+	}
+
+
+
+  </script>
+ </body>
+</html>

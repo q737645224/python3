@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		var input = prompt("请输入一个字符");
+
+		var isNum = input >= 0 && input <= 9;
+		console.log(input + "是数字吗？" + isNum);
+
+		var isCHN = input >= "\u4e00" && input <= "\u9fa5";
+		console.log(input + "是中文吗？" + isCHN);
+
+		var isCAPS = input >= 'A' && input <= 'Z';
+		var isSmal = input >= 'a' && input <= 'z';
+		var isEng = isCAPS || isSmal;
+		console.log(input+"是英文吗？"+isEng);
+
+
+
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

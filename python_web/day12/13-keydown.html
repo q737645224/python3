@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+	window.onload = function(){
+		//获取元素添加监听
+		var input = document.getElementsByTagName('input')[0];
+		input.onkeypress = function (evt){
+			//console.log(evt.target);
+			console.log(evt.which,evt.key);
+		};
+		input.onkeydown = function (evt){
+			console.log(evt.which);
+		};
+
+	};
+  </script>
+ </head>
+ <body>
+	<input type="text" name="uname">
+ </body>
+</html>

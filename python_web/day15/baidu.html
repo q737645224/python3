@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+	#nav{
+		position:relative;
+		height:50px;
+	}
+	.head{
+		position:absolute;
+		width:600px;
+		right:0;
+	}
+	.head>a{
+		position:relative;
+		margin-left:19px;
+		color:black;
+		font-weight:bold;
+	}
+	.head>.span-login{
+		font-weight:normal;
+	}
+	#nav .baidu-more{
+		background:#3385ff;
+		color:white;
+		display:inline-block;
+		width:80px;
+		text-decoration:none;
+		height:24px;
+		text-align:center;
+		line-height:24px;
+	}
+	#main{
+		margin-top:100px;
+	}
+	.wrapper{
+		width:640px;
+		margin: 0 auto;
+		text-align:center;
+	}
+	.wrapper img{
+		width: 270px;
+		height:129px;
+	}
+	.wrapper form{
+		height:40px;
+	}
+	.span-search{
+		border:1px solid gray;
+		border-right:none;
+		float:left;
+		height:38px;
+	}
+	/*
+	浏览器兼容
+	.span-search:focus{
+		outline:-webkit-focus-ring-color auto 5px;;  
+	}
+	*/
+
+	[type="text"]{
+		width:500px;
+		height:38px;
+		border: none;
+		padding: 0px 0px 0px 7px;
+		/* padding-left:7px; */
+		font-size:16px;
+		outline:none;
+	}
+	[type="submit"]{
+		width:100px;
+		height:40px;
+		background:#3385ff;
+		color:white;
+		border:none;
+		padding:0px;
+		font-size:16px;
+		vertical-align:bottom;
+
+		float:left;
+
+	}
+
+	.soutu-btn{
+		float:right;
+		width: 18px;
+		height:16px;
+		background: white url(camera.png) no-repeat;
+		margin: 12px 6px;
+	}
+	.soutu-btn:hover{
+		background: white url(camera.png) no-repeat 0px -20px;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="nav">
+		<div class="head">
+			<a href="#">新闻</a>
+			<a href="#">hao123</a>
+			<a href="#">新闻</a>
+			<a href="#">新闻</a>
+			<a href="#">新闻</a>
+			<a href="#">学术</a>
+			<a href="#" class="span-login">
+				<span>登录</span>
+			</a>
+			<a href="#" class="span-login">
+				<span>设置</span>
+			</a>
+			<a href="" class="baidu-more">更多产品</a>
+		</div>
+	</div>
+	<!-- 
+		问题 ：给第一个子元素（块元素）添加margin-top,会在父元素上起作用，整体向下移动
+		解决 ：
+			1. 给父元素添加边框（border-top）
+			2. 给父元素添加内边距 （padding-top:0.1px;）
+	-->
+	<div id="main">
+		<div class="wrapper">
+			<img src="logo.png">
+			<form action="" method="">
+
+				<span class="span-search">
+					<span class="soutu-btn"></span>
+					<!-- 表单自动补全autocomplete 默认为on -->
+					<input type="text" name="useach" autocomplete="off">
+				</span>
+
+				<input type="submit" value="百度一下">
+			</form>
+		</div>
+	</div>
+ </body>
+</html>
+<!--
+精灵图 ：
+	多张小图标拼在一张图片上，背景为透明
+	作用 ：网页中所有的图片都是通过网络请求得到的，大量的小图标会造成频繁的请求，因此可以使用精灵图，减少请求次数
+	使用 ：结合CSS background-position 属性调整背景图片的坐标，选择不同的图片展示 
+	background-position : x y;
+	x y表示背景图片的位移/坐标
+	默认从背景图片左上角显示，正值表示图片向左/向下移动
+-->

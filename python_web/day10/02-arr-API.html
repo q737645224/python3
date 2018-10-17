@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+		//定义数组
+		var arr = [10,20,30];
+		//1. push() 向数组末尾添加元素
+		var length = arr.push(40);
+		console.log(arr,length);
+		arr.push("50","60");
+		console.log(arr,arr.length);
+
+		//2. pop() 删除并返回数组中最后一个元素
+		var elem = arr.pop();
+		console.log(arr,elem);
+
+		//3. unshift() 向数组头部添加一个或多个元素
+		//变量提升
+		console.log(arr,arr.unshift(1,2,3),arr);
+		
+		//4. shift() 移除并返回头部元素
+		console.log(arr.shift());
+		
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

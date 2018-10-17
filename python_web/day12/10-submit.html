@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+	window.onload = function (){
+		//1. 获取元素节点
+		var form = document.getElementsByTagName('form')[0];
+		var uname = document.getElementsByTagName('input')[0];
+		var upwd =  document.getElementsByTagName('input')[1];
+		var span =  document.getElementsByTagName('span')[0];
+
+		//2. onsubmit
+		form.onsubmit = function (){
+			//在提交按钮被点击时自动触发，验证表单
+			if(uname.value == ''){
+				//表单无法提交
+				//alert('用户名不能为空');
+				span.innerText="用户名不能为空";
+				return false;
+			}
+			// 表单可以提交
+			return true;
+		};
+
+		//3. 获取焦点与失去焦点
+		uname.onfocus = function (){
+			//console.log("获取焦点");
+		};
+		uname.onblur = function (){
+			//验证输入是否合法
+			if(this.value.length >= 6 && this.value.length <= 18){
+				span.innerText = "用户名合法";
+			}else{
+				span.innerText = "用户名不合法";
+			}
+			//console.log("失去焦点",uname.value);
+		};
+
+		//文本框内容发生改变时触发
+		uname.onchange = function (){
+			//1. 内容发生变化并且元素失去焦点时触发
+			//console.log(this.value);
+		};
+		//只要输入框中内容发生变化（增加、删除），都会触发
+		uname.oninput = function (){
+			console.log(this.value);
+		};
+	
+	};
+  </script>
+ </head>
+ <body>
+	<form action="login" method="post">
+		<p>
+			用户名称 ：<input type="text" name="uname">
+			<span></span>
+		</p>
+		<p>
+			用户密码 ：<input type="password" name="upwd">
+		</p>
+		<input type="submit" value="提交">
+	</form>
+ </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		// 闰年判断函数
+		function isRun(year) {
+			return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+		}
+		function calculateDate() {
+			// 实现日期计算
+			//接收用户输入的年 月 日
+			var year = Number(prompt("请输入年份"));
+			var month = Number(prompt("请输入月份"));
+			var day = Number(prompt("请输入日期"));
+			//总天数
+			var totalDays = 0;
+			
+
+			// 计算天数 年 和 月
+			for(var i = 1990;i < year;i ++){
+				totalDays += 365;
+				if (isRun(i)) {
+					totalDays += 1;
+				}
+			}
+			// 当前年中月份的累加
+			for(var i = 1; i < month; i ++){
+				switch(i){
+					case 1 :
+					case 3 :
+					case 5 :
+					case 7 :
+					case 8 :
+					case 10:
+						totalDays += 31;
+						break;
+					case 4 :
+					case 6 :
+					case 9 :
+					case 11 :
+						totalDays += 30;
+						break;
+					case 2 :
+						totalDays += 28;
+						if (isRun(year)) {
+							totalDays += 1;
+							break;
+						}
+				}
+
+				//更新循环变量
+			}
+			// 累加当前月的天数
+			totalDays += day;
+			// 计算星期几，只需要总天数对7取余，余数就表示周几
+			var date = totalDays % 7;
+			var show = "";
+			switch(date){
+				case 0 :
+					show = "日";
+					break;
+				case 1 :
+					show = "一";
+					break;
+				case 2 :
+					show = "二";
+					break;
+				case 3 :
+					show = "三";
+					break;
+				case 4 :
+					show = "四" ;
+					break;
+				case 5 :
+					show = "五";
+					break;
+				case 6 :
+					show = "六";
+					break;
+
+			}
+			alert(year+"年"+month+"月"+day+"日是星期"+show);
+		}
+	</script>
+</head>
+<body>
+	<button onclick="calculateDate();">日期计算器</button>
+</body>
+</html>

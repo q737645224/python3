@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		var sum = 0;
+		for(var i = 1;i <= 100;i ++){
+			sum += i;
+			// console.log(i);
+		}
+		console.log(sum);
+
+		//模拟跑十圈
+		for(var j = 1; j <= 10; j ++){
+
+			if (j == 5) {
+				console.log("不能再跑了，要出事");
+				break;
+			}
+			console.log("第"+j+"圈");
+		}
+
+		for(var m = 1;m <= 10; m ++){
+			if (m == 5) {
+				console.log("下场补水，下一圈接着跑");
+				continue;
+			}
+			console.log("第"+m+"圈");
+		}
+	</script>
+</head>
+<body>
+
+</body>
+</html>
