@@ -1,0 +1,155 @@
+Day04笔记
+1、外键(foreign key)
+  1、定义 ：让当前表字段的值在另一个表的范围内选择
+  2、语法
+    foreign key(参考字段名)  references 主表(被参考字段名)
+    on delete 级联动作
+    on update 级联动作
+  3、使用规则
+    1、主表、从表字段数据类型要一致
+    2、主表被参考字段 ：主键
+  5、删除外键
+    alter table 表名 drop foreign key 外键名;
+    外键名 ：show create table 表名;
+  6、级联动作 cascade/restrict/set null
+    1、cascade 
+      数据级联删除、更新(参考字段)
+    2、restrict(默认)
+      从表有相关联记录,不允许主表操作
+    3、set null
+      主表删除、更新,从表相关联记录字段值为NULL
+  7、已有表添加外键
+    alter table 表名 add 
+    foreign key(参考字段) references 主表(被参考字段)
+    on delete ...
+    on update ...
+
+2、嵌套查询(子查询)
+  1、定义 ：把内层的查询结果作为外层的查询条件
+  2、语法格式
+    select ... from 表名 where 字段名 运算符(select ... from 表名 shere 条件);
+                                 判断条件 应与后面 相符(<,>,in)
+
+3、多表查询
+  1、两种方式
+    1、笛卡尔积：不加where条件
+       select 字段名列表 from 表名列表; (笛卡尔积)   表名.字段名
+        t1 : name -> "A1"  "A2"  "A3"
+        t2 : name -> "B1"  "B2"
+        select * from t1,t2;
+            +------+-------+
+            | name | name2 |
+            +------+-------+
+            | A1   | B1    |
+            | A1   | B2    |
+            | A2   | B1    |
+            | A2   | B2    |
+            | A3   | B1    |
+            | A3   | B2    |
+            +------+-------+
+   2、... where 条件;
+   3、1.记录多的表的每一条记录，去匹配另一张表的所有记录
+      2.2张表记录条数相同,则后表的每一条记录去匹配前表的所有记录
+
+4、连接查询
+  1、内连接
+    1、语法格式
+      select 字段名 from 表1 
+      inner join 表2 on 条件
+      inner join 表3 on 条件;
+  2、外连接
+    1、左连接(left join)
+      1、以 左表 为主显示查询结果
+      2、select 字段名列表 from 表1
+         left join 表2 on 条件
+         left join 表3 on 条件;
+    2、右连接(right join)
+       用法同左连接,以右表为主显示查询结果
+
+5、锁
+  1、目的:解决客户端[并发询问]的冲突问题
+  2、锁的分类：
+    1、锁类型
+      1、读锁(共享锁)
+       查询(select):加读锁之后，别人不能更改记录，但是可以进行查询
+      2、写锁(互斥锁、排他锁)
+       更新(update):加写锁之后别人不能查、不能改
+    2、锁粒度
+      1、行级锁：Innodb
+        select:加读锁，锁1行
+        update:加写锁，锁1行
+      2、表级锁：MyISAM
+        select:加读锁，锁1张表
+        update:加写锁，锁1张表
+
+6、存储引擎(engine:处理表的处理器)
+  1、基本操作命令  
+    1、查看所有存储引擎
+      show engines;
+    2、查看已有表的存储引擎
+       show create table 表名
+    3、创建表指定存储引擎
+      create table 表名(...)engine=myisam,charset=utf8;
+    4、已有表
+      alter table 表名 engine=myisam;
+  2、常用存储引擎的特点：
+    1、InnoDB特点：
+      1、支持事物、外键、行级锁
+      2、共享表空间
+        表名.frm：表结构和索引信息
+        表名.ibd：表记录
+    2、MyISAM特点：
+      1、支持表级锁
+      2、独享表空间
+        表名.frm：表结构     frame
+        表名.MYD：表记录     mydata
+        表名.MYI：索引信息   myindex
+    3、memory
+      1、数据存储在内存中，速度快
+      2、服务器重启、MySQL服务重启后表记录消失
+    4、如何决定选择使用哪个存储引擎
+      1、执行查询操作多的表使用MyISAM (使用InnoDB浪费资源)
+      2、执行写操作多的表使用InnoDB
+7、MySQL用户账户管理
+  1、开启MySQL远程连接(改配置文件)
+    1、sudo -i
+    2、cd /etc/mysql/mysql.cnf.d/
+    3、cp mysql.cnf mysqld.cnf.bak2
+    4、subl/vi mysql.cnf
+      #bin-address=127.0.0.1
+      把前面#去掉，保存退出
+      vi mysqld.cnf
+       按a -> 改内容 -> 按ESC -> 按 shift + : -> wq
+    5、/etc/init.d/mysql restart
+
+  2、用root用户添加授权用户
+    1、用root用户登录mysql
+      mysql -uroot -p123456
+    2、授权:
+      grant 权限列表 on 库名.表名 
+      to "用户名"@"%IP地址" identified by "密码"
+      with grant option;
+      权限列表：all privileges、select、update
+      库名.表名：db4.*、*.*(所有库的所有表)
+
+
+6、数据备份(mysqldump,在Linux终端中操作)
+  1、命令格式
+    mysqldump -u用户名 -p 源库名 > ~/***.sql
+  2、源库名的表示方式
+    --all-databases  备份所有库
+    库名             备份单个库
+    -B 库1 库2 库3   备份多个库
+    库名 表1 表2 表3 备份指定库的多张表
+
+7、数据恢复
+  1、命令格式(Linux终端)
+    mysql -uroot -p 目标库名 < ***.sql
+  2、从所有库备份中恢复某一个库(--one-database)
+    mysql -uroot -p --one-database 目标库名 < all.sql
+    mysql -uroot -p --one-database db4 < all.sql
+  4、注意
+    1、恢复库时如果恢复到原库会将表中数据覆盖,新增表不会删除
+    2、数据恢复时如果恢复的库不存在,则必须先创建空库
+
+

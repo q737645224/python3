@@ -1,0 +1,260 @@
+Day04回顾
+1、外键(foreign key)
+  1、使用规则
+    1、数据类型要一致
+    2、主表字段必须为KEY的一种 ：主键(PRI)
+  2、语法格式
+    constraint 外键名 foreign key(从表字段) 
+    references 主表(主表字段)
+    on delete 级联动作
+    on update 级联动作;
+  3、级联动作
+    1、cascade ：删除、更新同步(参考字段)
+    2、restrict(默认) ：不让主表删除、更新
+    3、set null ：删除、更新,从表该字段值为 NULL
+  4、删除
+    1、show create table 表名; (查看外键名)
+    2、alter table 表名 drop foreign key 外键名;
+  5、已有表
+    alter table 表名 add
+    constraint 外键名 foreign key(字段) 
+    references 主表(字段)
+    on delete 级联动作
+    on update 级联动作;
+  6、注意
+    在已有表添加外键时,会受到表中原有数据的限制
+2、嵌套查询(子查询)
+  1、把内层的查询结果作为外层查询的条件
+3、多表查询
+  1、不加where条件 ：笛卡尔积
+  2、加where条件 ：多表查询,只显示匹配到的
+4、连接查询
+  1、内连接 ：只显示匹配到的记录
+  2、外连接
+    1、左连接 ：以左表为主显示查询结果
+    2、右连接 ：以右表为主显示查询结果
+  3、语法格式
+    select ... from 表1 
+    inner/left/right join 表2 on 条件;
+5、锁
+  1、锁类型
+    1、读锁(共享锁) ：别人能查询,但是不能更改
+    2、写锁(互斥锁,排他锁) ：别人不能查、不能改
+  2、锁粒度
+    1、行级锁 ：Innodb
+    2、表级锁 ：MyISAM
+6、存储引擎
+  1、基本操作
+    1、mysql> show engines;
+    2、mysql> show create table 表名;
+    3、mysql> create table ...)engine=MyISAM;
+    4、mysql> alter table 表名 engine=InnoDB;
+  2、特点
+    1、InnoDB
+      1、支持事务、外键、行级锁
+      2、共享表空间
+        表名.frm ：表结构、索引文件
+	      表名.ibd ：表记录
+    2、MyISAM
+      1、支持表级锁
+      2、独享表空间
+        表名.myi ：索引文件
+      	表名.myd ：表记录
+      	表名.frm ：表结构
+  3、如何选择使用哪个存储引擎
+    1、查询多 ：MyISAM
+    2、写操作多 ：InnoDB
+7、用户授权
+  1、开启远程连接
+    改配置文件 ：bind-adderss=127.0.0.1
+  2、添加授权用户
+    grant 权限列表 on 库名.表名 
+    to "用户名"@"%" identified by "密码"
+    with grant option;
+    所有权限 ：all privileges
+    所有库所有表 ：*.*
+
+    mysql库下的 user表中
+*********************************
+Day05笔记
+1、数据备份(mysqldump,在Linux终端操作)
+  1、命令格式
+    mysqldump -u用户名 -p 源库名 > ***.sql
+  2、源库名的表示方式
+    --all-databases    备份所有库
+    库名               备份1个库
+    -B 库1 库2 库3     备份多个库
+    库名 表1 表2 表3   备份多张表
+  3、练习
+    1、备份所有库,放到mydata目录下 ：All.sql
+      mysqldump -uroot -p --all-databases > All.sql
+    2、备份db4库中的 sheng、city、xian三张表,db4scx.sql
+      mysqldump -uroot -p db4 sheng city xian > db4scx.sql
+    3、备份MOSHOU和db4两个库,md.sql
+      mysqldump -uroot -p -B db4 MOSHOU > md.sql
+2、数据恢复
+  1、命令格式(Linux终端)
+    mysql -u用户名 -p 目标库名 < ***.sql
+  2、从所有库备份All.sql中恢复某一个库
+    mysql -u用户名 -p --one-database 库名 < All.sql
+    mysql -uroot -p --one-database db4 < All.sql
+  3、示例
+    1、在db4.sheng添加一条记录
+      insert into sheng values(null,300000,"黑龙江");
+    2、在db4库,新建一张表t888
+      create table t888(id int);
+    3、从 db4.sql 恢复db4库
+      mysql -uroot -p db4 < db4.sql
+    注意 ：
+      1、恢复库时,如果恢复到原库会将表中数据覆盖,新增表不会删除
+      2、恢复库时,如果库不存在,则必须先创建空库
+3、MySQL调优
+  1、创建索引
+    在select、where、order by常涉及到的字段建立索引
+  2、选择合适存储引擎
+    1、读操作多 ：MyISAM
+    2、写操作多 ：InnoDB
+  3、SQL语句优化(避免全表扫描)
+    1、where子句尽量不使用 != ,否则放弃索引全表扫描
+    2、尽量避免NULL判断,全表扫描
+      优化前:
+        select number from t1 where number is null;
+      优化后:
+        在number字段设置默认值0,确保number字段无NULL
+        select number from t1 where number=0;
+    3、尽量避免用or连接条件,否则全表扫描
+      优化前：
+        select id from t1 where id=10 or id=20;
+      优化后：
+        select id from t1 where id=10
+        union all
+	select id from t1 where id=20;
+    4、模糊查询尽量避免使用前置 %,否则全表扫描
+      select variable from t1 where name="secure%";
+    5、尽量避免使用in和not in,否则全表扫描
+      优化前 ：
+        select id from t1 where id in(1,2,3,4);
+      优化后 ：
+        select id from t1 where id between 1 and 4;
+    6、不能使用 select * ...
+      用具体字段代替*,不要返回用不到的任何字段
+4、事务和事务回滚
+  1、定义 ：一件事从开始发生到结束的整个过程
+  2、作用 ：确保数据一致性
+  3、事务和事务回滚应用
+    1、SQL命令会 autocommit 到数据库执行
+    2、事务操作
+      1、开启事务
+        mysql> begin;   |  start transactions;
+        mysql> SQL命令 ... 
+	  ## 此时autocommit被禁用 ##
+      2、终止事务
+        mysql> commit; | rollback;
+    3、案例
+      1、背景
+        你 ：建行卡
+	朋友 ：工行卡
+	你在建行自动取款机 给你朋友 转5000块钱
+      2、建表
+        表1、CCB
+          create table CCB(
+	  name varchar(20),
+	  money decimal(20,2)
+	  );
+	  insert into CCB values("有钱人",100000);
+	表2、ICBC
+	  create table ICBC(
+	  name varchar(20),
+	  money decimal(20,2)
+	  );
+	  insert into ICBC values("没钱人",0);
+      3、开始转账
+	成功：
+        mysql> begin;
+	mysql> update CCB set money=money-5000 where name="有钱人";
+	mysql> update ICBC set money=money+5000 where name="没钱人";
+	mysql> commit;
+	#####转账成功#####
+
+	失败 ：
+	mysql> begin;
+	mysql> update CCB set money=money-5000 where name="有钱人";
+	mysql> update ICBC set 工行服务器故障... ;
+	mysql> rollback;
+	#####转账失败#####
+5、与Python交互
+  1、交互类型
+    1、python3
+      模块名 ：pymysql
+      安装 ：
+        1、在线 ：sudo pip3 install pymysql
+	2、离线 ：pymysql.tar.gz
+	   解压：setup.py
+	        python3 setup.py install
+    2、python2
+      模块名 ：MySQLdb
+      安装 ：sudo pip install mysql-python
+  2、pymysql使用流程
+    1、建立数据库连接对象( db=pymysql.connect("root",) )
+    2、创建游标对象cur(操作数据库的对象)
+    3、游标对象:cur.execute("insert into sheng ...;")
+    4、提交到数据库执行 ：db.commit()
+    5、关闭游标对象cur.close()
+    6、关闭数据库连接对象db.close()
+    示例 ：01_pymysql示例.py
+  3、connect连接对象
+    1、db = pymysql.connect(参数列表)
+      1、host ：主机地址
+      2、user ：用户名
+      3、password ：密码
+      4、database ：库
+      5、charset ：编码方式,推荐utf8
+      6、port ：端口(3306)
+    2、db (数据库连接对象) 的方法
+      1、db.close() ：断开连接
+      2、db.commit() ：提交到数据库执行
+      3、db.cursor() ：游标对象,用来执行SQL命令
+      4、db.rollback() ：回滚
+    3、cursor 游标对象 的方法
+      1、execute(SQL命令) ：执行SQL命令
+      2、close() ：关闭游标对象
+      3、fetchone() ：获取查询结果的第1条数据
+      4、fetchmany(n) ：获取n条数据
+      5、fetchall() ：获取所有数据
+      ## fetchmany(n) 和 fetchall() 得到的结果一定是一个大元组套着小元组 ((),(),())
+6、WorkBench 图形化界面管理工具
+   Navicat : Windows中图形化界面管理工具
+7、orm(Object Relation Mapping) 对象关系映射
+  1、示例
+    import sqlalchemy
+
+    class User:
+        __tablename__ = "t1"
+	id = Column(Integer,primary_key=True)
+	name = Column(String(20))
+
+    解释：
+      一个类 User --> 数据库1张表
+      表中2个字段 ：id 和 name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

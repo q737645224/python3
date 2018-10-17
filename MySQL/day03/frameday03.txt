@@ -1,0 +1,157 @@
+1、SQL查询
+  1、执行顺序
+    3、select ...聚合函数 from 表名
+    1、where ...
+    2、group by ...
+    4、having ...
+    5、order by ...
+    6、limit ...
+  2、group by
+    注意
+      1、group by之后的字段名必须要为select之后的字段名
+      2、如果select之后的字段名和group by之后的字段不一致,则必须对该字段进行聚合处理(聚合函数)
+  3、having语句
+    1、作用
+      对查询的结果进行进一步筛选
+    注意
+      1、having语句通常和group by语句联合使用,过滤由group by语句返回的记录集
+      2、where只能操作表中实际存在字段,having可操作由聚合函数生成的显示列
+  4、distinct 区分
+     1、作用:不显示字段重复值 distinct ,...,...from  区分这之间的字段
+      注意
+          1、distinct和from之间所有字段都相同才会去重
+          2、distinct不能对任何字段做聚合处理
+  5、查询表记录时做数学运算
+    1、运算符
+      +  -  *  /  % 
+2、约束
+  1、作用 ：保证数据的完整性、一致性、有效性
+  2、约束分类
+    1、默认约束(default)
+      1、插入记录,不给该字段赋值,则使用默认值
+    2、非空约束(not NULL)
+      1、不允许该字段的值有NULL记录
+        sex enum("M","F","S") not null defalut "S"
+3、索引
+  1、定义
+    对数据库表的一列或多列的值进行排序的一种结构(Btree方式)
+  2、优点
+    加快数据检索速度
+  3、缺点
+    1、占用物理存储空间
+    2、当对表中数据更新时,索引需要动态维护,降低数据维护速度
+  5、索引分类：  MUL \ UNI \ PRI
+    1、普通索引(index)
+      1、使用规则
+        1、可设置多个字段,字段值无约束
+        2、把经常用来查询的字段设置为索引字段 姓名...
+        3、key标志：MUL
+      2、创建index
+        1、创建表时
+          create table 表名(字段名 数据类型,
+          ....,
+          ....,
+          index(字段名),index(字段名));
+        2、已有表
+          create index 索引名 on 表名(字段名);
+          create index name on t3(name);
+        3、查看索引
+          1、desc 表名;  --> KEY标志为：MUL
+          2、show index from 表名\G;
+        4、删除索引
+          drop index 索引名 on 表名;
+    2、唯一索引(unique)
+      1、使用规则
+        1、可设置多个字段
+        2、约束:字段值不允许重复,但可为 NULL
+        3、KEY标志 ：UNI
+      2、创建
+        1、创建表时创建
+          unique(字段名),
+          unique(字段名)
+        2、已有表
+          create unique index 索引名 on 表名(字段名);
+        3、查看、删除 同 普通索引
+    3、主键索引(primary key)
+        自增长属性(auto_increment,配合主键一起使用)
+      1、使用规则
+        1、只能有一个主键字段
+        2、约束 ：不允许重复,且不能为NULL
+        3、KEY标志 ：PRI
+        4、通常设置{记录编号}字段id,能唯一锁定一条记录
+      2、创建
+        1、创建表时
+          (id int primary key auto_increment,
+          ...,
+          ...
+          )auto_increment=10000,
+          charset=utf8, engine=InnoDB;    ##设置自增长起始值
+          已有表添加自增长属性：
+            alter table 表名 modify id int auto_increment;
+          已有表重新指定起始值：
+            alter table 表名 auto_increment=20000;
+            primary key(id,name) #复合主键      
+        2、已有表
+           alter table 表名 add primary key(id);
+        3、删除
+          1、删除自增长属性(modify)
+            alter table 表名 modify id int;
+          2、删除主键索引
+            alter table 表名 drop primary key;
+4、数据导入
+  1、作用 ：把文件系统的内容导入到数据库中
+  2、语法
+    load data infile "/var/lib/mysql-files/文件名"  文件路径/文件名
+    into table 表名
+    fields terminated by "分隔符"
+    lines terminated by "\n";
+  3、将scoretable.csv文件导入到数据库的表中
+    1、在数据库中创建对应的表
+      create table scoretab(
+      id int,
+      name varchar(15),
+      score float(5,2),
+      phnumber char(11),
+      class char(7)
+      )character set utf8;
+    2、把文件拷贝到数据库的默认搜索路径中
+      1、查看(默认)搜索路径
+        show variables like "secure_file_priv";
+        /var/lib/mysql-files/
+      2、拷贝文件
+       sudo cp ~/scoretable.csv /var/lib/mysql-files/
+    3、执行数据导入语句
+      load data infile "/var/lib/mysql-files/scoretable.csv"
+      into table scoretab
+      fields terminated by ","
+      lines terminated by "\n";
+    4、文件权限 (安装的文件都叫)
+       rwxrw-rw- 1 tarena tarena  scoretable.csv
+                   所有者 所属组
+       rwx : tarena用户
+       rw- : 同组其他用户
+       rw- : 其他组的其他用户(mysql用户)
+       r -> 4  可读
+       w -> 2  可写  
+       x -> 1  可执行
+       chmod 644 文件名   rw-r--r--   change mod  1 所有者 2同组其他文件             
+                                                  3其他组的用户权限 
+    5、Excel表格如何转化为CSV文件
+      1、打开Excel文件 -> 另存为 -> CSV(逗号分隔)
+    6、更改文件编码格式
+      1、用记事本/编辑器 打开,文件->另存为->选择编码 
+  5、数据导出
+    1、作用 
+      将数据库中表的记录导出到系统文件里
+    2、语法格式
+      select ... from 表名
+      into outfile "/var/lib/mysql-files/文件名"
+      fields terminated by "分隔符"
+      lines terminated by "\n";
+  6、表的复制：
+    1.语法
+      create table 表名 select ... from 表名 where 条件；
+    2.示例
+     1、复制MOSHOU.sanguo表，sanguo2
+    3.复制表的结构
+      create table 表名 select ... from 表名 where false;

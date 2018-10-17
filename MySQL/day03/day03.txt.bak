@@ -1,0 +1,291 @@
+Day02回顾
+1、数据类型
+  1、数值类型
+  2、字符类型
+  3、枚举类型
+    1、单选 ：enum(值1,...)
+    2、多选 ：set(值1,值2,...)
+      ## "MySQL,Python,Study"
+  4、日期时间类型
+    1、date
+    2、time
+    3、datetime # 不给值默认返回NULL
+    4、timestamp # 不给值默认返回系统当前时间
+2、日期时间函数
+  1、NOW()
+  2、CURDATE()
+  3、CURTIME()
+  4、YEAR(字段名) 
+  5、DATE(字段名)
+  6、TIME(字段名)
+  7、日期时间运算
+    select ... from 表名
+    where 字段名 运算符(时间-interval 时间间隔单位)
+      1 day | 2 day | 3 hour 
+3、表字段操作
+  1、添加(add)
+    alter table 表名 add 字段名 数据类型 first|after.;
+  2、修改(modify)
+    alter table 表名 modify 字段名 新数据类型;
+  3、删除(drop)
+    alter table 表名 drop 字段名;
+  4、表重命名(rename)
+    alter table 表名 rename 新表名;
+  5、表字段重命名(change)
+    alter table 表名 change 原名 新名 数据类型;
+4、表记录管理
+  1、删除
+    delete from 表名 where 条件;
+  2、修改
+    update 表名 set 字段1=值2,... where 条件;
+5、运算符
+  1、数值&&字符&&逻辑比较
+    1、数值 ：> >= < <= = !=
+    2、字符 ：= !=
+    3、逻辑 ：and  or
+  2、范围内比较
+    1、between 数值1 and 数值2 
+    2、in(值1,...)
+    3、not in(值1,...)
+  3、空、非空
+    1、is NULL
+    2、is not NULL
+  4、模糊比较(like)
+    1、字段名 like 表达式
+    2、_  %
+6、SQL查询
+  1、order by
+    1、order by 字段名 ASC/DESC
+  2、limit
+    1、limit n
+    2、limit m,n
+    3、分页
+      每页显示m条,显示第n页内容
+        limit (n-1)*m,m
+  3、聚合函数
+    avg(...) sum(...) max(...) min(...) 
+    count(字段名) ## 空值NULL不会被统计
+Day03笔记
+1、SQL查询
+  1、执行顺序
+    3、select ...聚合函数 from 表名
+    1、where ...
+    2、group by ...
+    4、having ...
+    5、order by ...
+    6、limit ...
+  2、group by
+    1、作用 ：给查询结果进行分组
+    2、示例
+      1、查询表中一共有几个国家
+
+      2、计算每个国家的平均攻击力
+        select country,avg(gongji) from sanguo
+        group by country;
+        
+	先分组 -> 再聚合 -> 再去重
+        蜀国
+	蜀国
+	蜀国   --> 120    --> 蜀国
+	魏国
+	魏国   --> 110    --> 魏国
+	吴国   --> 115    --> 吴国
+      3、查找所有国家中英雄数量最多的前2名的 国家名称和英雄数量
+       select country,count(id) as number from sanguo
+       group by country
+       order by number desc
+       limit 2;
+    3、注意
+      1、group by之后的字段名必须要为select之后的字段名
+      2、如果select之后的字段名和group by之后的字段不一致,则必须对该字段进行聚合处理(聚合函数)
+  3、having语句
+    1、作用
+      对查询的结果进行进一步筛选
+    2、示例
+      1、找出平均攻击力>105的国家的前2名,显示国家名和平均攻击力
+       select country,avg(gongji) as pjgj from sanguo
+       group by country
+       having pjgj>105
+       order by pjgj DESC
+       limit 2;
+    3、注意
+      1、having语句通常和group by语句联合使用,过滤由group by语句返回的记录集
+      2、where只能操作表中实际存在字段,having可操作由聚合函数生成的显示列
+  4、distinct
+    1、作用 ：不显示字段重复值
+    2、示例
+      1、表中都有哪些国家
+        select distinct country from sanguo;
+      2、计算蜀国一共有多少个英雄
+        select count(distinct id) from sanguo 
+        where country="蜀国";
+    3、注意
+      1、distinct和from之间所有字段都相同才会去重
+      2、distinct不能对任何字段做聚合处理
+  5、查询表记录时做数学运算
+    1、运算符
+      +  -  *  /  % 
+    2、示例
+      1、查询时所有英雄攻击力翻倍
+        select id,name,gongji*2 as gj from sanguo;
+   
+   ## sudo apt-get install python3-pip
+   ## sudo pip3 install pymysql
+2、约束
+  1、作用 ：保证数据的完整性、一致性、有效性
+  2、约束分类
+    1、默认约束(default)
+      1、插入记录,不给该字段赋值,则使用默认值
+    2、非空约束(not NULL)
+      1、不允许该字段的值有NULL记录
+      sex enum("M","F","S") not null defalut "S"
+3、索引
+  1、定义
+    对数据库表的一列或多列的值进行排序的一种结构(Btree方式)
+  2、优点
+    加快数据检索速度
+  3、缺点
+    1、占用物理存储空间
+    2、当对表中数据更新时,索引需要动态维护,降低数据维护速度
+  4、索引示例
+    1、开启运行时间检测 ：set profiling=1;
+    2、执行查询语句
+      select name from t1 where name="lucy99999";
+    3、查看执行时间
+      show profiles;
+    4、在name字段创建索引
+      create index name on t1(name);
+    5、再执行查询语句
+      select name from t1 where name="lucy88888";
+    6、查看执行时间
+      show profiles;
+  5、索引
+    1、普通索引(index)
+      1、使用规则
+        1、可设置多个字段
+	2、字段值无约束
+	3、key标志 ：MUL
+      2、创建index
+        1、创建表时
+	  create table 表名(...
+	  index(字段名),index(字段名));
+        2、已有表
+	  create index 索引名 on 表名(字段名);
+	  create index name on t3(name);
+      3、查看索引
+        1、desc 表名;  --> KEY标志为：MUL
+	2、show index from 表名\G;
+      4、删除索引
+        drop index 索引名 on 表名;
+    2、唯一索引(unique)
+      1、使用规则
+        1、可设置多个字段
+	2、约束 ：字段值不允许重复,但可为 NULL
+	3、KEY标志 ：UNI
+      2、创建
+        1、创建表时创建
+	  unique(字段名),
+	  unique(字段名)
+	2、已有表
+	  create unique index 索引名 on 表名(字段名);
+        3、查看、删除 同 普通索引
+    3、主键索引(primary key)
+       自增长属性(auto_increment,配合主键一起使用)
+      1、使用规则
+        1、只能有一个主键字段
+	2、约束 ：不允许重复,且不能为NULL
+	3、KEY标志 ：PRI
+	4、通常设置记录编号字段id,能唯一锁定一条记录
+      2、创建
+        1、创建表时
+	  (id int primary key auto_increment,
+	  )auto_increment=10000;##设置自增长起始值
+	  已有表添加自增长属性：
+	    alter table 表名 modify id int auto_increment;
+	  已有表重新指定起始值：
+	    alter table 表名 auto_increment=20000;
+	2、已有表
+	  alter table 表名 add primary key(id);
+      3、删除
+        1、删除自增长属性(modify)
+          alter table 表名 modify id int;
+	2、删除主键索引
+	  alter table 表名 drop primary key;        
+    4、外键索引
+4、数据导入
+  1、作用 ：把文件系统的内容导入到数据库中
+  2、语法
+    load data infile "/var/lib/mysql-files/文件名"
+    into table 表名
+    fields terminated by "分隔符"
+    lines terminated by "\n";
+  3、将scoretable.csv文件导入到数据库的表中
+    1、在数据库中创建对应的表
+      create table scoretab(
+      id int,
+      name varchar(15),
+      score float(5,2),
+      number bigint,
+      class char(7)
+      );
+    2、把文件拷贝到数据库的默认搜索路径中
+      1、查看默认搜索路径
+        show variables like "secure_file_priv";
+        /var/lib/mysql-files/
+      2、拷贝文件
+       sudo cp ~/scoretable.csv /var/lib/mysql-files/
+    3、执行数据导入语句
+      load data infile "/var/lib/mysql-files/scoretable.csv"
+      into table scoretab
+      fields terminated by ","
+      lines terminated by "\n";
+    4、文件权限
+       rwxrw-rw- 1 tarena tarena  scoretable.csv
+                   所有者 所属组
+       rwx : tarena用户
+       rw- : 同组其他用户
+       rw- : 其他组的其他用户(mysql用户)
+       
+       r -> 4
+       w -> 2
+       x -> 1
+       chmod 644 文件名   rw-r--r--
+    5、Excel表格如何转化为CSV文件
+      1、打开Excel文件 -> 另存为 -> CSV(逗号分隔)
+    6、更改文件编码格式
+      1、用记事本/编辑器 打开,文件->另存为->选择编码
+5、数据导出
+  1、作用 
+    将数据库中表的记录导出到系统文件里
+  2、语法格式
+    select ... from 表名
+    into outfile "/var/lib/mysql-files/文件名"
+    fields terminated by "分隔符"
+    lines terminated by "\n";
+  3、把MOSHOU库下的sanguo表英雄的姓名、攻击值、国家导出来,sanguo.txt
+    select name,gongji,country from MOSHOU.sanguo
+    into outfile "/var/lib/mysql-files/sanguo.txt"
+    fields terminated by "   "
+    lines terminated by "\n";
+    $ sudo -i
+    $ cd /var/lib/mysql-files/
+    $ ls
+    $ cat sanguo.txt
+  4、将mysql库下的user表中 user、host两个字段的值导出到 user.txt
+    select user,host from mysql.user 
+    into outfile "/var/lib/mysql-files/user.txt" fields terminated by "   " 
+    lines terminated by "\n";
+作业：
+  1、把 /etc/passwd 导入到数据库表userinfo里面
+    tarena  :  x  :  1000  :  1000  :  tarena,,,
+    用户名   密码   UID号     GID号    用户描述
+    :  /home/tarena:  /bin/bash
+      家目录/主目录   登录权限
+  2、在userinfo第一列添加一个 id 字段,主键、自增长、显示宽度为3,位数不够用0填充
+
+
+
+
+
+
+

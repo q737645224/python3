@@ -1,0 +1,108 @@
+1.数据类型
+    1、数值类型
+      1、整型
+      2、浮点型
+    2、字符类型
+    3、枚举类型 enum()  set()
+    4、日期时间类型
+        1、日期时间函数
+          1、now()  返回服务器当前时间
+          2、curdate() 返回当前日期
+          3、curtime() 返回当前时间
+          4、year(date) 返回指定时间的年份
+          5、date(date) 返回指定时间的日期
+          6、time(date) 返回指定时间的时间
+        2、日期时间运算
+           1、语法格式
+        select * from 表名
+        where 字段名 运算符 (时间-interval 时间间隔单位);
+        时间间隔单位：
+          1 day | 2 hour | 1 minute | 2 year | 3 month
+2.表字段的操作
+  1、语法 ：alter table 表名 执行动作;
+  2、添加字段(add) first ,after 字段名，默认最后添加
+  3、删除字段(drop)
+  4、修改数据类型(modify)
+  5、表重命名(rename)
+    alter table 表名 rename 新表名;
+  6、修改字段名(change)
+    alter table 表名 change 原字段名 新字段名 数据类型；
+3、表记录管理
+  1、删除表记录
+    1、delete from 表名 where 条件;
+    2、注意
+      delete语句后如果不加where条件,所有记录全部清空
+  2、更新表记录
+    1、update 表名 set 字段1=值1,字段2=值2,... where 条件;
+    2、注意
+      必须加where条件
+4、运算符操作
+  1、数值比较/字符比较
+    1、数值比较 ：= != > >= < <=
+    2、字符比较 ：= !=
+  2、逻辑比较
+    1、and (两个或多个条件同时成立)
+    2、or (任意一个条件成立即可)
+  3、范围内比较
+    1、between 值1 and 值2
+    2、where 字段名 in(值1,值2,...)
+    3、where 字段名 not in(值1,值2,...)
+  4、匹配空、非空
+    1、空 ：where name is null
+    2、非空:where name is not null
+    4、注意
+      1、NULL ：空值,只能用 is 或者 is not 去匹配
+      2、""   ：空字符串,用 = 或者 != 去匹配
+  5、模糊比较
+    1、where 字段名 like 表达式
+    2、表达式 
+      1、_ : 匹配单个字符
+      2、% : 匹配0到多个字符
+5、SQL查询
+  1、总结
+    3、select ...聚合函数 from 表名
+    1、where ...
+    2、group by ...
+    4、having ...
+    5、order by ...
+    6、limit ...;
+  2、order by
+    1、给查询结果进行排序
+    2、... order by 字段名 ASC/DESC ascend/descend
+    3、升序：ASC(默认)
+       降序：DESC
+  3、limit (永远放在SQL语句的最后写)
+    1、作用 ：限制显示查询记录的个数
+    2、用法
+      1、limit n  -> 显示 n 条记录
+      2、limit m,n 
+        m 表示 从第m+1条记录开始显示,显示 n 条
+        limit 2,3  : 第 3、4、5 三条记录
+      4、分页
+          每页显示5条记录,显示第4页的内容
+          
+          第1页 ：limit 0,5        # 1 2 3 4 5 
+          第2页 ：limit (2-1)*5,5  # 6 7 8 9 10
+          第3页 ：limit (3-1)*5,5  # 11 12 13 14 15
+          第4页 ：limit (4-1)*5,5  # 16 17 18 19 20
+          每页显示n条记录,显示第m页 ：limit (m-1)*n,n
+    4、聚合函数
+      1、分类
+          avg(字段名) : 求该字段平均值  average 平均值
+          sum(字段名) : 求和
+          max(字段名) : 最大值
+          min(字段名) : 最小值
+          count(字段名) : 统计该字段记录的个数
+    5.分组 group by：
+      select 字段名 form sanguo group by 字段;
+      select之后的字段名如果没有在group by之后出现，则必须要对该字段进行聚合处理(聚合函数)
+    6.having语句
+     1.作用：对查询结果进行进一步的筛选
+
+     select ..,count() from 表名 where 条件
+     group by 字段 
+     having 条件
+     order by 字段 ASC/DESC(降序)
+     limit m,n  (第m+1位, 每页显示n个)
+
+

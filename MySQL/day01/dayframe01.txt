@@ -1,0 +1,206 @@
+安装软件：sudo apt-get insatall...
+安装模块/库：sudo pip3 insatll pymysql
+安装pip: pip-0.9.tar.gz
+         文件夹：文件->setup.py
+         python3 setup.py insatll
+1、MySQL概述
+  1、什么是数据库
+    存储数据的仓库
+  2、都有哪些公司在用数据库
+    金融机构、游戏网站、购物网站、论坛网站 ......
+  3、提供数据库服务的软件
+    1、软件分类
+      Oracle(收费)、MySQL(免费)、SQL_Server、DB2、MongoDB、MariaDB 
+    2、生产环境中,如何选择使用哪个数据库软件
+      (1)、是否开源
+         1、开源软件：MySQL、(相同MySQL)Mariadb、MongoDB
+           2、商业软件：Oracle、DB2、SQL_Server
+      (2)、是否跨平台
+         1、不跨平台 ：SQL_Server
+           2、跨平台 ：...
+      (3)、公司的类型
+         1、商业软件 ：政府部门、金融机构
+         2、开源软件 ：游戏网站、购物网站、论坛网站 ...
+  4、MySQL的特点(5.7.2)  (8.0)  关系型、跨平台、支持多语言
+    (1)、关系型数据库
+      <1>、关系型数据库特点:
+        1、数据是以行和列(表)的形式去存储的
+          2、表中的每一行叫一条记录,每一列叫一个字段
+          3、表和表之间的{逻辑关联叫关系}
+    (2)、跨平台
+         可以在Unix、Linux、Windows上运行数据库服务
+    (3)、支持多种编程语言
+          python、java、php ......
+  5、数据库软件、数据库、数据仓库的概念
+      1、数据库软件
+        一个软件,看的见,可操作,实现[数据库的逻辑功能]
+      2、数据库
+        是一种逻辑概念,用来存放[数据],侧重存储
+      3、数据仓库
+        从数据量上来说,比[数据库]庞大的多,主要用于[数据分析和数据挖掘]
+        示例网购：
+        数据库 ：user表
+        数据仓库 ：哪个时间段用户登录量最多,哪个用户一年购物最多
+2、MySQL安装
+  (1)、Ubuntu安装MySQL服务
+    1、安装服务端
+      sudo apt-get install mysql-server
+    2、安装客户端
+      sudo apt-get install mysql-client
+    3、Ubuntu安装软件
+      1、sudo apt-get update
+      2、sudo apt-get upgrade
+      3、sudo apt-get -f install
+3、启动和连接MySQL服务
+  1、服务端启动
+    1、查看MySQL状态
+      sudo /etc/init.d/mysql status
+      sudo /etc/init.d/mysql start | stop | restart | reload(重载)
+      (更改配置，在不停止服务的情况下)
+  2、客户端连接
+    1、命令格式
+      mysql -h主机地址 -u用户名 -p密码
+      mysql -hlocalhost(orIP地址) -uroot -p123456
+    2、本地连接可省略 -h 选项
+      mysql -uroot -p123456
+4、基本SQL命令
+  (1)、SQL命令的使用规则
+    1、每条命令必须以 ; 结尾
+    2、SQL命令[不区分字母大小写]
+    3、使用 \c 来终止当前命令的执行
+  (2)、库的管理
+      1、库的基本操作
+        1、查看已有库
+          show databases;
+        2、创建库(指定字符集)
+          create database 库名 [character set utf8];
+        3、查看创建库的语句(字符集)
+          show create database 库名;
+        4、查看当前所在库
+          select database();
+        5、切换库
+          use 库名;
+        6、查看库中已有表
+          show tables;
+        7、删除库
+          drop database 库名;
+      2、库名的命名规则
+        1、数字、字母、_下划线,但不能使用纯数字
+        2、库名区分字母大小写
+        3、不能使用特殊字符和mysql关键字
+  (3)、表的管理
+      1、表的基本操作
+        1、创建表(指定字符集)
+          create table 表名(
+          字段名 数据类型,
+          字段名 数据类型,
+          ...
+          字段名 数据类型
+          );
+        2、查看已有表的字符集
+          show create table 表名;
+        3、查看表结构
+          desc 表名;
+        4、删除表
+          drop table 表名;
+  (4)、注意
+      1、所有的数据都是以文件的形式存放在数据库目录下
+      2、数据库目录 ：/var/lib/mysql
+  (5)、表记录管理
+    1、插入(insert)
+      1、insert into 表名 values(值1),(值2),...;
+      2、insert into 表名(字段1,...) values(值1),...;
+    2、查询(select)
+      1、select * from 表名 [where 条件];
+      2、select 字段1,字段名2 from 表名 [where 条件];
+5、如何更改默认字符集
+  1、方法(通过更改MySQL配置文件实现)
+  2、步骤
+    1、获取root权限
+       sudo -i
+    2、cd /etc/mysql/mysql.conf.d/
+    3、备份 ：cp mysqld.cnf mysqld.cnf.bak
+    4、subl mysqld.cnf
+       [mysqld]
+       character_set_server = utf8
+    5、重启mysql服务
+      /etc/init.d/mysql restart
+
+    MAC：/etc/my.cnf
+         [mysqld]
+   character_set_server = utf8
+    Mac本
+      vi/etc/my.cnf
+      写入：
+        [mysqld]
+        character_set_utf8
+6、客户端把数据存储到数据库服务器上的过程
+  1、连接到数据服务器: mysql -uroot(用户名) -p123456(密码)
+  2、选择一个库  use 库名
+  3、创建表/修改表  create table/update 表名...
+  4、断开与数据库连接  exit; | quit; | \q;
+7、数据类型
+  1、数值类型
+    1、整型
+      1、int 大整型(4个字节)
+         取值范围 ：0 ~ 2**32 - 1(42亿多)
+      2、tinyint 微小整型(1个字节)  2**8 - 1            
+         1、有符号(signed默认) : -128 ~ 127       256 1.2T*12
+         2、无符号(unsigned) : 0 ~ 255
+          age tinyint unsigned,
+      3、smallint 小整型(2个字节) 2**16
+      4、bigint   极大整型(8个字节)
+    2、浮点型
+      1、float(4个字节,最多显示7个有效位)
+        1、用法
+          字段名 float(m,n)  m->总位数 n->小数位位数
+          float(5,2)取值范围？ -999.99 ~ 999.99
+      2、double
+         字段名 double(m,n)
+      3、decimal(m,n)(最多显示28个有效位)
+         1、decimal(m,n)                 (19,9)
+         2、存储空间(整数、小数分开存储) 整数部分：10/9=1余1 4字节+1字节=5
+            规则：将9的倍数包装成4个字节 小数部分：9/9=1余0  4字节+0字节=4   
+            余数    字节                  共：9个字节
+              0       0
+             1-2      1
+             3-4      2
+             5-6      3
+             7-9      4
+          示例：decimal(19,9)
+            整数部分：10/9=商1余1 4字节+1字节=5字节
+            小数部分：9/9=商1余0 4字节+0字节=4字节
+            占：9字节
+  2、字符类型(宽度一定要设置)
+    1、char：定长
+       char(宽度) 取值范围：1~255      缺点：浪费空间，优点：性能好
+    2、varchar:变长                
+       varchar(宽度) 取值范围：1~65535  缺点：速度慢 ，优点：节约空间
+    3、text / longtext(4G) / blob / longblob(4G)
+    4、char和varchar的特点
+      1、char ：浪费存储空间,性能高
+      2、varchar ：节省存储空间,性能低
+    5.字符类型的宽度和数值类型宽度的区别
+     1、数值类型宽度为显示宽度，只用于select查询时显示，和占用存储无关，可用zerofill
+      查看效果
+     2、字符类型的宽度超过后无法储存
+  3、枚举类型
+    1.单选enum  字段名 enum()
+      sex enum('值1'，'值2',...)
+    2.多选set   字段名 set()
+      likes set(值1,值2，...)
+      ##插入记录时"study,python,mysql"
+  4.日期时间类型
+      1、data："yyy-mm-dd"
+      2、datatime："yyyy-mm-dd hh:mm:ss"
+      3、timestamp：'yyyy-mm-dd hh:mm:ss'
+      4、time: "hh:mm:ss"
+      5.注意
+        datatime:不给值默认返回NULL
+        timestamp:不给值默认返回系统当前时间
+      2、日期时间函数
+       1、now() 返回服务器当前时间
+       2、curdate() 当前时间
+       3、date("1999-09-09 09:09:09")
+       4、time("...") 提取 时分秒
+       5、year("...") 提取 年

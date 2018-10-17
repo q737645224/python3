@@ -1,0 +1,337 @@
+Day01回顾
+1、MySQL特点
+  1、关系型数据库
+  2、跨平台
+  3、支持多种编程语言
+2、启动连接
+  sudo /etc/init.d/mysql start|stop|restart|status
+  mysql -hIP地址 -u用户名 -p密码
+  MySQL中数据是以文件形式存放在数据库目录/var/lib/mysql
+  关系型数据库的核心内容是 关系 即 二维表
+3、基本SQL命令
+  1、库管理
+    1、show databases;
+    2、create database 库名 character set latin1;
+    3、select database();
+    4、use 库名;
+    5、show tables;
+    6、drop database 库名;
+  2、表管理
+    1、create table 表名(字段名 数据类型,...) char...;
+    2、show create table 表名; (字符集、存储引擎)
+    3、desc 表名;
+    4、drop table 表1,表2,表3;
+  3、表记录管理
+    1、插入记录
+      insert into 表名(字段1,...) values(值1),...;
+    2、查询记录
+      select 字段1,字段2,... from 表名 where 条件;
+4、如何更改默认字符集
+  1、sudo -i
+  2、cd /etc/mysql/mysql.conf.d/
+  3、cp mysqld.cnf mysqld.cnf.bak
+  4、vi mysqld.cnf
+     [mysqld]
+     character_set_server = utf8
+  5、/etc/init.d/mysql restart | reload
+6、数据类型
+  1、数值类型
+    1、整型
+      1、int (4个字节)
+      2、tinyint (1个字节)
+        1、默认有符号：signed
+        2、无符号: tinyint unsigned
+      3、bigint (8个字节)
+         char(11) 11个字节
+    2、浮点型
+      1、float(m,n) -->最多显示7个有效位
+      2、decimal(m,n) 
+  2、字符类型
+    1、定长 char(15) : 浪费存储空间,性能高
+    2、边长 varchar(20) : 节省存储空间,性能低
+    3、text / longtext / blob / longblob
+  3、注意
+    1、浮点型 插入整数时会自动补全小数位位数
+    2、小数位多于指定的位数,会对下一位进行四舍五入
+MySQL-Day02笔记
+1、表字段的操作
+  1、语法 ：alter table 表名 执行动作;
+  2、添加字段(add)
+    alter table 表名 add 字段名 数据类型;
+    alter table 表名 add 字段名 数据类型 first;
+    alter table 表名 add 字段名 数据类型 after 字段名;
+  3、删除字段(drop)
+    alter table 表名 drop 字段名;
+  4、修改数据类型(modify)
+    alter table 表名 modify 字段名 新数据类型;
+  5、表重命名(rename)
+    alter table 表名 rename 新表名;
+  6、练习
+    1、创建库 studb2
+    2、在库中创建表 t1 ,字段有3个：name、age、phnumber
+      use studb2;
+      create table t1(
+      name char(20),
+      age tinyint unsigned,
+      phnumber char(11)
+      );
+    3、查看表结构
+      desc t1;
+    4、在表中第一列添加一个 id 字段
+      alter table t1 add id int first;
+    5、把 phnumber 的数据类型改为 bigint
+      alter table t1 modify phnumber bigint;
+    6、在表中最后一列添加一个字段 address
+      alter table t1 add address varchar(50);
+    7、删除表中的 age 字段
+      alter table t1 drop age;
+    8、查看表结构
+      desc t1;
+2、数据类型
+  1、数值类型
+  2、字符类型
+    1、字符类型宽度和数值类型宽度的区别
+      1、数值类型宽度为显示宽度,只用于select查询显示,和占用存储无关,可用zerofill查看效果
+      2、字符类型的宽度超过之后则无法存储
+  3、枚举类型
+    1、单选(enum) ：字段名 enum(值1,值2,...)
+    2、多选(set)  ：字段名 set(值1,值2,...)
+      ## 插入记录时: "F,study,Python"
+      create table t5(
+      id int(3) zerofill,
+      name varchar(15),
+      sex enum("M","F","Secret"),
+      likes set("F","M","study","Python")
+      );
+      insert into t5(likes) values("F,study,Python");
+  4、日期时间类型
+    1、date ："YYYY-MM-DD"
+    2、time ："HH:MM:SS"
+    3、datetime ："YYYY-MM-DD HH:MM:SS"
+    4、timestamp ："YYYY-MM-DD HH:MM:SS"
+    5、注意
+      1、datetime ：不给值默认返回NULL值
+      2、timestamp ：不给值默认返回系统当前时间
+      create table t7(
+      id int,
+      name varchar(15),
+      birthday date,
+      money int,
+      shijian datetime
+      );
+      insert into t7 values(2,"王",date(now()),10000,now());
+3、日期时间函数
+  1、now()  返回服务器当前时间
+  2、curdate() 返回当前日期
+  3、curtime() 返回当前时间
+  4、year(date) 返回指定时间的年份
+  5、date(date) 返回指定时间的日期
+  6、time(date) 返回指定时间的时间
+  7、练习
+    1、在表中插入3条记录
+      insert into t7 values
+      (3,"小昭",19000520,3000,20180630000000),
+      (4,"赵敏",19000521,4000,20180702000000),
+      (5,"周芷若",19010522,3500,20180702100000);
+    2、查找2018年7月2日有哪些用户充值了
+   select * from t7 where date(shijian)="2018-07-02";
+
+    3、查找2018年7月份充值的信息
+      select * from t7 
+      where 
+      date(shijian)>="2018-07-01" and date(shijian)<="2018-07-31";
+
+    4、查找7月30日10:00-12:00充值的信息
+      select * from t7 
+      where
+      date(shijian)="2018-07-31" and 
+      time(shijian)>="10:00:00" and 
+      time(shijian)<="12:00:00";
+4、日期时间运算
+  1、语法格式
+    select * from 表名
+    where 字段名 运算符 (时间-interval 时间间隔单位);
+    时间间隔单位：
+      1 day | 2 hour | 1 minute | 2 year | 3 month
+  2、练习
+    1、查询1天以内的记录
+      select * from t7 
+      where shijian > (now()-interval 1 day);
+            age     >   20
+    2、查询1年以前的记录
+      select * from t7
+      where shijian < (now()-interval 1 year);
+    3、查询1天以前,3天以内的记录
+      select * from t7
+      where
+      shijian < (now()-interval 1 day) and
+      shijian > (now()-interval 3 day);
+5、表记录管理
+  1、删除表记录
+    1、delete from 表名 where 条件;
+    2、注意
+      delete语句后如果不加where条件,所有记录全部清空
+  2、更新表记录
+    1、update 表名 set 字段1=值1,字段2=值2,... where 条件;
+    2、注意
+      必须加where条件
+  3、练习(表hero)
+    1、查找所有蜀国人的信息
+      select * from hero where country="蜀国";
+    2、查找所有女英雄的姓名、性别和国家
+      select name,sex,country from hero 
+      where sex="女";
+    3、把id为2的记录改为典韦,性别男,国家魏国
+      update hero set name="典韦",sex="男",country="魏国" where id=2;
+    4、删除所有蜀国英雄
+      delete from hero where country="蜀国";
+    5、把貂蝉的国籍改为魏国
+      update hero set country="魏国" 
+      where name="貂蝉";
+    6、删除所有表记录
+      delete from hero;
+4、运算符操作
+  1、数值比较/字符比较
+    1、数值比较 ：= != > >= < <=
+    2、字符比较 ：= !=
+    3、练习
+      1、查找攻击力高于150的英雄的名字和攻击值
+        select name,gongji from sanguo where gongji>150;
+      2、将赵云的攻击力设置为360,防御力设置为68
+        update sanguo set gongji=360,fangyu=68
+        where name="赵云";
+  2、逻辑比较
+    1、and (两个或多个条件同时成立)
+    2、or (任意一个条件成立即可)
+    3、练习
+      1、找出攻击值高于200的蜀国英雄的名字、攻击力
+        select name as n,gongji as g from sanguo
+	where gongji>200 and country="蜀国";
+      2、将吴国英雄中攻击值为110的英雄的攻击值改为100,防御力改为60
+        update sanguo set gongji=100,fangyu=60
+	where country="吴国" and gongji=110;
+      3、查找蜀国和魏国的英雄信息
+        select * from sanguo 
+	where country="蜀国" or country="魏国";
+  3、范围内比较
+    1、between 值1 and 值2
+    2、where 字段名 in(值1,值2,...)
+    3、where 字段名 not in(值1,值2,...)
+    4、练习
+      1、查找攻击值100-200的蜀国英雄信息
+        select * from sanguo
+	where gongji between 100 and 200 and
+	country="蜀国";
+      2、找到蜀国和吴国以外的国家的女英雄信息
+        select * from sanguo
+	where country not in("蜀国","吴国") 
+	and sex="女";
+      3、找到id为1、3或5的蜀国英雄 和 貂蝉的信息
+        select * from sanguo
+	where 
+	(id in(1,3,5) and country="蜀国") or name="貂蝉";
+  4、匹配空、非空
+    1、空 ：where name is null
+    2、非空:where name is not null
+    3、示例
+      1、姓名为NULL值的蜀国女英雄信息
+        select * from sanguo
+        where
+        name is null and country="蜀国" and sex="女";
+      2、姓名为 "" 的英雄信息
+        select * from sanguo where name="";
+    4、注意
+      1、NULL ：空值,只能用 is 或者 is not 去匹配
+      2、""   ：空字符串,用 = 或者 != 去匹配
+  5、模糊比较
+    1、where 字段名 like 表达式
+    2、表达式 
+      1、_ : 匹配单个字符
+      2、% : 匹配0到多个字符
+    3、示例
+      select name from sanguo where name like "_%_";
+      select name from sanguo where name like "%";
+        ## NULL不会被统计,只能用is、is not去匹配
+      select name from sanguo where name like "___";
+      select name from sanguo where name like "赵%";
+5、SQL查询
+  1、总结
+    3、select ...聚合函数 from 表名
+    1、where ...
+    2、group by ...
+    4、having ...
+    5、order by ...
+    6、limit ...;
+  2、order by
+    1、给查询结果进行排序
+    2、... order by 字段名 ASC/DESC
+    3、升序：ASC(默认)
+       降序：DESC
+    4、示例
+      1、将英雄按防御值从高到低排序
+
+      2、将蜀国英雄按攻击值从高到低排序
+
+      3、将魏蜀两国英雄中名字为三个字的按防御值升序排列
+        select * from sanguo 
+        where
+        country in("蜀国","魏国") and name like "___"
+        order by fangyu ASC;
+
+	select * from sanguo
+        where
+        (country="魏国" or country="蜀国") and name like "___"
+        order by fangyu;
+  3、limit (永远放在SQL语句的最后写)
+    1、作用 ：限制显示查询记录的个数
+    2、用法
+      1、limit n  -> 显示 n 条记录
+      2、limit m,n 
+        m 表示 从第m+1条记录开始显示,显示 n 条
+        limit 2,3  : 第 3、4、5 三条记录
+    3、示例
+      1、在蜀国英雄中,查找防御值倒数第二名至倒数第四名的英雄的记录
+        select * from sanguo
+        where country="蜀国"
+        order by fangyu asc
+        limit 1,3;
+      2、在蜀国英雄中,查找攻击值前3名且名字不为 NULL 的英雄的姓名、攻击值和国家
+        select name,gongji,country from sanguo
+        where 
+        country="蜀国" and name is not NULL
+        order by gongji DESC
+        limit 3;
+    4、分页
+      每页显示5条记录,显示第4页的内容
+      
+      第1页 ：limit 0,5        # 1 2 3 4 5 
+      第2页 ：limit (2-1)*5,5  # 6 7 8 9 10
+      第3页 ：limit (3-1)*5,5  # 11 12 13 14 15
+      第4页 ：limit (4-1)*5,5  # 16 17 18 19 20
+
+      每页显示n条记录,显示第m页 ：limit (m-1)*n,n
+  4、聚合函数
+    1、分类
+      avg(字段名) : 求该字段平均值
+      sum(字段名) : 求和
+      max(字段名) : 最大值
+      min(字段名) : 最小值
+      count(字段名) : 统计该字段记录的个数
+    2、示例
+      1、攻击力最强值是多少
+        select max(gongji) from MOSHOU.sanguo;
+      2、统计id 、name 两个字段分别有几条记录
+        select count(id),count(name) from sanguo;
+	## 空值 NULL 不会被统计,""会被统计
+
+      3、计算蜀国英雄的总攻击力
+
+      4、统计蜀国英雄中攻击值大于200的英雄的数量
+
+
+
+
+
+
+
+

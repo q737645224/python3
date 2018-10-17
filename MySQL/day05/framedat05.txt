@@ -1,0 +1,130 @@
+Day05笔记
+1、数据备份(mysqldump,在Linux终端中操作)
+  1、命令格式
+    mysqldump -u用户名 -p 源库名 > ~/***.sql(存储路径/保存文件名)
+  2、源库名的表示方式
+    1.--all-databases  备份所有库
+    2.库名             备份单个库
+    3.-B 库1 库2 库3   备份多个库
+    4.库名 表1 表2 表3 备份指定库的多张表
+
+2、数据恢复
+  1、命令格式(Linux终端)
+    mysql -uroot -p 目标库名 < ***.sql
+  2、从所有库备份中恢复某一个库(--one-database)
+    mysql -uroot -p --one-database 目标库名 < all.sql
+    mysql -uroot -p --one-database db4 < all.sql
+  4、注意
+    1、恢复库时如果恢复到原库会将表中数据覆盖,新增表不会删除
+    2、数据恢复时如果恢复的库不存在,则必须先创建空库
+
+3、MySQL调优
+  1、创建索引
+    在 select、where、order by常涉及到的字段建立索引   
+  2、选择合适的存储引擎
+    1、读操作多 ：MyISAM
+    2、写操作多 ：InnoDB
+  3、SQL语句的优化(目的：避免全表扫描)
+    1、where子句中不使用 != ,否则[放弃索引]全表扫描
+    2、尽量避免 NULL 值判断,否则放弃索引全表扫描
+      优化前 ：
+        select number from t1 where number is null;
+      优化后 ：
+        在number列上设置默认值0,确保 {number列} 无NULL值
+          select number from t1 where number=0;
+    3、尽量避免 or 连接条件,否则放弃索引全表扫描
+      优化前 ：
+        select id from t1 where id=10 or id=20 or id=30;
+      优化后：
+        select id from t1 where id=10
+        union all
+        select id from t1 where id=20
+        union all
+        select id from t1 where id=30;
+    4、模糊查询尽量避免使用{前置 %} ,否则全表扫描
+      select name from t1 where name like "%c%";
+    5、尽量避免使用 in 和 not in,否则全表扫描
+      优化前：
+      select id from t1 where id in(1,2,3,4);  in(连续的值)
+      优化后：
+      select id from t1 where id between 1 and 4;
+    6、尽量避免使用 select * ...;用具体字段代替 * ,不要返回用不到的任何字段
+
+4、事务和事务回滚
+  1、定义 ：一件事从 {开始发生} 到 {结束} 的整个过程  
+     例子：冰箱打开，大像放进去，冰箱关闭(失败，就会回滚)
+  2、作用 ：确保数据一致性
+  3、事务和事务回滚应用
+    1、MySQL中sql命令会 autocommit 到数据库执行
+      show variables like "autocommit";
+    2、事务操作
+      1、开启事务
+        mysql> begin;   | start transaction;    cat ....|map.py|sort|reduce.py
+          mysql> ...一条或多条SQL语句  ## 此时autocommit被禁用
+                                         没有auto到数据库 
+      2、终止事务
+        mysql> commit;(成功时) | rollback;(失败时)
+
+5、与python交互
+  1、交互类型
+    1、python3
+      模块名 ：pymysql 
+      安装：
+        1.在线 ：sudo pip3 install pymysql（==0.7.11）
+          2.离线 ：pymysql-0.7.11.tar.gz
+          解压：setup.py README
+                pyton3 setup.py install
+                $ tar -zxvf pymyql-0.7.11.tar.gz
+                $ cd pymysql-0.7.11
+                $ sudo python3 setup.py install
+    2、python2
+      模块名 ：MySQLdb
+      在线安装 ：sudo pip install mysql-python  
+  2、pymysql使用流程
+    1、建立数据库连接对象：(db = pymysql.connect("root"...))
+    2、创建游标对象cur(操作数据库的对象) (c = db.cursor())
+    3、游标对象: cur.execute("insert into sheng ....;")
+    4、提交到数据库执行: db.commit()
+    5、关闭游标对象 ：cur.close()
+    6、断开数据库连接 ：db.close()
+  3、connect连接对象
+    1.db=pymysql.connect(参数列表)
+      1.host:主机地址
+      2.user:用户名
+      3.password:密码
+      4.database:库
+      5.charset:编码方式，推荐utf8
+      6.port:端口(3306)
+    2.db(数据连接对象)的方法
+      1.db.close():断开连接
+      2.db.commit():提交到数据库执行
+      3.db.cursor():游标对象，用来执行SQL命令
+      4.db.rollback():回滚
+    3.cursor 游标对象的方法
+      1.execute(SQL命令)：执行SQL命令
+      2.close():关闭游标对象
+      3.fetchone():获取查询结果的第一条数据
+      4.fetchmany(n):获取n条数据
+      5.fetchall():获取所有数据
+      ##fetchmany(n) 和 fetchall()
+      得到的结果一定是一个大元组套着一个小元组((),(),())  
+
+6、WorkBench 图形化界面管理工具
+   Navicat: Windows中图形化界面管理工具
+
+7、orm(object Relation Mapping)对象关系映射
+  1、定义
+    把对象模型映射到MySQL数据库中
+  2、sqlalchemy安装：
+    在线 ：sudo pip3 install sqlalchemy
+    离线 ：
+      $ tar -zxvf SQLAlchemy-1.2.10.tar.gz
+      $ cd SQLAlchemy-1.2.10
+      $ sudo python3 setup.py install
+    验证：
+      $ python3
+      >>> import sqlalchemy
+      >>> 
+
+  1、pymysql操作原生SQL命令
+  2、ORM框架对象关系映射
