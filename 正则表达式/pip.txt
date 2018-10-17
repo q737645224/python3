@@ -1,0 +1,113 @@
+1.标准库：安装python内置的库
+2.标准第三方库：可以使用PIP安装
+3.第三方库：野库（不能用pip安装）
+
+1. pip 用来包管理
+2. virtualenv 独立Python环境管理
+3. fabric 服务器管理和应用发布
+
+1.PIP的使用
+ 作用：管理python的标准第三方库中第三方软件包
+      sudo apt-get insatll  python3-pip
+
+  常用命令：
+    安装软件：pip3 install [package]
+    e.g. sudo pip3 install ssh
+
+    查看当前python软件包：pip3 list
+    查看某一个软件包： pip3 search [package]
+    查看软件包信息： pip3 show [package]
+    升级软件包：pip3 install --upgrade [package]
+    卸载安装包：sudo pip3 uninstall [package]
+                e.g. sudo pip3 uninstall ssh
+    导出软件包环境: pip3 freeze >requirements.txt{常用名字}
+
+    根据文档中的安装：pip3 insatll -r requirements.txt
+
+2.PDB调试方法
+  调试：当程序出现问题时，通过调试查找错误
+  vscode / pycharm
+
+  import pdb
+
+  功能：断点设置，单步执行，查看代码，查看函数，追踪变量等
+
+  命令：
+    b  [num] break  设置断点
+    c continue 继续执行
+    n next 单步执行
+    s step 单步执行，可以进入函数内部
+    l list 查看代码段
+    pp  [name] 查看某个变量值
+    help 帮助
+
+  进入pdb调试模式：pdb.set_trace()
+  直接进入PDB调试模式运行：python3 -m pdb debug.py
+
+httpserver
+前台 前端 客户端   用户端
+     网页 移动APP
+
+功能：提供给用户直接使用
+要求：良好的用户体验
+      更好的交互功能
+      很好的和后端进行数据交互
+      良好的跨平台性
+      有一定的优化
+后台 后端 服务端
+功能:逻辑处理
+     算法实现
+     磁盘交互（数据库 静态文件处理）
+要求：健壮性，安全性
+      并发性能和处理速度
+      架构合理便于维护扩展
+
+网站后端：
+  httpserver + webFrame
+
+第三版
+    功能：
+      httpserver:
+        获取http请求
+        解析http请求
+        将请求发送给WEbFrame
+        从WebFrame接收反馈数据
+        将数据组织为Response格式发送给客户端
+
+      WebFrame:
+        从httpserver接收具体请求
+        根据请求进行逻辑处理和数据处理
+          *静态页面
+          *逻辑数据
+        将需要的数据反馈给httpserver
+
+    升级点：
+        1.采用httpserver和应用处理分离的模式
+        2.降低了耦合度
+        3.原则上httpsrver 可以搭配任意的WebFrame
+
+项目结构：
+  
+ 
+          |----httpserver ---HttpServer.py (主程序)
+          |               ---settings (httpserver配置)
+          |                
+  project |
+          |
+          |
+          |---WebFrame ----static (存放静态网页)
+                       ----view.py(应用处理程序)
+                       ----urls.py(存放路由) ---》 规定能处理的内容
+                       ----settings (框架配置) ---》框架配置
+                       ---WebFrame.py(主程序代码) ---》通过主程序具体执行的功能
+
+python 自带的httpserver
+from http.server import BaseHTTPRquestHandler,HTTPServer
+
+msql  ---.pymysql
+net   --->socket io  套接字 多任务 多进程、线程 
+          并发模型 协程
+mongdb --->pymongo
+regeix ---
+git --->管理工具    github
+pip --->
