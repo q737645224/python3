@@ -1,0 +1,270 @@
+svn git
+代码协同管理工具:
+  GIT Git(读音为/gɪt/。)是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理
+
+  svn 一个开放源代码的版本控制系统
+
+代码管理工具作用：
+  *防止代码丢失，做备份
+  *代码版本的管理，可以进行多个节点的备份，在多个版本之间跳跃
+  *可以方便的将代码在多人之间进行共享传输
+  *多人开发是有各种模式可以方便代码管理
+
+分布式和集中式：
+  分布式：每个节点都保存完成的代码，没有明确的中央服务器，节点之间项目推送下载代码完成代码共享
+
+  集中式：代码集中管理，每次完成的代码上传到中央管理器，然后再同一从中央管理器下载代码使用
+
+什么是git：
+  git 是一个开源的分布式版本控制系统，可用于高效的管理大小项目。
+
+git的特点
+  *git可以管理各种文件，特别是代码项目，多在linux系统中使用
+  *是分布式管理，不同于集中式，这是git和svn的核心区别
+  *git可以更好的支持分支，方便多人协同工作
+  *git分布式代码更安全，有全球唯一的commit版本号
+  *git是开源的系统
+  *使用git可以脱网工作，且数据传输较快
+git
+git安装：
+linux:
+sudo apt-get install git
+
+git 配置命令
+  git config
+
+配置级别：
+  1.系统中所有的用户都可以使用该配置   config 配置
+    命令：git config --system
+    配置文件： /etc/gitconfig
+  2.当前用户可以使用该配置
+    命令： git config  --global
+    配置文件： ~/.gitconfig
+  3.当前项目可以使用该配置
+    命令： git config
+    配置文件: project/.git/config
+
+配置内容：
+  1.配置用户名
+    e.g. 配置用户名Tedu
+    sudo git config --system user.name Tedu
+  2.配置用户邮箱
+    e.g. 配置邮箱
+    git config --global user.email levire@qq.com
+  3.配置编译器
+    e.g. 配置编译器
+    git config core.editor sublime
+  4.查看编译信息
+    git config --list
+
+git基本命令
+  1.初始化创库
+      git init
+
+    *在某个目录下初始化仓库后会自动产生，git目录，该目录下工作的所有文档既可以使用git进行管理*********
+
+  2.查看分支的状态：
+     git status
+     默认工作分支为master,可通过创建型的分支切换
+
+  3.文件的提交
+    git add [file]
+    *将文件提交到暂存区
+    *提交内容可以是一个文件，多个文件用个空格分开
+    *如果是*表示所有文件，也可以是目录
+
+     删除暂存区某个文件提交记录
+     git rm --cached Readme.txt
+  4.文件同步到本地仓库
+    git commit -m "some message" 
+    *同步时需要附加一些同步信息 在-m后添加
+    *所有对工作区的修改如果想同步到本地仓库，都需要add ----》 commit
+
+  5.查看commit日志
+    git log
+    git log --pretty=oneline
+
+一些工作区命令
+  查看本地文件和工作区差别
+  git diff file
+
+  从本地仓库恢复文件
+  git checkout file
+
+  丢弃工作区修改
+  git checkout --file
+
+  本地仓库文件的移动和删除
+    移动文件
+    git mv file dir
+
+    删除文件
+    git rm file
+    *用法和mv rm命令相同。操作后直接commit即可将工作区和本地仓库同步
+
+版本控制命令
+
+回到原来版本
+  1.git reset --hard HEAD^
+    *HEAD后^的数量决定了回到上几个版本
+  
+  2.git reset --hard 版本号前7位
+    e.g. git reset --hard 173dec3
+
+  3.去往更新的版本
+    1.查看所有历史版本号
+      git reflog
+    2.使用git reset 去往指定版本
+      *git reglog 会有所有的操作记录，最新的操作时钟在最上边
+
+标签管理
+  1.什么是标签：即在当前工作位置添加快照，保存工作状态，一般用于版本的迭代
+  
+  2.创建新的标签
+    git tag v1.0
+    *默认在最新的commit_id处打标签
+    
+    添加标签信息
+    git tag v1.0 -m 'message'
+    
+    指定某个commit_id打标签
+    git tag v0.9 [commit_id]
+  
+  3.查看标签
+    git tag           列出当前标签
+    git show tagname 查看标签具体信息
+ 
+  4.删除标签
+    git tag -d v1.0
+  
+  5.去往某个标签版本
+    git reset --hard v0.9
+
+临时工作区操作
+  1.创建保存临时工作区
+    git stash
+  2.查看保存的工作区
+    git stash list
+  3.应用哪个工作区
+    git stash apply stash@{1}
+  4.应用上一个工作区并且删除
+    git stash pop
+  5.删除工作区
+    删除某一个
+    git stash drop stash@{0}
+    删除所有
+    git stash clear
+
+分支操作
+  1.什么是分支:
+    分支即每个人获得原代码，在此基础上创建自己的工作环境，单独开发，不会影响到其他人的操作。开发完成后再统一合并到主线分支中。
+
+  2.分支的好处：安全，不影响其他人工作，自己控制进度
+  3.分支的操作
+    1.查看当前的分支
+      git branch
+      *前面有 *号的分支
+
+    2.创建分支:
+      git branch [branch_name]
+
+    3.切换到其他分支:
+      git checkout [branch_name]
+
+    4.创建并切换分支：
+      git checkout -b dev_Jame_1
+
+    5.将分支合并到当前分支下
+     git merge [branch_name]
+
+      *合并过程中如果没有冲突则直接合并后当前分支即为干净的状态
+      *如果产生冲突则需要人为选择后再进行add commit等操作
+      *在创建分支前尽量保证当前分支是干净的，以减少冲突的发生
+
+    6.删除分支
+      git branch -d [branch_name]
+      强制删除没有合并的分支
+      git branch -D [branch_name]
+
+远程仓库
+  远程仓库：远程主机上的仓库，实际上git是分布式的，每一台主机的git 的结构都相似，只是把别人的git仓库叫做远程仓库
+
+  创建共享仓库：
+    1、创建文件夹
+      mkdir gitrepo
+    2、设置文件夹属主
+      shown tarena:tarena gitrepo
+    3.将该文件夹设置为可共享的git仓库
+      cd gitrepo
+      git init --bare fly.git
+    4.设置本地仓库属主    cat .git/config
+      chown -R tarena:tarena fly.git    -R(该用户设置相同属主)
+
+      添加远程主机
+      git remote add origin tarena@127.0.0.1:/home/tarena/gitrepo/fly.git
+                            用户名   IP地址   绝对路径path
+      *默认使用SSH做为传输手段   ssh 网络传输协议
+      *默认
+
+      删除远程主机
+      git remote rm [origi]
+      
+      将本地分支推送到远程
+      git push -u origin master
+     
+        *第一次向远程仓库推送时需要加 -u选项，以后就不需要了  
+        *当用户没有设置密码时，密码为用户的主机密码
+      
+      克隆一个项目（可以用来查看别人的项目）
+        git clone tarena@127.0.0.1:/home/tarena/AID1807/gitrepo/fly.git
+
+      从远程仓库拉去分支或代码
+        1.直接拉去远程分支和当前工作分支合并
+         git push origin dev_Tom
+                      [branch_name]
+        2.拉取远程分支到本地，不合并
+         git push origin dev_Tom:dev_Tom
+                     [branch_name] : [branch_name]
+
+      代码退出和拉取
+        将本地代码推送到连接的远程仓库（已经连接的远程仓库）
+        git push
+
+        git push --force origin(当本地版本比远程版本旧时，用本地版本覆盖远程版本)
+
+        从远程仓库更新代码
+        git pull
+
+        git fetch (如果有更新的分支拉取到本地不会和本地分支合并)
+
+
+      
+
+
+
+GitHub
+  github是一个开源项目社区网站。拥有全球最多的开源项目。开发者可以注册这个网站建立自己的github仓库。然后就可以在本地通过git
+
+
+
+添加ssh秘钥
+  1.在本地主机生成ssh秘钥对
+    ssh-keygen
+    *默认秘钥对存放在~/.ssh/ 下
+    *生成过程会提示设置密码，如果直接回车则表示不设置密码
+
+  2.进入 ~/.ssh 目录 复制 id_rsa.pub 公钥内容
+  3.登录github账号
+    右上角头像下拉菜单 --》setting --》
+    左侧 SHH and GPG keys --》 new ssh key --》填写 title, 将复制的内容加入key文本框 点击add...
+
+创建型的github仓库
+ 右上角 + 下拉菜单 --》 new repository --》 填写参考名和基本描述，根据情况选择是否添加readme等内容，
+ 选择共有还是私有 --》 点击创建
+
+操作GitHub仓库
+  1.git remote 连接远程github仓库 如果需要输入密码输入github 密码即可
+  2.使用git push等操作远程仓库的方法操作即可
+
+
+

@@ -1,0 +1,129 @@
+Day02
+
+三.基于matplotlib的数据可视化
+matplotlib.pyplot提供基于python语言的绘图函数
+1.基本图形绘制
+1)缺省样式
+mp.plot(x,y)
+代码:plt1.py
+
+2)设置线型,线宽和颜色
+代码:plt2.py
+
+3)设置坐标范围
+设置水平坐标范围:mp.xlim(最小值, 最大值)
+设置垂直坐标范围:mp.ylim(最小值, 最大值)
+代码:plt3.py
+
+4)设置坐标轴刻度标签
+mp.xticks(刻度标签位置, 刻度标签文本)
+mp.yticks(刻度标签位置, 刻度标签文本)
+#有几个位置就给几个文本
+#文本可以不给,默认是刻度的值 
+代码:plt4.py
+
+5)将矩形坐标轴改成十字坐标轴
+代码:plt5.py
+
+6)显示图例
+mp.plot(..., label=图例文本)
+mp.legend(loc=图例位置)	  #显示图例,不给loc就是默认位置
+代码:plt6.py
+
+7)添加特殊点
+mp.scatter(点集水平坐标数组, 点集垂直坐标数组, ...)
+代码:plt7.py
+
+8)添加注释
+mp.annotate(
+	注释文本,				#字符串
+	xy=被注释点的坐标,		#加在哪个目标上
+	xycoords=被注释点的坐标属性,
+		#一般用data,表示参考数据坐标系,而不是窗口坐标系
+	xytext=注释文本的坐标,
+	textcoords=注释文本坐标的属性, #绝对坐标或相对坐标
+	fontsize=字体大小,
+	arrowprops=dict(arrowstyle=箭头形状,
+		connectionstyle=箭头连线的风格)
+	)
+代码:plt8.py
+
+2.图形对象
+一个图形对象实际上就可以被看成显示图形的窗口
+函数:
+mp.figure(图形名, facecolor=背景色)
+创建新的或获取已有的图形对象.  #依靠'图形名'来判断
+图形名既可以作为显示在图形窗口标题栏中的文本,同时也是该对象的名称.
+代码:fig.py
+
+3.子坐标图
+mp.subplot(ABC)
+A: 总行数
+B: 总列数
+C: 图形号(从1开始)
+[231][232][233]
+[234][235][236]
+代码:sub1.py
+
+4.栅格布局
+import matplotlib.gridspec as mg
+gs = mg.GridSpec(行数, 列数) #返回一个栅格布局的对象
+mp.subplot(gs[0,0])		#画在第0行,第0列
+mp.subplot(gs[0,:2])	#第0行,第1列和第2列
+代码: sub2.py
+
+5.自由布局
+mp.axes([左, 底, 宽, 高])
+# 4个参数是相对于水平和垂直坐标的比例值
+# 到左边框,到底边框的距离比,图形的宽度和高度
+代码: sub3.py
+
+
+6.刻度定位器
+ax = mp.gca()
+ax.xaxis...
+ax.yaxis...
+set_major_locator() - 设置主刻度定位器
+set_minor_locator() - 设置次刻度定位器
+Nulllocator()		# 空,不做刻度标记
+MaxNLocator()		# 指定最多刻度数
+FixedLocator()		# 由参数指定刻度
+AutoLocator()		# 默认的,自动选择合理的刻度
+IndexLocator()		# 根据偏移和增量定位刻度
+MultipleLocator()	# 根据指定的距离定位刻度
+LinearLocator()		# 根据指定的总刻度数定位刻度
+LogLocator()		# 根据指定的底数和指数定位刻度
+ax.xaxis.set_major_locator(mp.MultipleLocator(0.1))
+代码: tick.py
+
+
+7.散点图
+mp.scatter()
+代码: scatter.py
+
+8.区域填充
+mp.fill_between(填充区域水平坐标, 下限垂直坐标,
+	上限垂直坐标, where=条件表达式, color=颜色,
+	alpha=透明度)
+代码: fill.py
+
+
+9.柱状图
+mp.bar(水平坐标数组, 高度数组, 宽度比例, ec=勾边色,
+	fc=填充色, label=图例标签)	#高度可以为负
+	#宽度比例以柱子间不留空白为1
+代码: bar.py
+
+
+10.等高线图		(把一个三维的量二维化)
+填充颜色:
+mp.contourf(x, y, z, 等高线条数, cmap=颜色映射)
+不填充颜色:
+mp.contour(x, y, z, 等高线条数, color=颜色,
+	linewidth=线宽)
+# x,y,z参数都是二维数组(点阵形式)
+代码: cntr.py
+
+
+
+

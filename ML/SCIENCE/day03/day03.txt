@@ -1,0 +1,79 @@
+day03
+
+11.热图
+mp.imshow(z, cmap=颜色映射, origin=垂直轴向)
+# x,y取矩阵z的x,y下标
+代码: hot.py
+
+12.饼图
+mp.pie(值数组, 间隙数组, 标签数组, 颜色数组, 
+	标注格式, shadow=是否绘制阴影, startangle=起始角度)
+#每个扇形的值,扇形间的间隙,每个扇形的标签,扇形颜色,
+标注的字体格式,阴影,起始扇形偏离的角度
+代码:pie.py
+
+13.三维曲面图
+ax = mp.gca(projection='3d')	
+#获取一个可以画3d效果的轴对象(坐标图对象)
+ax.plot_surface(x, y, z, rstride=行步距, cstride=列步距, cmap=颜色映射)
+代码 : sf.py
+
+14.三维线框图
+ax = mp.gca(projection='3d')
+ax.plot_wireframe(x, y, z, rstride=行步距, 
+		cstride=列步距, color=线框颜色)
+代码: wf.py
+
+
+15.动画
+FuncAnimation(图形对象, 绘制函数, 
+	interval=时间间隔(ms))
+# matplotlib库会在每间隔interval时间后调用绘制函数
+代码: bub.py
+
+
+FuncAnimation(图形对象, 绘制函数, 生成器函数,
+	interval=时间间隔(ms))
+def FuncAnimation():
+	...
+	for data in 生成器函数:
+		绘制函数(data)
+		延时interval
+	...
+代码:sig.py
+
+
+16.坐标线
+ax = mp.gca()
+ax.grid(which='major'/'minor', axis='x'/'y'/'both',
+	linewidth=线宽, linestyle=线型, color=颜色)
+	#主刻度/次刻度, 哪个轴
+代码: grid.py
+
+
+17.对数坐标	(遇到值域差别很大时,对数可以把小数放大,大数缩小,但又不改变排序)
+mp.semilogy()  #参数与mp.plot完全一样;半对数坐标
+代码: log.py
+
+
+四.numpy的通用函数
+1.读取csv文件
+列数组元组 = np.loadtxt(
+	文件路径,
+	delimiter=分隔符字符串,	#逗号,空格,句号
+	usecols=选择列的元组,	#读取哪些列
+	unpack=是否类型转换,	#unpack如果设成True,则按下面的定义来转变类型
+	dtype=目标类型列表,
+	converters=转换器字典	#某些类型不能直接转成目标类型,需要先用converters转成一个中间类型
+)
+代码: k.py
+
+
+2.算数平均值
+样本S: [s1, s2, ..., sn]
+算数平均值m = (s1+s2+...sn)/n
+np.mean(S)
+代码: mean.py
+
+
+

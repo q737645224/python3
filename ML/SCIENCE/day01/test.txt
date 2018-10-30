@@ -1,0 +1,8 @@
+
+列表推导式求出100以内质数
+[x for x in range(2, 101) if [y for y in range(2,x) if x%y!=0] ]	#错  不充分
+
+[x for x in range(2, 101) if not [y for y in range(2,x) if x%y=0]]
+[x for x in range(2, 101) if True]
+[x for x in range(2, 101) if not False]
+[x for x in range(2, 101) if not []]

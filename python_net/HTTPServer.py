@@ -19,12 +19,13 @@ class HTTPServer(object):
         self.static_dir = static_dir 
         self.ip = server_addr[0]
         self.port = server_addr[1]
+
         #创建套接字
         self.create_socket()
 
     def create_socket(self):
         self.sockfd = socket()
-        self.sockfd.setsockopt(SOL_SOCKET,SO_REUSEADDR,1)
+        self.sockfd.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
         self.sockfd.bind(self.server_address)
 
     #设置监听等待客户端连接

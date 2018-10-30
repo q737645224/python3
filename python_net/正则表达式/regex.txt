@@ -1,0 +1,424 @@
+1.正则表达式
+  1.动机
+    1. 文本处理已经成为计算机常见工作之一
+    2. 对文本的搜索，定位，提取的逻辑往往比较复杂
+    3. 为了解决上述问题，产生正则表达式技术
+
+  2.定义： 正则表达式即 文本的高级匹配模式，提供{搜索，替代，获取}等功能。本质是由一系列{特属符号}和字符		构成的{字串}，这个字串就是正则表达式。
+
+  3.匹配原理：
+    有普通字符和特殊字符号组成字符串，通过描述字符的重复和位置等行为，达到匹配某一类字符串的目的
+    特点 
+    * 方便进行检索和修改等文本操作
+    * 支持语言众多
+    * 使用灵活多样
+
+  4.学习目标
+    1.熟练掌握所有 正则表达式符号
+    2.实现基本的文本搜索，定为，提取，理解正则用法
+    3.能够使用re模块操作正则表达式
+    2.能够编写简单的正则表达式，读懂较复杂的正则表达式()
+
+2.正则表达式匹配手段
+  通过设定有特殊意义的符号，{描述符号}和{字符的重复行为}及{位置特征}来表示一类特定规则的字符串
+  
+  python ---> re模块（标准库模块）  处理正则表达式
+
+  re.findall(pattern,string)
+  功能：使用正则表达式匹配目标字符串内容
+  参数：pattern：以字符串形式传入一个正则表达式
+        string ： 要匹配的目标字符串
+  返回值 ： 得到列表，将目标字串中能用正则匹配的内容放入列表
+
+3.正则表达式元字符
+  1. 普通字符匹配 
+    （除了后续讲解的特殊字符全是普通字符）
+    元字符：a b c
+    匹配规则：每个字符匹配对应的字符
+
+    可以用普通字符来匹配对应的字符
+
+    In [11]: re.findall("abc",'abcdefghabi')
+    Out[11]: ['abc']
+
+    In [12]: re.findall("成都",'成都的街头走一走')
+    Out[12]: ['成都']
+
+  2. 或
+    元字符:  |
+    匹配规则：匹配符号两侧的正则表达式均可
+
+    In [14]: re.findall("ab|cd",'abcdefghabi')
+    Out[14]: ['ab', 'cd', 'ab']
+
+  3. 匹配单个字符
+    元字符：.
+    匹配规则： 匹配除 \n 外任意一个字符
+    f.o  ---> foo  fao  f@o
+    In [18]: re.findall("w.o",'woo,wao is not wbo')
+    Out[18]: ['woo', 'wao', 'wbo']
+
+  4. 匹配开始位置
+    元字符：  ^
+    匹配规则： 匹配目标字符串的开头位置
+
+    In [20]: re.findall("^Jame","Jame,how are you")
+    Out[20]: ['Jame']
+
+  5. 匹配结束位置
+    元字符 ： $
+    匹配规则： 匹配目标字符串的结束位置
+
+    In [23]: re.findall("py$","hello.py")
+    Out[23]: ['py']
+
+  6. 匹配重复 { * + ？ {n} {m, n} }
+    元字符 ：*
+    匹配规则： 匹配前面出现的正则表达式0次或多次
+    fo*  ---->  f  fo  fooooooooooooooooooo
+
+    In [31]: re.findall("ab*","abcdefae&65abbbbbbbb")
+    Out[31]: ['ab', 'a', 'abbbbbbbb']
+
+  7. 匹配重复
+    元字符 ：  +
+    匹配规则： 匹配前面出现的正则表达式1次或多次
+    ab+  ---》 ab  abbbbb
+
+    In [33]: re.findall(".+py$","hello.py")
+    Out[33]: ['hello.py']
+
+  8. 匹配重复
+    元字符 ： ？
+    匹配规则： 匹配前面出现的正则表达式0次或1次
+    ab?  --->  a   ab
+    
+    In [36]: re.findall("ab?","abcea,adsfabbbbbb")
+    Out[36]: ['ab', 'a', 'a', 'ab']
+
+  9. 匹配重
+    元字符： {n}
+    匹配规则： 匹配前面的正则出现n次
+    ab{3} ---> abbb
+
+    In [39]: re.findall("ab{3}","abcea,adsfabbbbbb")
+    Out[39]: ['abbb']
+
+
+  10. 匹配重复
+
+    元字符 ：  {m,n}
+    匹配规则 ： 匹配前面的正则m ~ n次
+
+    ab{3,5} ---> abbb  abbbb  abbbbb
+
+    in [45]: re.findall("ab{3,5}","ab abbb abbbbabbbbbb")
+    Out[45]: ['abbb', 'abbbb', 'abbbbb']
+
+  11. 匹配字符集合
+
+    元字符： [字符集]
+    匹配规则: 匹配字符集中任意一个字符
+    [abc123] -->  a  b  c 1 2 3  
+
+    In [46]: re.findall("[aeiou]","hello world")
+    Out[46]: ['e', 'o', 'o']
+
+    [0-9]  [a-z]  [A-Z]  [0-9a-z]    #取它们之间的任意的一个字符
+
+    In [47]: re.findall("^[A-Z][a-z]*","Hello world")   ***************
+    Out[47]: ['Hello']
+
+    [_abc0-9]   #混合搭配，一般从哪到哪 放后面
+
+  12.  匹配字符集
+    元字符：  [^...]
+    匹配规则：字符集取非，除了列出的字符之外任意一个字符
+    [^abc] 除了adc 以外的字符
+
+    In [50]: re.findall("[^0-9]+","hello1")
+    Out[50]: ['hello']
+
+  13. 匹配任意（非）数字字符
+    元字符 ： \d   \D
+    匹配规则： \d 匹配任意一个数字字符     [0-9]
+               \D 匹配任意一个非数字字符   [^0-9]
+
+    In [52]: re.findall("1\d{10}","13717776561")
+    Out[52]: ['13717776561']
+
+    In [53]: re.findall("\D+","hello world")
+    Out[53]: ['hello world']
+
+  14. 匹配任意（非）普通字符 
+    （数字字母下划线 普通utf-8字符）
+
+    元字符 ： \w   \W
+    匹配规则： \w  匹配一个普通字符 [0-9a-zA-Z]也能匹配普通汉字
+               \W  匹配一个非普通字符
+
+    In [54]: re.findall("\w+","hello$1")
+    Out[54]: ['hello', '1']
+
+    In [55]: re.findall("\W+","hello$1")
+    Out[55]: ['$']
+
+
+  15.  匹配任意(非)空字符
+    （空格， \r  \n  \t  \v  \f）
+
+    元字符：  \s   \S
+    匹配规则:  \s  匹配任意空字符 不显示
+               \S  匹配任意非空字符
+
+    In [59]: re.findall("\w+\s+\w+","hello   world")
+    Out[59]: ['hello   world']
+
+    In [61]: re.findall("\S+","hello world")
+    Out[61]: ['hello', 'world']
+
+  16.  匹配起止位置
+
+    元字符：  \A   \Z 匹配开头结尾的方式
+    匹配规则：  \A  匹配字符串开头位置   ^
+                \Z  匹配字符串结尾位置   $
+
+    In [63]: re.findall("\Ahi","hi,Tom")
+    Out[63]: ['hi']
+    In [2]: re.findall("is\Z",'This')
+    Out[2]: ['is']
+
+    绝对（完全）匹配：正则表达式要完全匹配目标字符串内容
+    在正则表达式开始和结束位置加上^ $（或者\A \Z）。这样正则表达式必须匹配整个目标字符串才会有结果
+    In [6]: re.findall("\A\w{5}\d{3}\Z",'abcde123')
+    Out[6]: ['abcde123']
+
+  17.  匹配（非）单词边界
+    （普通字符和非普通字符的交接位置认为是 单词边界）
+
+    元字符 ： \b  \B
+    匹配规则 ：  \b  匹配单词边界位置
+                 \B  匹配非单词边界位置
+
+    In [17]: re.findall(r"\bis\b",'This is a test')  
+    Out[17]: ['is']
+
+元字符总结：
+  匹配单个字符 ：  a  .   \d  \D   \w  \W   \s  \S   [...]  [^...]
+  
+  匹配重复： *   +   ？  {n}  {m,n}
+
+  匹配位置： ^  $    \A \Z     \b \B
+
+  其他 ：  |   （）  \
+
+
+4.正则表达式的转义
+
+  正则表达式特殊字符
+  .  *   ?  ^  $    []  {}   ()  \
+
+  在正则表达式中如果想匹配这些特殊字符需要加\进行转义
+
+  e.g.
+  In [23]: re.findall("\[\d+\]",'abc[123]')
+  Out[23]: ['[123]']
+
+  raw 字符串:原始字符串对内容不解释转义，就表达内容原本意义 ---》 原始字符串
+
+  特点 ： 对字符串中的内容不进行转义，即表达原始含义
+
+  r"\b"   ---> \b
+  "\\b"   ---> \b
+
+  e.g. 
+  In [39]: re.findall("\\w+@\\w+\\.cn",'lvze@tedu.cn')
+  Out[39]: ['lvze@tedu.cn']
+
+  In [40]: re.findall(r"\w+@\w+\.cn",'lvze@tedu.cn')
+  Out[40]: ['lvze@tedu.cn']
+
+
+5.贪婪和非贪婪
+  贪婪模式 ： 正则表达式的重复匹配，总是尽可能多的向后匹配内容。
+    *  +   ？  {m,n}
+
+  贪婪 ---》 非贪婪（懒惰） 尽可能少的匹配内容
+
+  *？   +?   ??   {m,n}?
+
+  In [46]: re.findall(r"ab*?",'abbbbbbbbbb')
+  Out[46]: ['a']
+
+  In [47]: re.findall(r"ab+?",'abbbbbbbbbb')
+  Out[47]: ['ab']
+
+
+6.正则表达式分组
+  使用()可以为正则表达式建立子组，子组不会影响正则表达式整体的匹配内容，子组可以看做是正则表达式内部操作的一个整体。
+  子组是在正则表达式[整体匹配]到内容的前提下才会发挥作用，它不影响正则表达式
+ 
+  1.子组的作用：
+    1. 作为内部整体，可以改变某些元字符的行为
+      In [52]: re.search(r"(ab)+",'abababab').group()
+      Out[52]: 'abababab'
+
+      re.search(r"\w+@\w+\.(com|cn)",'lvze@tedu.cn').group()
+
+    2. 子组匹配内容可以被单独获取
+     re.search(r"\w+@\w+\.(com|cn)",'lvze@tedu.com').group(1)
+     Out[59]: 'com'
+ 
+    子组注意事项
+    * 一个正则表达式中可以有多个子组，
+    *子组一般由外到内由左到右称之为，第一，第二。。。子组
+    * 子组不要出现重叠的情况，嵌套也不宜尽量简单
+
+  2.捕获组和非捕获组 （命令组，未命名组）
+    格式 ： （?P<name>pattern）
+    re.search(r"(?P<dog>ab)+",'abababab').group()
+        作用 ： 1 方便通过名字更方便获取和区分某组的内容
+                2  捕获组可以重复调用
+  	    格式：(?P=name)
+         e.g.  (?P<dog>ab)cd(?P=dog)  ===>  abcdab
+    In [69]: re.search(r"(?P<dog>ab)cdef(?P=dog)",'abcdefab').group()
+    Out[69]: 'abcdefab'
+
+7.正则表达式的匹配原则
+  1. 正确性  能够正确匹配目标内容
+  2. 排他性  除了匹配的目标内容，尽可能不会有不需要的内容
+  3. 全面性  对目标字符串可能的情况要考虑全面不漏
+   能 排 全
+
+8.re模块的使用
+
+  regex = re.compile(pattern,flags = 0)
+    功能 ： 生成正则表达式对象
+    参数 ： pattern 正则表达式
+            flags  功能标志位，丰富正则表达式的匹配
+    返回值：返回一个正则表达式对象
+
+  re.findall(pattern,string,flags = 0)
+    功能 ： 根据正则表达式匹配目标字串内容
+    参数 ： pattern  正则表达式
+            string   目标字符串
+    返回值：列表 里面是匹配到的内容
+            **如果正则表达式有子组，则只返回子组中的内容
+
+  regex.findall(string,pos,endpos)
+    功能 ： 根据正则表达式匹配目标字串内容
+    参数 ：  string   目标字符串
+             pos,endpos : 截取目标字符串的起止位置进行匹配，默认是整个字符串  e.g. 1 ，17
+    返回值： 列表 里面是匹配到的内容
+             如果正则表达式有子组，则只返回子组中的内容
+
+  re.split(pattern,string,flags = 0)
+    功能 ： 通过正则表达式匹配到的内容切割目标字符串
+    参数 ： pattern  正则
+            string   目标字串
+    返回值 ： 以列表形式返回切割后的内容
+
+  re.sub(pattern,replace,string,max,flags)   (p,r,str,max,flags)
+    功能: 替换正则表达式匹配内容
+    参数： pattern  正则
+           replace  替换的内容
+           string   目标字符串
+           max      设定最多替换几处
+    返回值 ： 替换后的字符串
+
+  re.subn(pattern, replace, string, max, flags)
+    功能和参数同sub
+    返回值多一个实际替换了几处 为一个元组
+
+  re.finditer(pattern,string,flags)
+    功能： 使用正则匹配目标字串
+    参数：  pattern  正则
+            string   目标字串
+    返回值： 迭代对象 ----》 迭代内容为 match对象   .group
+
+  re.fullmatch(pattern,string,flags)
+    功能 ： 完全匹配一个字符串
+    参数：  pattern  正则
+            string   目标字串
+    返回值：match对象，匹配到的内容
+
+  re.match(pattern,string,flags)
+    功能 ： 匹配一个字符串起始内容
+    参数：  pattern  正则
+            string   目标字串
+    返回值：match对象，匹配到的内容
+
+
+  re.search(pattern,string,flags)
+    功能 ： 匹配 {第一个符合} 条件的字符串
+    参数：  pattern  正则
+            string   目标字串
+    返回值：match对象，匹配到的内容
+
+
+  regex 对象的属性
+
+  flags   标志位数值
+  pattern  正则表达式
+  groups  子组个数
+  groupindex  获取捕获组字典，键为组名值是第几组
+
+
+作业:
+1.熟悉元字符使用   a . \d \D \w \W \s \S \b \B  * + ? {}  []
+2.使用compile对象调用正则表达式方法
+3读取一个文本，匹配文本中所有的
+  *以大写字母开头的单词（包含特殊字符的不算）
+  *数字 包括整数，小数，整数，负数，分数，百分数
+1. 读取一个文本
+   匹配文本中所有以大写字母开头的单词
+   匹配文本中所有数字 
+   数字类型：234  -12  1.23  40%  1/2 
+2. 熟练元字符的使用规则
+3. 将finditer  match  search  sub  split 使用regex对象调用练习
+4. 复习ftp文件服务器项目 （项目思路和项目代码）
+
+
+
+
+end', 'endpos', 'expand', 'group', 'groupdict', 'groups', 'lastgroup', 'lastindex', 'pos', 're', 'regs', 
+'span', 'start', 'string'
+
+属性变量：
+  pos     匹配目标字符串的开始位置
+  endpos  匹配目标字符串的结束位置
+
+  re     正则表达式
+  string 目标字符串
+  lastgroup 最后一组的名字
+  lastindex  最后一组是第几组
+
+属性方法
+  span()  匹配内容的起止位置
+  start() 匹配内容的开始位置
+  end()   匹配内容的结束位置
+  group()
+  功能：获取mantch对象对应的内容
+  参数：默认为0表示获取整个正则匹配的内容
+        如果为序列号或者子组名则为获取某个子组匹配的对应内容
+  返回值：返回得到的字符串
+  groupdict()功能：将所有捕获组形成字典，组名为键，匹配内容为值
+
+
+
+flags 参数的使用  功能标志位
+re.compile re.findall re.search re.match
+re.finditer re.fullmatch re.sub re.subn re.splist
+
+作用：辅助正则表达式，丰富匹配结果  
+  e.g. re.compile(pattern, flags = re.I)   匹配多种辅助手段 （ re.i|re.M ）
+
+参数：I = IGNORECASE 匹配是忽略字母的大小写
+      S = DOTALL 作用于元字符，使"."可以匹配到\n
+      M = MULTILINE 作用于^ $ 使其可以匹配每一行开头结尾位置
+      X = VERBOSE 可以给正则添加注释
+  使用多个标志位使用安位或链接
+  e.g.
+  flags = re.X | re.I
+
+
