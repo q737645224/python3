@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	//1. 闰年判断
+	function isRun (year){
+		return year % 400 == 0 || (year % 100 != 0 && year % 4 == 0);
+	}
+
+	function calculateDate(){
+		//日期计算
+		//1.接收用户输入，转换数据类型
+		var year = Number(prompt("请输入年份"));
+		var month = Number(prompt("请输入月份"));
+		var day = Number(prompt("请输入日期"));
+		//总天数
+		var dayNum = 0;
+
+		//2. 相隔的年份对应天数相加
+		for(var i = 1990; i < year; i ++){
+			dayNum += 365;
+			//闰年判断
+			if(isRun(i))
+			dayNum ++;
+		}
+
+		//3. 当前年中经过的天数
+		for(var j = 1; j < month; j ++){
+			switch(j){
+				case 1 :
+				case 3 :
+				case 5 :
+				case 7 :
+				case 8 :
+				case 10 :
+					dayNum += 31;
+					break;
+				case 4 :
+				case 6 :
+				case 9 :
+				case 11 :
+					dayNum += 30;
+					break;
+				case 2 :
+					dayNum += 28;
+					if(isRun(year))
+					dayNum ++;		
+			}
+		}
+		dayNum += day;
+		//余数范围 0 - 6 周日 - 周六
+		var weekDay = dayNum % 7;
+		var show = "";
+		switch(weekDay){
+			case 0 :
+				show = "日";
+				break;
+			case 1 :
+				show = "一";
+				break;
+			case 2 :
+				show = "二";
+				break;
+			case 3 :
+				show = "三";
+				break;
+			case 4 :
+				show = "四";
+				break;
+			case 5 :
+				show = "五";
+				break;
+			case 6 :
+				show = "六";
+				break;
+		}
+		alert(year+"年"+month+"月"+day+"日"+"是星期"+show);
+
+	}
+
+  </script>
+ </head>
+ <body>
+	<input type="button" value="日期计算" onclick="calculateDate();">
+ </body>
+</html>

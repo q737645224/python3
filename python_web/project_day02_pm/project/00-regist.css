@@ -1,0 +1,104 @@
+/*1. 清除浏览器默认样式*/
+body,h2,p{
+	margin:0;
+}
+/*2. 从外向里添加样式*/
+#container{
+	width:990px;
+	margin:0 auto;
+}
+/*3. 标题样式*/
+#container h2{
+	font-weight:normal;
+	color:#b2b2b2;
+	border-bottom:1px solid #d3d3d3;
+	padding-bottom:20px;
+	margin-bottom:35px;
+	padding-top:50px;
+}
+
+/*4. 左右两列布局*/
+#regist>p{
+	float:left;
+	position:relative;
+}
+#regist>p>a{
+	position:absolute;
+	width:145px;
+	height:44px;
+	border:1px solid #85b55c;
+	text-align:center;
+	line-height:44px;
+	border-radius:5px;
+	text-decoration:none;
+	color:#85b55c;
+	bottom:20px;
+	left:175px;
+}
+#regist>form{
+	float:right;
+	margin-right:45px;
+	margin-top:70px;
+}
+.form-line{
+	margin-top:20px;
+/*子元素都浮动，父元素高度为0，外边距显示出现问题*/
+	height:40px;
+}
+.form-line>p{
+	color:#A7A9A9;
+	float:left;
+	width:64px;
+	height:40px;
+	text-align:right;
+	line-height:40px;
+	margin-right:40px;
+
+}
+.form-line>div{
+	float:left;
+	width:300px;
+}
+.form-control{
+	width:288px;
+	height:40px;
+	box-sizing:border-box;
+	border:1px solid #e3e3e3;
+	outline:none;
+	padding:0 12px;
+	font-size:16px;
+}
+.forget-pwd{
+	float:right;
+}
+.forget-pwd>a{
+	color:#A7A9A9;
+}
+.isSave{
+	width:16px;
+	height:16px;
+	vertical-align:middle;
+}
+.form-line label{
+	color:#A7A9A9;
+}
+.btn{
+	width:145px;
+	height:38px;
+	border:1px solid #64A131;
+	border-radius:5px;
+	background:#64A131;
+	color:#fff;
+	font-size:16px;
+	margin-right:10px;
+}
+.registBtn{
+	background:#fff;
+	color:#64A131;
+	margin-right:0;
+}
+
+
+
+
+

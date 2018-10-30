@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	var reg1 = /microsoft/ig;
+	var reg2 = /\d{6,12}/ig;
+	var reg3 = new RegExp('microsoft','ig');
+	//使用new关键字，以字符串形式设置匹配模式，需要对特殊字符进行转义
+	var reg4 = new RegExp('\\d{6}','ig');
+	var str = "hello123456789";
+	var str2 = "123123123"
+	var r1 = reg4.test(str); //true
+	//手动调整lastIndex，每次都从0开始匹配
+	reg4.lastIndex = 0;
+	var r2 = reg4.test(str2); //
+	reg4.lastIndex = 0;
+	var r3 = reg4.test(str);
+	console.log(r1,reg4.lastIndex);
+	console.log(r2,reg4.lastIndex);
+	console.log(r3,reg4.lastIndex);
+
+
+
+
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+		#d1{
+			width:300px;
+			height:300px;
+			background:red;
+			/*border-top:1px solid blue;*/
+			/*padding:0.1px;*/
+		}
+		.c1{
+			width:200px;
+			height:200px;
+			background:green;
+			margin-top:100px;
+		}
+  </style>
+ </head>
+ <body>
+ <!-- 
+		问题 ：给第一个子元素（块元素）添加margin-top,会在父元素上起作用，整体向下移动
+		解决 ：
+			1. 给父元素添加边框（border-top）
+			2. 给父元素添加内边距 （padding-top:0.1px;）
+	-->
+	<div id="d1">
+		<span>span</span>
+		<div class="c1"></div>
+	</div>
+ </body>
+</html>

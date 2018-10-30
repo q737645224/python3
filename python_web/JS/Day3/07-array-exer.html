@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	var input = Number(prompt("请输入数字"));
+	var arr = [];
+	while(input > 0){
+		//转换二进制
+		arr[arr.length] = input % 2;
+		//结果是小数,取整数商参与下一次除2
+		input = parseInt(input / 2);	
+	}
+	arr.reverse(); //反转数组
+	var r = arr.join(''); //拼接字符串
+	console.log(r);
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

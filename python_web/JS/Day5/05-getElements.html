@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	.c1{
+		color:red;
+	}
+  </style>
+ </head>
+ <body>
+	<p class="c1">段落1</p>
+	<p id="box">段落2</p>
+	<p class="c1">段落3</p>
+	<p>段落4</p>
+	<p class="c1">段落5</p>
+	用户名：<input type="text" name="uname"><br>
+	性别 : <input type="radio" name="gender" value="male">男
+	<input type="radio" name="gender" value="female">女
+<!-- 	点击按钮时，打印输入框的内容 -->
+	<input type="button" value="点击" onclick="showInfo()">
+
+
+  <script type="text/javascript">
+	//1. 根据标签名获取元素节点
+	var arr = document.getElementsByTagName('p');
+	console.log(arr);
+	var p1 = arr[0];
+	console.log(p1.innerHTML);
+
+	p1.innerHTML = "<b>动态修改段落一</b>";
+	var p2 = arr[1];
+	p2.innerText = "<b>段落二文本内容</b>"
+
+	//2. 根据类名获取元素
+	var c1s = document.getElementsByClassName('c1');
+	console.log(c1s);
+
+	//3. 获取表单元素
+	var uname = document.getElementsByName('uname')[0];
+	console.log(uname);
+
+	function showInfo(){
+		//value用来获取表单元素的值
+		console.log(uname.value);
+		p1.innerHTML = uname.value;
+
+	}
+
+	//4. 获取元素节点
+	var p = document.getElementById('box');
+	p.innerHTML = "id=box的p元素";
+
+
+  </script>
+
+ </body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	var timer; //注意变量作用域
+	function start(){
+		timer = setInterval(function(){ //定时器ID
+			var date = new Date();
+			console.log(date);
+		},1000);
+	}
+	function stop(){
+		//定时器ID默认从整数1开始分配
+		clearInterval(1);
+	}
+
+	function closeWindow(){
+		//1. 弹框
+		var res = confirm("确认关闭？");
+		if(res == true){ //点击确定
+			//2. 5秒后关闭
+			setTimeout("window.close();",5000);
+		}
+	}
+  </script>
+
+ </head>
+ <body>
+	<input type="button" value="开始" onclick="start()">
+	<input type="button" value="结束" onclick="stop()">
+	<br>
+	<input type="button" value="关闭网页" onclick="closeWindow()">
+ </body>
+</html>

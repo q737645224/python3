@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	window.onload = function (){
+		//1. 获取元素节点
+		var form = document.getElementsByTagName('form')[0];
+		var uname = document.getElementsByTagName('input')[0];
+		var span = document.getElementsByTagName('span')[0];
+
+		//2. 获取焦点和失去焦点
+		uname.onfocus = function(){
+			console.log("获取焦点");
+		};
+		uname.onblur = function(){
+			if(uname.value == ""){
+				span.innerHTML = "用户名不能为空";
+			}
+			console.log("失去焦点");
+		};
+
+		//3. 监听输入内容的改变
+		uname.oninput = function (){
+			//console.log(uname.value);
+		};
+		uname.onchange = function(){
+			console.log(uname.value);
+		};
+
+		//4. 验证表单是否可以提交
+		form.onsubmit = function(){
+			if(uname.value == ""){
+				span.innerHTML = "用户名不能为空";
+				span.style.color = "red";
+				//表单不能提交给服务器
+				return false;
+			}
+			//可以提交
+			return true;
+		};
+
+	};
+
+
+  </script>
+ </head>
+ <body>
+	<form method="post" action="login">
+		<p>
+			用户名称 ：
+			<input type="text" name="uname">
+			<span class=""></span>
+		</p>
+		<p>
+			用户密码 ：
+			<input type="password" name="upwd">
+		</p>
+		<input type="submit">
+	</form>
+ </body>
+</html>

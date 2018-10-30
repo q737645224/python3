@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	window.onload = function(){
+		var input = document.getElementsByTagName('input')[0];
+		//绑定键盘事件
+		input.onkeydown = function (evt){
+			console.log("keydown",evt);
+		};
+		input.onkeypress = function (evt){
+			console.log("keypress",evt);
+		};
+
+	};
+
+
+  </script>
+ </head>
+ <body>
+	<input type="text" name="uname">
+  
+ </body>
+</html>

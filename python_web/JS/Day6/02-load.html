@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script>
+	function show(){
+		var p = document.getElementsByTagName('p')[0];
+		console.log(p);	
+	}
+	//等待文档加载完毕之后才能获取元素节点
+	window.onload = function (){
+		var p = document.getElementsByTagName('p')[0];
+		console.log(p);	
+	};
+
+  </script>
+ </head>
+ <body>
+	<h1 onclick = "show()">asdasd</h1>
+	<p>asdasdasd</p>
+ </body>
+</html>

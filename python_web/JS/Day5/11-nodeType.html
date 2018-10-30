@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<h1 id="box" class="c1" style="color:red;">
+		一级标题
+		<span>span文本</span>
+		span后的普通文本
+		<strong>strong标签</strong>
+	</h1>
+	<script type="text/javascript">
+		//1. 获取元素节点
+		var h1 = document.getElementById('box');
+		var span = document.getElementsByTagName('span')[0];
+		console.log(h1.nodeType,h1.nodeName);
+		//获取父节点
+		console.log(h1.parentNode);
+		//获取子节点
+		console.log(h1.childNodes);
+		console.log(h1.children);
+		//获取下一个兄弟节点
+		console.log(span.nextSibling);
+		console.log(span.nextElementSibling);
+		//获取前一个兄弟节点
+		console.log(span.previousSibling);
+		console.log(span.previousElementSibling);
+		//获取属性节点的集合
+		console.log(h1.attributes);
+		for(var i = 0; i<h1.attributes.length;i++){
+			//遍历属性节点
+			var attr = h1.attributes[i];
+			console.log(attr.nodeType,attr.nodeName,attr.nodeValue);
+		}
+
+
+
+
+
+
+	</script>
+ </body>
+</html>

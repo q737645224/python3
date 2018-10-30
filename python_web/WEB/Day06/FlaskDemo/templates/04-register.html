@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/register_teacher" method="post">
+        <p>
+            姓名 : <input type="text" name="tname">
+        </p>
+        <p>
+            年龄 : <input type="number" name="tage">
+        </p>
+        <p>
+            课程 :
+            <select name="course_id">
+                {% for course in params.courses %}
+                <option value="{{course.id}}">{{course.cname}}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <input type="submit" value="提交">
+        </p>
+    </form>
+</body>
+</html>

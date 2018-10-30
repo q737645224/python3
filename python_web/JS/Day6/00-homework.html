@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	table{
+		width:600px;
+		border:1px solid black;
+		border-collapse:collapse;
+	}
+	td{
+		border:1px solid black;
+		text-align:center;
+	}
+
+  </style>
+ </head>
+ <body>
+	<p>
+		<input type="text" name="gname" placeholder="商品名称">
+		<input type="text" name="gprice" placeholder="商品价格">
+		<input type="text" name="gcount" placeholder="商品数量">
+		<input type="button" value="增加" onclick="addGoods()">
+	</p>
+	<table>
+		<thead>
+			<tr>
+				<td>商品名称</td>
+				<td>商品价格</td>
+				<td>商品数量</td>
+				<td>操作</td>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+		
+	</table>
+
+	<script type="text/javascript">
+		//实现点击函数
+		function addGoods(){
+			var tbody = document.getElementsByTagName('tbody')[0];
+
+			//1. 获取文本框节点及输入内容
+			var gname = document.getElementsByTagName('input')[0].value; //获取输入内容
+			var gprice = document.getElementsByTagName('input')[1].value;
+			var gcount = document.getElementsByTagName('input')[2].value;
+
+			//2. 创建节点并添加
+			//每次点添加按钮，需要在表格中插入一行四个单元格tr.appendChild(td)
+			var tr = document.createElement('tr');
+
+			var tdName = document.createElement('td');
+			tdName.innerHTML = gname;
+
+			var tdPrice = document.createElement('td');
+			tdPrice.innerHTML = gprice;
+
+			var tdCount = document.createElement('td');
+			tdCount.innerHTML = gcount;
+
+			var tdOper = document.createElement('td');
+			//操作按钮
+			var updateBtn = document.createElement('button');
+			updateBtn.innerHTML = "修改";
+			var deleteBtn = document.createElement('button');
+			deleteBtn.innerHTML = "删除";
+			//将按钮添加到单元格
+			tdOper.appendChild(updateBtn);
+			tdOper.appendChild(deleteBtn);
+
+			//添加操作
+			tr.appendChild(tdName);
+			tr.appendChild(tdPrice);
+			tr.appendChild(tdCount);
+			tr.appendChild(tdOper);
+
+			tbody.appendChild(tr);
+
+
+		}
+	</script>
+ </body>
+</html>

@@ -1,0 +1,182 @@
+回顾
+1.模板的语法
+	1.变量
+		在视图中：
+			return render_template('xx.html',变量1=值1,变量2=值2)
+			return render_template('xx.html',params=locals())
+			
+			允许传递到模板中变量的数据类型：
+				数字，字符串，字典，列表，元组，对象
+		在模板中：
+			{{变量}}
+			{{uname}}
+			{{list[1]}} 或 {{list.1}}
+			{{person.show()}}
+	2.过滤器
+		在变量输出之前改变变量的值
+		{{变量|过滤器}}
+		过滤器：
+			lower
+			upper
+			capitalize
+			trip
+	3.控制结构
+		1.if 结构
+			{% if 条件 %}
+				满足条件要执行的代码块(html/变量/过滤器)
+			{% endif %}
+
+			{% if 条件 %}
+			{% else %}
+			{% endif %}
+		2.for 结构
+			{% for 变量 in 列表，元组，字典%}
+
+			{% endfor %}
+		3.宏
+			声明：
+			{% macro 函数名() %}
+				函数体(html/结构/变量/过滤器)
+			{% endmacro %}
+			调用：
+			{{ 函数名() }}
+
+			允许将宏声明在独立的网页中：
+			1.创建网页 - macro.html
+				{% macro 函数名() %}
+					函数体(html/结构/变量/过滤器)
+				{% endmacro %}
+			2.在网页中导入macro.html
+				{% import 'macro.html' as macros %}
+
+				{{macros.函数名()}}
+		4.模板的包含
+			{% include 'xxx.html' %}
+	4.静态文件
+		1.在项目目录中创建 static 目录用于保存静态文件
+		2.在模板中使用静态文件
+			/static/...
+
+			<img src="/static/img/xxx.jpg">
+			<img src="{{url_for('static',filename='img/a.jpg') }}">
+	5.继承
+		1.父模板中
+			{% block 块名 %}
+			{% endblock %}
+
+			block 作用：定义在子模板中允许被修改的内容部分
+				1.在父模板中是被正常显示的
+				2.在子模板中可以被重写			
+		2.子模板中
+			1.使用 {% extends '父模板名称' %} 实现继承
+			2.使用 {% block 块名 %}..{% endblock %}
+				覆盖父模板中的同名内容
+			3.使用 {{super()}} 调用父模板中的内容
+====================================================
+1.修改配置
+	app = Flask(__name__,template_folder='muban',static_url_path='/s',static_folder='/sta')
+		1.template_folder
+			设置模板的保存路径
+		2.static_url_path
+			设置静态文件的访问路径(映射到WEB中的访问路径)
+		3.static_folder
+			设置静态文件的保存目录(映射到项目中的目录名称)
+2.请求(request) 和 响应(response)
+	1.HTTP协议
+	2.请求对象 - request
+		request - 请求对象，封装了所有与请求相关的信息，如：请求消息头，请求数据，请求路径，... ...
+		在 Flask 中，请求信息被封装到 request 对象中
+			from flask import request
+		1.request的成员(常用)
+			1.scheme : 获取请求方案(协议)
+			2.method : 获取本次请求的请求方式
+			3.request.args : 获取使用get请求方式提交的数据
+			4.request.form : 获取使用post请求方式提交的数据
+			5.request.values : 获取GET和POST请求方式提交的数据(GET和POST通用)
+			6.request.cookies : 获取cookies中的信息
+			7.request.headers : 获取请求消息头的信息
+			8.request.path : 获取请求的url地址
+			9.request.files : 获取用户上传的文件
+			10.request.full_path : 获取请求的完整路径
+			11.request.url : 获取访问地址
+		2.获取请求提交的数据
+			1.get 请求方式
+				get请求的数据是放在 QueryString 中的
+					request.args 封装的就是 get 请求的数据，类型为字典
+						request.args['name'] : 获取 name 对应的值
+						request.args.get('name') : 同上
+						request.args.getlist('name_list') : 获取 name_list 列表数据
+			2.post 请求方式
+				post请求的数据是放在 form 中的
+					request.form 封装的就是 post 请求的数据，类型为 字典
+						request.form['name'] : 获取 name 对应的值
+						request.form.get('name') : 用上
+						request.form.getlist('name_list') : 获取name_list列表数据
+
+				练习：
+					1.访问地址 localhsot:5000/post,能够去往 04-form.html
+						包含一个表单，post请求方式，提交地址 自定义
+							1. 文本框 ，用户名
+							2. 密码框 ，用户密码
+							3. 邮件框 ，用户邮箱 <input type="email">
+							4. 文本框 ，真实姓名 
+							5. 提交按钮
+					2.提交时，提交到 post_do
+					3.post_do
+						获取所有请求提交的数据，并打印在终端上
+	3.响应对象
+		响应对象其实就是要响应给客户端的内容，可以是普通字符串，可以是模板 或者 是重定向
+		@app.route('/')
+		def index():
+			#return "Hello World"
+			#return render_template('xxx.html')
+			# 以上两种行为，本质上响应回去的都是字符串
+		1.构建响应对象，再响应给客户端
+			注意：不是直接响应字符串，而是响应对象
+				响应对象可以包含响应的字符串，同时也可以实现其他的响应操作
+			在 flask 中，使用 make_response() 构建响应对象
+				from flask import make_response
+
+				...
+				resp = make_response('响应内容')
+				# 实现其他的响应操作，如：添加cookies，...
+				return resp
+		2.重定向
+			1.什么是重定向
+				由服务器端通知客户端重新向新的地址发送请求
+			2.语法
+				from flask import redirect
+
+				... ...
+				resp = redirect('重定向地址')
+				return resp
+	4.文件上传
+		1.注意问题
+			表单中
+				提交方式必须为 post
+				enctype属性必须设置为 multipart/form-data
+		2.服务器端
+			1.通过 request.files 获取上传的文件
+				f = request.files['文件框name属性值']
+			2.通过 f.save(保存路径) 将文件保存到指定目录处 
+				通过 f.filename 获取文件的名称
+				filename = f.filename
+				f.save('static/'+filename)
+
+		任务：
+			将上传的文件名称更改为 当前的时间(年月日时分秒微秒).扩展名 再保存到服务器上
+
+
+
+
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__enter__', '__eq__', '__exit__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_cached_json', '_get_data_for_json', '_get_file_stream', '_get_stream_for_parsing', '_load_form_data', '_parse_content_type', 'accept_charsets', 'accept_encodings', 'accept_languages', 'accept_mimetypes', 'access_route', 'application', 'args', 'authorization', 'base_url', 'blueprint', 'cache_control', 'charset', 'close', 'content_encoding', 'content_length', 'content_md5', 'content_type', 'cookies', 'data', 'date', 'dict_storage_class', 'disable_data_descriptor', 'encoding_errors', 'endpoint', 'environ', 'files', 'form', 'form_data_parser_class', 'from_values', 'full_path', 'get_data', 'get_json', 'headers', 'host', 'host_url', 'if_match', 'if_modified_since', 'if_none_match', 'if_range', 'if_unmodified_since', 'input_stream', 'is_json', 'is_multiprocess', 'is_multithread', 'is_run_once', 'is_secure', 'is_xhr', 'json', 'list_storage_class', 'make_form_data_parser', 'max_content_length', 'max_form_memory_size', 'max_forwards', 'method', 'mimetype', 'mimetype_params', 'on_json_loading_failed', 'parameter_storage_class', 'path', 'pragma', 'query_string', 'range', 'referrer', 'remote_addr', 'remote_user', 'routing_exception', 'scheme', 'script_root', 'shallow', 'stream', 'trusted_hosts', 'url', 'url_charset', 'url_root', 'url_rule', 'user_agent', 'values', 'view_args', 'want_form_data_parsed']
+
+
+http://localhost:5001/form_do?uname=zhouzhiruo&upwd=songqingshu
+
+http://主机:端口/请求路径?参数1=值1&参数2=值2
+
+http://localhost:5001/form_do?uname=guojing&upwd=huangrong
+
+
+

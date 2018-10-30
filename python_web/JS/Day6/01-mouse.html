@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	h1,p{
+		width:300px;
+		height:300px;
+	}
+	h1{
+		background:red;
+	}
+	p{
+		background:green;
+	}
+  </style>
+ </head>
+ <body>
+	<h1 onclick="alert('单击事件');">一级标题</h1>
+	<p>段落</p>
+	<script type="text/javascript">
+		var p = document.getElementsByTagName('p')[0];
+		p.ondblclick = function(){
+			alert("双击事件");
+		};
+		p.onmouseover = function(){
+			console.log("鼠标移入");
+		};
+		p.onmousemove = function(){
+			console.log("鼠标在元素中移动");
+		};
+		p.onmouseout = function(){
+			console.log("鼠标移出");
+		};
+
+
+
+
+
+	</script>
+ </body>
+</html>

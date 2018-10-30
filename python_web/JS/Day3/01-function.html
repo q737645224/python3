@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	//1. 无参数，无返回值的函数
+	function f1 (){
+		console.log("f1");
+	}
+	f1(); //函数调用
+
+	//2. 有参数，无返回值
+	function f2(a){
+		console.log(a);
+	}
+	f2("f2"); 
+	//3. 有参数，有返回值
+	function sum(a,b){
+		/*
+		var c = a + b;
+		return c;
+		*/
+		console.log(a,b);
+		return a + b;
+	}
+	var res = sum(10,20);
+	console.log(res);
+	//var input = prompt();
+
+	var r1 = sum(10);
+	console.log(r1);
+
+	var r2 = sum(10,20,30);
+	console.log(r2);
+
+	//4. 匿名函数
+	var f4 = function (){
+		console.log("f4");
+	};
+	f4();
+	console.log(f4);
+
+	(function (a,b){
+		console.log("自执行",a,b);
+	})(10,20);
+
+
+
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

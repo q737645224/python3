@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	#d1{
+		color:red;
+	}
+	.c1{
+		background:green;
+	}
+	.c2{
+		border:3px solid blue;
+	}
+  </style>
+ </head>
+ <body>
+	<h1>一级标题</h1>
+	<p>段落标题</p>
+ </body>
+	<script type="text/javascript">
+		//获取元素节点
+		var h1 = document.getElementsByTagName('h1')[0];
+		var p = document.getElementsByTagName('p')[0];
+		//设置属性
+		h1.setAttribute('id','d1');
+		h1.setAttribute('class','c1');
+		//获取属性值
+		console.log(h1.getAttribute('id'),h1.getAttribute('class'));
+		//移除操作
+		h1.removeAttribute('class');
+		
+		//class="c1 c2"
+		p.setAttribute('class','c1 c2');
+		//点语法操作属性
+		p.id = "d1";
+		console.log(p.id,p.className);
+		p.className = "";
+		p.id = null;
+
+
+
+
+
+	</script>
+</html>

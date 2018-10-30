@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<div id="" class="">
+		
+	</div>
+	<input type="text" name="uText">
+	<input type="button" value="传值" onclick="show()">
+ 
+ </body>
+	<script type="text/javascript">
+		function show(){
+			var div = document.getElementsByTagName('div')[0];
+			var input = document.getElementsByName('uText')[0];
+			div.innerHTML = "<h1>"+input.value+"</h1>";
+		}
+	</script>
+</html>

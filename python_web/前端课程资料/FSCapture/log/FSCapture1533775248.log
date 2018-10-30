@@ -1,0 +1,9 @@
+[18-08-09,08:40:48-788, tId=2848] config start...
+[18-08-09,08:40:48-799, tId=2848] config ...cfg_get_str: shared\trace\trace_ext
+[18-08-09,08:40:48-799, tId=2848] config ...cfg_open_key:shared\trace\trace_ext
+[18-08-09,08:40:48-799, tId=2848] config ...cfg_open
+[18-08-09,08:40:48-800, tId=2848] config ...cfg_close
+[18-08-09,08:40:48-800, tId=2848] config ...cfg_get_int32: shared\trace\trace_level
+[18-08-09,08:40:48-800, tId=2848] config ...cfg_open_key:shared\trace\trace_level
+[18-08-09,08:40:48-800, tId=2848] config ...cfg_open
+[18-08-09,08:40:48-800, tId=2848] config ...cfg_close

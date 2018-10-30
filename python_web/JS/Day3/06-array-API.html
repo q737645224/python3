@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	//1. toString()
+	var arr = [1,2,3];
+	var res = arr.toString();
+	console.log(arr,res);
+
+	//2. join()
+	var r1 = arr.join();
+	console.log(r1);
+	var r2 = arr.join("-");
+	console.log(r2);
+
+	//3. reverse()
+	var r3 = arr.reverse();
+	console.log(r3,arr); //[3,2,1]
+	console.log(arr.reverse());
+
+	//4. sort()
+	var arr2 = [200,10,300,54,5];
+	var r4 = arr2.sort();
+	console.log(r4,arr2);
+
+	//自定义排序函数
+	function sortAsc(a,b){
+		//b - a 两两比较，倒序排列
+		return b - a;
+	}
+	arr2.sort(sortAsc);
+	console.log(arr2);
+
+	//5. push()
+	var arr3 = ["hello"];
+	var res1 = arr3.push("小明");
+	console.log(res1,arr3);
+	var res2 = arr3.push(1,2,3);
+	console.log(res2,arr3);
+
+	//6. pop()
+	var res3 = arr3.pop();
+	console.log(res3,arr3);
+
+	//7. unshift()
+	var res4 = arr3.unshift("first","second","third");
+	console.log(res4,arr3);
+
+	//8.shift()
+	var res5 = arr3.shift();
+	console.log(res5,arr3);
+			
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

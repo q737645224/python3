@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if params.errMsg %}
+    <script>
+        alert('配偶已存在,请重新选择...');
+    </script>
+    {% endif %}
+
+    <form id="frmReg" action="/register_wife" method="post">
+        <p>
+            姓名 : <input type="text" name="wname">
+        </p>
+        <p>
+            年龄 : <input type="number" name="wage">
+        </p>
+        <p>
+            配偶 :
+            <select id="selTea" name="teacher">
+                <option value="-1">===请选择===</option>
+                {% for tea in params.teachers %}
+                <option value="{{tea.id}}">{{tea.tname}}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+
+    <script>
+        window.onload = function(){
+            var frm = document.getElementById('frmReg');
+            frm.onsubmit = function(){
+                var sel = document.getElementById('selTea');
+                if(sel.value == -1){
+                    alert('请选择配偶');
+                    return false;
+                }else{
+                    return true
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="jquery-1.11.3.js"></script>
+
+ </head>
+ <body>
+	<script>
+		var $div = $('<div></div>');
+		$div.attr('id','box');
+		$div.html('动态创建的div');
+		$div.css('color','red');
+
+		var $h1 = $("<h1 id='container' style='color:green;'>动态创建的h1</h1>");
+
+		console.log($div,$h1);
+
+		//将元素添加到网页中
+		$('body').append($div);
+		$('body').prepend($h1);
+
+		//添加兄弟元素
+		var $p = $("<p style='color:blue;'>动态创建段落标签</p>");
+		$div.before($p);
+
+		//创建span标签，添加在h1的后面
+		var $span = $("<span>span普通文本</span>");
+		$h1.after($span);
+
+		//删除元素 remove()
+		$span.remove();
+
+		
+	</script>
+ </body>
+</html>

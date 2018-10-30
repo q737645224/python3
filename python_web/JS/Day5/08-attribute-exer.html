@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<a href="http://www.baidu.com">超链接</a>
+	<input type="button" value="修改链接" onclick="changeLink()">
+ </body>
+ <script type="text/javascript">
+	function changeLink(){
+		//获取元素节点
+		var alink = document.getElementsByTagName("a")[0];
+		//修改链接地址
+		alink.href = "http://www.tmooc.cn";
+		//设置打开方式
+		alink.target = "_blank";
+	}
+ </script>
+</html>

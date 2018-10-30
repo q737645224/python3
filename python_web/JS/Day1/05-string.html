@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	var a = '100';
+	console.log(a.charCodeAt(0));
+
+	var b = "abc";
+	var c = "ABC";
+	console.log(b.charCodeAt(0),c.charCodeAt(0));
+
+	var s1 = "一";
+	console.log(s1.charCodeAt(0));
+	var n1 = s1.charCodeAt(0); //十进制的码值
+	n1 = n1.toString(16);//中文以十六进制表示，转换16进制
+	console.log(n1);
+
+	var s2 = "\u4e00";
+	console.log(s2);
+
+	var s3 ="\u9fa5";
+	console.log(s3);
+	console.log("\'");
+	
+	var m = 100;
+	var n = '100';
+	console.log(m,typeof m);
+	console.log(n,typeof(n));
+
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

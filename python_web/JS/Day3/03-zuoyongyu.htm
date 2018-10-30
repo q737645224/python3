@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	var a = 100;
+	b = 200;
+	function fn(){
+		var c = 300;
+		//所有省略var关键字定义的变量，都是全局变量
+		d = 400;
+		var a = 1000;
+		console.log("fn-"+a);
+	}
+	fn();
+	console.log("外部-"+a);
+
+	function f1(){
+		function f2 (){
+			console.log(a);
+		}
+		f2();
+	}
+	f1();
+
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

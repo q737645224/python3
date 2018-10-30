@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="jquery-1.11.3.js"></script>
+  <script>
+	$(document).ready(function (){
+		var $div = $('div');
+		console.log($div);
+	});
+	$().ready(function (){
+		console.log($('div'));
+	});
+	$(function (){
+		console.log($('div'));
+		//事件绑定
+		$('div').bind('click',function (evt) {
+			alert("div被点击");
+		});
+
+		$('h1').click(function (evt){
+			alert("h1被点击");
+			console.log(this);
+			console.log(evt);
+			console.log(evt.offsetX);
+		});
+	});
+
+	/*
+	window.onload = function(){
+		console.log("window.onload1");
+	};
+	window.onload = function(){
+		console.log("window.onload2");
+	};
+	window.onload = function(){
+		console.log("window.onload3");
+	};
+	*/
+
+  </script>
+
+ </head>
+ <body>
+	<div style="width:200px;height:200px;background:red;"></div>
+	<h1 style="width:200px;height:200px;background:green;"></h1>
+ </body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	//1.开启间歇调用
+
+	/*
+	function f1(){
+		alert("间歇调用");
+	}
+	*/
+	var i = 0;
+	var timerId = setInterval(function(){
+		alert("间歇调用");
+		i ++;
+		if(i == 2){
+			console.log(timerId);
+			//取消定时器
+			clearInterval(timerId);
+		}
+	},1000);
+	
+
+
+
+
+  </script>
+
+ </head>
+ <body>
+  
+ </body>
+</html>

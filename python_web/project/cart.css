@@ -1,0 +1,204 @@
+@charset "utf-8";
+/*清除默认样式，设置基础样式*/
+body,h1,h2,h3,h4,h5,h6,p,ul,ol{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+body{
+	font:12px "微软雅黑",sans-serif;
+	color:#999;
+}
+a{
+	text-decoration:none;
+	color:#999;
+}
+a:hover{
+	color:#64A131;
+}
+img,input{
+	vertical-align:bottom;
+}
+
+#container{
+	width:990px;
+	margin:0 auto;
+}
+
+/*1. 导航部分*/
+#nav{
+	height:30px;
+	background:#eee;
+	line-height:30px;
+}
+#rightNav{
+	float:right;
+}
+#rightNav li{
+	float:left;
+	text-align:center;
+	padding-left:5px;
+}
+#rightNav li b{
+	border-right: 1px solid #99B0CD;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+/*左侧导航*/
+#nav>a>i{
+	display:inline-block;
+	position:relative;
+	width:0;
+	height:0;
+	border:6px solid transparent;
+	border-top:6px solid black;
+	top:4px;
+}
+#nav>a{
+	margin-left:10px;
+}
+/*2. banner*/
+#banner{
+	margin:15px auto;
+}
+#banner img{
+/*	根据父元素宽度取百分比，100% = 990px,高度会自适应*/
+	width:100%;
+}
+
+/*3. 推荐*/
+#commend{
+/*父元素font-size:0;可以解决子元素中，行内（块）元素水平
+缝隙的问题*/
+	font-size:0;
+}
+#commend img{
+	width:240px;
+	margin-right:10px;
+}
+.no-margin{
+/*	!important 表示强制将当前选择器的优先级提升至最高	*/
+	margin:0 !important;
+}
+/*4. main*/
+#main>.title{
+	height:32px;
+	background:#F3F3F3;
+	border:1px solid #E9E9E9;
+	margin-top:25px;
+}
+#main p{
+	float:left;
+	line-height:32px;
+}
+#main .check-box{
+	width:132px;
+}
+#main .check-box>input{
+	vertical-align:middle;
+}
+#main .goods{
+	width:378px;
+}
+#main .price{
+	width:160px;
+	text-align:center;
+}
+#main .count{
+	width:80px;
+	text-align:center;
+}
+#main .t-sum{
+	width:140px;
+	text-align:center;
+}
+#main .action{
+	width:85px;
+	text-align:center;
+}
+/*商品信息*/
+#main .g-item{
+	height:100px;
+	margin-top:20px;
+	border-top: 2px solid #999;
+	border-bottom: 1px solid #999;
+	padding:10px 0;
+}
+#main .check-box img{
+	width:100px;
+}
+
+/*数量操作*/
+.count a{
+	float:left;
+	width:16px;
+	height:18px;
+	text-align:center;
+	line-height:18px;
+	border:1px solid #CACBCB;
+	padding:1px 0;
+}
+.count input{
+	float:left;
+	border-top:1px solid #CACBCB;
+	border-bottom:1px solid #CACBCB;
+	border-left:0;
+	border-right:0;
+	width:42px;
+	height:18px;
+	text-align:center;
+	font-size:12px;
+	color:#333;
+
+}
+/*工具栏*/
+#main .cart-toolbar{
+	height:50px;
+	line-height:50px;
+/*上下外边距可设置为10px*/
+	margin:30px auto;
+}
+.tool-bar{
+	float:right;
+}
+#main .tool-bar p{
+	float:left;
+	height:50px;
+	line-height:50px;
+}
+.tool-bar span{
+	font-weight:700;
+	color:#e4393c;
+	margin:0 10px;
+	font-size:16px;
+}
+#main .submit-btn{
+	width:80px;
+	font-size:20px;
+	background:#e4393c;
+	color:white;
+	font-weight:700;
+	text-align:center;
+	height:50px;
+	line-height:50px;
+/*修改鼠标外观*/
+	cursor:pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

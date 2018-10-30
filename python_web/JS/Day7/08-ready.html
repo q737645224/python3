@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript" src="jquery-1.11.3.js">
+  </script>
+  <script type="text/javascript">
+		//页面加载完毕后执行
+		$(document).ready(function(){
+			//alert('hello1');
+		});
+		$().ready(function(){
+			//alert('hello2');
+		});
+		$(function(){
+			//获取元素
+			$('div').bind('click',function(evt){
+				console.log(evt);
+				console.log(this);
+				this.style.color = "red";
+				//原生DOM对象转换jquery对象
+				var $this = $(this);
+				$this.css('background',"green");
+			});
+		});
+
+
+
+		/*
+		window.onload = function(){
+			alert("hello");
+		};
+		window.onload = function(){
+			alert("hello2");
+		};
+		*/
+  </script>
+ </head>
+ <body>
+	<div id="" class="">
+		div
+	</div>
+ </body>
+</html>

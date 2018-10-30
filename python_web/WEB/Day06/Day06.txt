@@ -1,0 +1,131 @@
+1.SQLAlchemy - 查询
+	1.基于 db.session
+		1.db.session.query()
+			参数：实体，多个实体，实体中的属性
+			返回值：BaseQuery()
+
+			1.查询执行函数
+				1.all()
+				2.first()
+				3.first_or_404()
+				4.count()
+			2.查询过滤器
+				1.filter()
+				2.filter_by()
+				3.limit()
+					limit().offset()
+				4.order_by()
+				5.group_by()
+	2.基于 Models 
+		Models.query.查询过滤器().查询执行函数()
+2.SQLAlchemy - 删除、修改
+	删除 ：db.session.delete(model)
+		model : 要删除的实体对象
+	修改 ：
+		1.查 2.改 3.保存
+3.关系映射
+	Teacher ：id,tname,tage (多)
+	Course : id,cname (一)
+
+	一名老师只能教一门课
+	一门课可以由多个老师来教
+
+	数据库中的实现：
+		在"多"表中增加外键引用自"一"表中主键
+	
+	class Course(db.Model):
+		__tablename__ = 'course'
+		id = db.Column()
+		...
+		# Teacher类中会存在一个隐式属性 ：course
+		teachers = db.relationship('Teacher',backref='course',lazy='dynamic')
+
+	class Teacher(db.Model):
+		__tablename__ = 'teacher'
+		id = db.Column()
+		tname = db.Column()
+		..
+		course_id = db.Column(db.Integer,db.ForeignKey('course.id'))
+
+===============================================
+1.关系映射
+	1.一对多
+		语法：
+			1."多"实体中
+				外键列名=db.Column(db.Integer,db.ForeignKey('主表.主键'))
+			2."一"实体中 
+				增加反向引用关系
+				属性名=db.relationship('多表实体类名',关系选项)
+				常用的关系选项：
+				选项名               说明
+				backref              在关系的另一个模型中添加反向引用
+				lazy                 指定如何加载相关记录
+				                     select : 首次访问时加载
+														 immediate : 源对象加载后立马加载关联数据
+														 subquery : 立即加载，但使用子查询
+														 noload : 永不加载
+														 dynamic : 不加载记录，但提供加载记录的查询
+				uselist							 如果设置为False，则不使用列表，使用标量
+				secondary            指定多对多关系中关联表的名字
+	2.一对一
+		1·什么是一对一
+			A表中的一条记录只能与B表中的一条记录关联
+			B表中的一条记录只能与A表中的一条记录关联
+		2.在数据库中的体现
+		3.SQLAlchemy
+			class Wife(db.Model):
+				... ...
+				teacher_id = db.Column(db.Integer,db.ForeignKey('teacher.id'))
+
+			class Teacher(db.Model):
+				...
+				wife = db.relationship('Wife',backref='teacher',lazy='dynamic',uselist=False)
+	3.多对多
+		1.什么是多对多
+			A表中的一条数据可以与B表中的任意多条数据关联
+			B表中的一条数据可以与A表中的任意多条数据关联
+		2.实现
+			使用第三张表来关联(并不需要实体类)
+			1.创建第三张表
+				student_course=db.Table(
+					'student_course',# 在数据库中的表名
+					db.Column('id',db.Integer,primary_key=True),#该表的主键
+					db.Column('student_id',db.Integer,db.ForeignKey('student.id')),
+					db.Column('course_id',db.Integer,db.ForeignKey('course.id')),
+				)
+			2.增加关联属性 以及  反向引用
+				class Student(db.Model):
+					... ...
+					courses=db.relationship(
+						'Course',
+						secondary='student_course',
+						lazy='dynamic',
+						backref=db.backref('students',lazy='dynamic')
+					)
+
+
+
+
+
+
+SELECT 
+	teacher.id AS teacher_id, 
+	teacher.tname AS teacher_tname, 
+	teacher.tage AS teacher_tage, 
+	teacher.course_id AS teacher_course_id, 
+	course.id AS course_id, 
+	course.cname AS course_cname 
+FROM teacher, course
+WHERE teacher.course_id = course.id
+
+[
+	(<Teacher '魏老师'>, <Course 'PYTHON 基础'>), 
+	(<Teacher '魏老师'>, <Course 'PYTHON 基础'>), 
+	(<Teacher '魏老师'>, <Course 'PYTHON 基础'>), 
+	(<Teacher '吕老师'>, <Course 'PYTHON 高级'>), 
+	(<Teacher '王老师'>, <Course 'PYTHON WEB 开发'>),
+	(<Teacher '蒙蒙老师'>, <Course 'PYTHON WEB 开发'>)
+]
+
+[
+	'Course', 'Teacher', '__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getnewargs__', '__gt__', '__hash__', '__init__', '__iter__', '__le__', '__len__', '__lt__', '__module__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__rmul__', '__setattr__', '__sizeof__', '__slots__', '__str__', '__subclasshook__', '_asdict', '_fields', '_real_fields', 'count', 'index', 'keys']

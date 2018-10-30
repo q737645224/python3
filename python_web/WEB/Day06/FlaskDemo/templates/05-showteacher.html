@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>所教课程</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tea in params.teachers %}
+            <tr>
+                <td>{{tea.tname}}</td>
+                <td>{{tea.tage}}</td>
+                <td>{{tea.course.cname}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

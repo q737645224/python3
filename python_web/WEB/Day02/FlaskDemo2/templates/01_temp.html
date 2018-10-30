@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{params.title}}</title>
+</head>
+<body>
+    {% if params.uname %}
+        <h1>欢迎:{{params.uname}}</h1>
+    {% endif %}
+
+    {% if uname %}
+        <h1>欢迎:{{uname}}</h1>
+    {% else %}
+        <h1>
+            <a href="{{url_for('login')}}">登录</a>
+        </h1>
+    {% endif %}
+
+
+    <!-- for 循环  -->
+    <div style="font-size: 22px;">
+        {% for str in params.list %}
+            <p>{{str}}</p>
+        {% endfor %}
+    </div>
+
+    <ul>
+        {% for str in params.tup %}
+            <li>{{str}}</li>
+        {% endfor %}
+    </ul>
+
+    <div style="color: #f60;">
+        {% for key,value  in params.dic.items() %}
+        <h2>{{key}}:{{value}}</h2>
+        {% endfor %}
+    </div>
+
+
+
+
+
+    <h2>书名:<<{{params.bookName}}>></h2>
+    <h2>作者:{{params.author}}</h2>
+    <h2>价格:{{params.price}}</h2>
+    <h2>出版社:{{params.publisher}}</h2>
+    <!-- 获取列表中的第二个元素 -->
+    <h2>list[1]:{{params.list.1}}</h2>
+    <h2>list[1]:{{params.list[1]}}</h2>
+    <!-- 获取元组中的第三个元素 -->
+    <h2>tup[2]:{{params.tup.2}}</h2>
+    <h2>tup[2]:{{params.tup[2]}}</h2>
+    <!-- 获取字典中的键为 WWC 的值-->
+    <h2>dic['PY']:{{params.dic.PY}}</h2>
+    <h2>dic['WWC']:{{params.dic['WWC']}}</h2>
+    <!-- 获取per对象的name属性值-->
+    <h2>per.name:{{params.per.name}}</h2>
+    <!-- 调用 per 对象的 say 方法-->
+    <h2>per.say():{{params.per.say()}}</h2>
+    <!-- 过滤器 -->
+    <h2>原始值:{{params.uname}}</h2>
+    <h2>capitalize : {{params.uname|capitalize}}</h2>
+    <h2>upper : {{params.uname|upper}}</h2>
+    <h3>title : {{params.uname|title}}</h3>
+
+
+    <!-- 声明一个 宏 -->
+    {% macro show(str) %}
+        <li style="color:#f60;">{{str}}</li>
+    {% endmacro %}
+
+    <h2>使用宏显示数据</h2>
+    <ul>
+        {% for str in params.list %}
+            {{show(str)}}
+        {% endfor %}
+    </ul>
+
+    <!-- 引入 macro.html 并使用 show_li 宏 -->
+    {% import 'macro.html' as macros %}
+    <ul>
+        {% for str in params.tup %}
+            {{macros.show_li(str)}}
+        {% endfor %}
+    </ul>
+</body>
+</html>

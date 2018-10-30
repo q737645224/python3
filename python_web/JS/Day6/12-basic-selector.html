@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript" src="jquery-1.11.3.js">
+  </script>
+ </head>
+ <body>
+	<h1 id="d1">
+		<p>这就是<span>灌篮<span><p>
+	</h1>
+	<h2>二级标题</h2>
+	<p class="c1">李易峰</p>
+	<p>周杰伦</p>
+	<p>林书豪</p>
+	<p class="c1">郭艾伦</p>
+
+	<script type="text/javascript">
+		//根据选择器获取元素
+		var ps = $('p');
+		var h1 = $('#d1');
+		var p1 = $('.c1');
+		var elems = $('#d1,.c1');
+		console.log("标签选择器",ps);
+		console.log("id",h1);
+		console.log("class",p1);
+		console.log("group",elems);
+
+		//层级选择器
+		//1. 后代选择器
+		$("h1 span").css('color','red'); //样式设置
+		//2. 子选择器
+		$("h1>p").css('background','orange');
+		//3. 相邻兄弟选择器,只匹配相邻的一个兄弟元素
+		$("h1+p").css("color","green");
+		//4. 通用兄弟选择器
+		$("h1~p").css("border","1px solid blue");
+		
+
+
+
+
+	</script>
+ </body>
+</html>

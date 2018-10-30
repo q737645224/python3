@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	for(var i = 1; i < 6 ; i ++){  //行数
+		var show = "";
+		//输出空格 第五行 i = 5 
+		for(var j = 1; j <= 5 - i;j ++){
+			show += " ";
+		}
+		//星星数
+		for(var k = 1; k <= 2 * i - 1;k ++){
+			show += "*";
+		}
+		console.log(show);
+	}
+	console.log("---------------------");
+
+	for(var i = 1; i <= 9; i ++){  //第一个操作数
+		var show = "";
+		for(var j = 1; j <= i; j ++){
+			show += i + '*' + j + '=' + i * j +"\t";
+		}
+		console.log(show);
+	}
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+
+	var s1 = "星期一";
+	var s2 = "hello";
+	var s3 = new String("hello world");
+
+	//1. 获取指定字符的下标
+	var index1 = s1.indexOf('一');
+	console.log(index1);
+	var index2 = s2.indexOf('ll');
+	console.log(index2);
+	var index3 = s2.indexOf('a');
+	console.log(index3);
+
+	var index4 = s3.lastIndexOf('l');
+	console.log(s3,index4);
+	var index5 = s3.lastIndexOf('ll',5);
+	console.log(index5);
+
+	var index6 = s2.indexOf('l',5);
+	console.log(index6);
+	var index7 = s2.lastIndexOf('l',5);
+	console.log(index7);
+
+
+	//2. 截取字符串
+	var s4 = "hello";
+	var res1 = s4.substring(0,3);
+	console.log(res1);
+	var res2 = s4.substring(1,0);
+	console.log(res2);
+	var res3 = s4.substring(3,0);
+	console.log(res3);
+
+	//3. 分割字符串
+	var s5 = "2018-11-11";
+	var resArr = s5.split("/");
+	console.log(resArr);
+
+	//4. 模式匹配
+	var s6 = "我要长高，一定要长高";
+	//定义正则
+	var reg1 = /长高/;
+	var reg2 = /长高/g;
+	//字符串匹配
+	var arr1 = s6.match(reg1);
+	var arr2 = s6.match(reg2);
+	console.log(arr1,arr2);
+
+	var res4 = s6.replace(reg2,"变有钱");
+	console.log(res4,s6);
+
+	var s7 = "垃圾，真垃圾";
+	var reg3 = /垃圾/g;
+	var newStr = s7.replace(reg3,"*");
+	console.log(newStr);
+	
+
+
+
+
+
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

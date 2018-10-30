@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	window.onload = function(){
+		//获取元素节点
+		var minusBtn = document.getElementsByTagName('input')[0];
+		var addBtn = document.getElementsByTagName('input')[2];
+		var textNode = document.getElementsByTagName('input')[1];
+		
+		//添加事件
+		minusBtn.onclick = minus;
+		addBtn.onclick = add;
+		function minus(){
+			/*
+			if(textNode.value == 1){
+				return;
+			}
+			textNode.value = --textNode.value;
+			*/
+			if(textNode.value > 1){
+				textNode.value = --textNode.value;
+			}
+		}
+		function add(){
+			textNode.value = Number(textNode.value) + 1; 
+		}
+	};
+  </script>
+ </head>
+ <body>
+<!-- 
+	元素事件绑定 使用标签属性onclick，绑定的是全局函数
+-->
+	<input type="button" value="-">
+	<input type="text" name="" value="1">
+	<input type="button" value="+">
+ </body>
+</html>

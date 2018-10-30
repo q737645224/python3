@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+
+	var mail = "zhangsan@sina.com";
+	//提取用户名 @符号之前的字符内容就是用户名
+	var atIndex = mail.indexOf('@');
+	var userName = mail.substring(0,atIndex);
+	var serverName = mail.substring(atIndex+1);
+	console.log(userName,serverName);
+
+	//截取身份证号
+	var cardID = "100233186012057663";
+	var year = cardID.substring(6,10);
+	var month = cardID.substring(10,12);
+	var day = cardID.substring(12,14);
+	console.log(year,month,day);
+
+	//提取商品信息
+	var strURL = "1045_5&2033_6&0112_10";
+	var goodsArr = strURL.split('&');
+	//遍历数组，再次分割出商品ID和商品数量
+	for(var i = 0; i < goodsArr.length; i ++){
+		//["1045",'5']
+		var arr = goodsArr[i].split('_'); 
+		//输出
+		console.log("商品ID为"+arr[0],"商品数量为"+arr[1]);
+	}
+
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

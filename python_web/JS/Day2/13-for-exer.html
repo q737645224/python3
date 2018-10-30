@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	//判断素数
+	var num = Number(prompt("请输入数字"));
+	var isSu = true;
+	// 2 至 num-1
+	for(var i = 2;i < num; i ++){
+		if(num % i == 0){
+			isSu = false;
+			break;
+			//console.log(num+"不是素数");
+		}
+	}
+	if(isSu){
+		console.log("是素数");
+	}else{
+		console.log(num+"不是素数");
+	}
+
+
+
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

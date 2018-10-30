@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	//1. 接收用户输入并存储
+	function saveData(){
+		var arr = [];
+		do{
+			var input = prompt("请输入数据");
+			//arr.length可以作为数组中下一个元素的下标
+			if(input != "exit")
+			arr[arr.length] = input;
+
+		}while(input != "exit");
+		console.log(arr);
+	}
+	//2. 遍历数组找最大值
+	function findMax(){		
+		var arr = [12,45,65,24,78,966,33,-1,-987,5];
+		//定义变量保存最大值，初始值必须是数组中存在的数据
+		var maxNum = arr[0];
+		for(var i = 1; i < arr.length; i++){
+			//取数组中元素与maxNum进行比较
+			if(arr[i] > maxNum){
+				maxNum = arr[i];
+			}
+		}
+		console.log(maxNum);
+	}
+
+	function findIndex(){
+		//3. 查找下标
+		var arr = [12,45,65,24,78,966,33,-1,-987,5];
+		var input = prompt("请输入数字");
+		var index = ""; //index用来保存数组下标
+		for(var i = 0; i < arr.length; i ++){
+			//在组中查找到数据，将下标赋值给index
+			if(arr[i] == input) index = i;
+		}
+		if(index == ""){
+			console.log("查询失败",arr);
+		}else{
+			console.log(input+"对应的下标为"+index,arr);
+		}
+
+	}
+	//4. 数组排序
+	var arr = [64,128,37];
+	if(arr[0] > arr[1]){
+		//互换两个下标位置的值
+		arr[0] = arr[0] ^ arr[1];
+		arr[1] = arr[0] ^ arr[1];
+		arr[0] = arr[0] ^ arr[1];
+	}
+	if(arr[1] > arr[2]){
+		arr[1] = arr[1] ^ arr[2];
+		arr[2] = arr[1] ^ arr[2];
+		arr[1] = arr[1] ^ arr[2];
+	}
+	if(arr[0] > arr[1]){
+		//互换两个下标位置的值
+		arr[0] = arr[0] ^ arr[1];
+		arr[1] = arr[0] ^ arr[1];
+		arr[0] = arr[0] ^ arr[1];
+
+		/*
+		//借助中间变量 var a = 3, b = 5;
+		var c = arr[0];
+		arr[0] = arr[1];
+		arr[1] = c;
+		*/
+
+	}
+	console.log(arr);
+
+
+
+
+
+
+	
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

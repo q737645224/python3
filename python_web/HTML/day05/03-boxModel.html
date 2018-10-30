@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+	div{
+		width:300px;
+		height:100px;
+		background-color:orange;
+	}
+	a{
+		width:80px;
+		height:50px;
+		background-color:green;
+/* 转换元素类型 为行内块元素*/
+		display:inline-block;
+		margin:5px 10px;
+	}
+
+	h1{
+		width:300px;
+		height:100px;
+		background-color:pink;
+/*在父元素中设置字体大小为0，解决子元素水平方向上的
+间隙问题，需要在子元素中重新设置字体大小
+*/
+		font-size:0;
+	}
+	span{		
+		display:inline-block;
+		box-sizing:border-box;
+
+		background-color:rgba(0,0,255,.7);
+		font-size:14px;
+
+		width:90px;
+		height:50px;
+		border:3px solid red;
+		padding:5px;
+/*设置box-sizing为border-box时，需要单独考虑外边距*/
+		margin:5px;
+	}
+  </style>
+ </head>
+ <body>
+	<div>
+		<a href="#">baidu</a><a href="#">baidu</a><a href="#">baidu</a>
+	</div>
+
+	<h1>
+		<span>border-box</span>
+		<span>border-box</span>
+		<span>border-box</span>
+	</h1>
+
+ </body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript">
+	//1.接收用户输入，转换数据类型
+	var year = Number(prompt("请输入年份"));
+	var month = Number(prompt("请输入月份"));
+	var day = Number(prompt("请输入日期"));
+	//总天数
+	var dayNum = 0;
+	//闰年判断
+	var isRun = year % 400 == 0 || (year % 100 != 0 && year % 4 == 0);
+
+	//2.使用循环实现月份累加
+	var i = 1;
+	//month = 5 累加前4个月
+	while(i < month){
+		switch(i){
+			case 1 :
+			case 3 :
+			case 5 :
+			case 7 :
+			case 8 :
+			case 10 :
+				dayNum += 31;
+				break;
+			case 4 :
+			case 6 :
+			case 9 :
+			case 11 :
+				dayNum += 30;
+				break;
+			case 2 :
+				dayNum += 28;
+				if(isRun){
+					dayNum++;
+				}
+				break;
+		}
+		i++;
+	}
+	//累加当前月的天数
+	dayNum += day;
+	console.log(year+"年"+month+"月"+day+"日"+"是当年的第"+dayNum+"天");
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

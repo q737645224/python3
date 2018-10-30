@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript" src="jquery-1.11.3.js">
+  </script>
+
+ </head>
+ <body>
+	<div id="" class="">
+		div元素
+	</div>
+	<input type="button" value="domToJq" onclick="domToJq()">
+	<input type="button" value="jqToDom" onclick="jqToDom()">
+
+	<script type="text/javascript">
+		//获取节点对象
+		var div = document.getElementsByTagName('div')[0];
+		var $div = $('div');
+//		console.log(div);
+		//console.log($div);
+
+		function domToJq(){
+			var $div = $(div);
+			console.log($div);
+		}
+		function jqToDom(){
+			var div = $div[0];
+			var div2 = $div.get(0);
+			console.log(div,div2);
+		}
+
+	</script>
+ </body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript" src="jquery-1.11.3.js">
+  </script>
+ </head>
+ <body>
+	<div id="box" class="">
+		<h2>二级标题</h2>
+		<h1>一级标题</h1>
+		<p>
+			段落标签
+			<span>p->span</span>
+		</p>
+		<span>box->span</span>
+		<h2>二级标题</h2>
+	</div>
+	<script type="text/javascript">
+		console.log($("#box").children('h1'));
+		console.log($("#box").find('span'));
+
+		console.log($('p').prev());
+		console.log($('p').next());
+		console.log($('p').prev('h2'));
+		console.log($('p').next('h2'));
+		$('p').siblings().css("color","red");
+		$('p').siblings('h2').css("border","1px solid blue");
+
+		console.log($('p').parent());
+
+
+
+	</script>
+ </body>
+</html>

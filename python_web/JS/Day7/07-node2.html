@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript" src="jquery-1.11.3.js">
+  </script>
+ </head>
+ <body>
+  
+	<script type="text/javascript">
+		//1. 创建节点
+		var $h1 = $("<h1 id='d1'>一级标题</h1>");
+		var $p = $("<p></p>");
+		$p.attr("id","p1");
+		$p.html("段落标签");
+		var $span = $("<span style='color:red;'>span文本</span>");
+		//2. 添加节点
+		$('body').append($h1);
+		$('body').prepend($p);
+		$h1.after($span);
+		$h1.before($span);
+		//3. 删除节点
+		$p.remove();
+
+
+
+
+
+
+
+	</script>
+ </body>
+</html>

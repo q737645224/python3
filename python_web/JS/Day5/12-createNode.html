@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	
+	<script type="text/javascript">
+		//在body中添加子节点h1
+		var body = document.body; //直接获取body对象
+		//创建h1节点对象
+		var h1 = document.createElement('h1');
+		//设置文本内容
+		h1.innerHTML = "一级标题";
+		//追加到body中
+		body.appendChild(h1);
+
+		//创建段落标签
+		var p = document.createElement('p');
+		//创建文本节点
+		var ptext = document.createTextNode("段落标签");
+		//为元素节点添加文本内容
+		p.appendChild(ptext);
+		//添加到页面中
+		body.appendChild(p);
+
+		var div = document.createElement('div');
+		div.id = "container";
+		div.innerHTML = "动态创建的div";
+		//body.appendChild(div);
+		body.insertBefore(div,h1);
+
+		//删除节点
+		body.removeChild(p);
+
+
+
+
+	</script>
+ </body>
+</html>

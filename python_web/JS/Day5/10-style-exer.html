@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	用户名 ：<input type="text" name="uname" maxlength="18" autocomplete="off">
+	<span class="">请输入6-18位字符</span>
+	<input type="button" value="点击验证" onclick="validateName()">
+	<div id="box" class="">
+		
+	</div>
+
+	<script type="text/javascript">
+		function validateName(){
+			//1. 获取元素节点
+			var input = document.getElementsByName('uname')[0];
+			var div = document.getElementById('box');
+			//2. 验证和显示
+			if(input.value.length >= 6 && input.value.length <= 18){
+				//用户名合法
+				div.innerHTML = "合法";
+				div.style.color = "green";
+			}else{
+				//用户名不合法
+				div.innerHTML = "请输入6-18位字符";
+				div.style.color = "red";
+			}
+		}
+	</script>
+ </body>
+</html>

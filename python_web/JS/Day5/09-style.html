@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	.c1{
+		color:red;
+	}
+  </style>
+ </head>
+ <body>
+	<h1>一级标题</h1>
+	<p>段落标签</p>
+ </body>
+ <script type="text/javascript">
+	//1. 获取节点对象，操作属性
+	var h1 = document.getElementsByTagName('h1')[0];
+	var p = document.getElementsByTagName('p')[0];
+	h1.setAttribute('class','c1');
+	p.className = "c1";
+	//2. 操作行内样式
+	p.style.background = "orange";
+	p.style.fontSize = "32px";
+
+ </script>
+</html>

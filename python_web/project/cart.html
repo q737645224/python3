@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <link rel="stylesheet" href="cart.css">
+  <script type="text/javascript" src="jquery-1.11.3.js">
+  </script>
+  <script type="text/javascript" src="cart.js"></script>
+ </head>
+ <body>
+	<div id="container" class="">
+<!-- 	1. 导航	 -->
+		<div id="nav" class="">
+		<!-- 1. 右侧导航 -->
+			<ul id="rightNav">
+				<li>
+					<a href="#">[登录]&nbsp;&nbsp;&nbsp; </a>
+					<a href="#">[注册，有惊喜]</a>
+					
+				</li>
+				<li>
+					<b></b>
+					果园公告		
+				</li>
+				<li>
+					<b></b>
+					券卡兑换	
+				</li>
+				<li>
+					<b></b>
+					手机果园
+				</li>
+			</ul>
+		<!-- 2. 左侧导航	-->
+			<a href="#">
+				上海
+				<i></i>
+			</a>
+			<a href="#">满百包邮（含六环）</a>
+			<a href="#">星夜达</a>
+		</div>
+<!--	2. banner	-->
+		<div id="banner" class="">
+			<img src="images/banner1.jpg" width="" height="" border="0" alt="">
+		</div>
+<!--	3. 推荐	-->
+		<div id="commend" class="">
+			 <img src="images/2ba20598135dbba5e97d241ebfa167d9.jpg" width="" height="" border="0" alt="">
+			 <img src="images/2ba20598135dbba5e97d241ebfa167d9.jpg" width="" height="" border="0" alt="">
+			 <img src="images/2ba20598135dbba5e97d241ebfa167d9.jpg" width="" height="" border="0" alt="">
+			 <img src="images/2ba20598135dbba5e97d241ebfa167d9.jpg" class="no-margin">
+		</div>
+<!--	4. 主体信息	-->
+		<div id="main" class="">
+<!-- 		分上下两部分 标题 + 购物车商品信息	 -->
+			<div class="title">
+				<p class="check-box">
+					<input type="checkbox" name="checkall" id="checkall">
+					全选
+				</p>
+				<p class="goods">商品</p>
+				<p class="price">单价</p>
+				<p class="count">数量</p>
+				<p class="t-sum">小计</p>
+				<p class="action">操作</p>
+			</div>
+
+			<div id="good-content" class="">
+<!-- 			每一条记录	 -->
+				<div class="g-item">
+					<p class="check-box">
+						<input type="checkbox" name="check">
+						<img src="images/1-270x270-3356-T4P73D4B.jpg" >
+					</p>
+					<p class="goods">
+						欢乐时光水果果篮
+					</p>
+					<p class="price">&yen;169</p>
+					<p class="count">
+						<a href="javascript:void(0)" class="decrement">-</a>
+						<input type="text" name="count" value="1">
+						<a href="javascript:void(0)" class="increment">+</a>
+					</p>
+					<p class="t-sum">
+						<strong>&yen;169</strong>
+					</p>
+					<p class="action">
+						<a href="javascript:void(0)" class="removeItem">移除</a>
+					</p>
+				</div>
+				<div class="g-item">
+					<p class="check-box">
+						<input type="checkbox" name="check">
+						<img src="images/1-270x270-3356-T4P73D4B.jpg" >
+					</p>
+					<p class="goods">
+						欢乐时光水果果篮
+					</p>
+					<p class="price">&yen;169</p>
+					<p class="count">
+						<a href="javascript:void(0)" class="decrement">-</a>
+						<input type="text" name="count" value="1">
+						<a href="javascript:void(0)" class="increment">+</a>
+					</p>
+					<p class="t-sum">
+						<strong>&yen;169</strong>
+					</p>
+					<p class="action">
+						<a href="javascript:void(0)" class="removeItem">移除</a>
+					</p>
+				</div>
+
+<!--			底部工具栏 -->
+				<div class="cart-toolbar">
+					<div class="tool-bar">
+						<p class="submit-count">
+							已选择
+							<span class=""></span>
+							件商品
+						</p>
+						<p class="submit-price">
+							总计 :
+							<span class=""></span>
+						</p >
+						<p class="submit-btn">结算</p>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+ </body>
+</html>

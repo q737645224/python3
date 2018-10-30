@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript" src="jquery-1.11.3.js">
+  </script>
+ </head>
+ <body>
+	<h1>这就是灌篮</h1>
+	<p>周杰伦</p>
+	<p>李易峰</p>
+	<p>林书豪</p>
+	<p>郭艾伦</p>
+	<p>冯绍峰</p>
+	<p>赵丽颖</p>
+	<p>奇葩说</p>
+	<input type="button" value=":odd" onclick="oddSel()">
+	<input type="button" value=":even" onclick="evenSel()">
+	<input type="button" value=":eq" onclick="eqSel()">
+	<input type="button" value=":lt" onclick="ltSel()">
+	<input type="button" value=":gt" onclick="gtSel()">
+	<script type="text/javascript">
+		function oddSel(){
+			//通过选择器获取元素
+			$("p:odd").css("color","red");
+		}
+		function evenSel(){
+			$("p:even").css("color","green");
+		}
+		function eqSel(){
+			$("p:eq(3)").css("background","red");
+			var index = 3;
+			$("p:eq("+index+")");
+		}
+		function ltSel(){
+			$("p:lt(3)").css("background","green");
+		}
+		function gtSel(){
+			$("p:gt(3)").css("background","orange");
+		}
+
+
+	</script>
+ </body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript" src="jquery-1.11.3.js">
+  </script>
+ </head>
+ <body>
+	<h1>一级标题</h1>
+	<input type="text" name="">
+	<input type="button" value="show" onclick="show()">
+	<p></p>
+	<script type="text/javascript">
+		console.log($('h1').html(),$('h1').text());
+		$('p').html('<strong>段落标签</strong>');
+		$('h1').text('<strong>标题标签</strong>');
+		function show(){
+			console.log($('[type=text]').val());
+		}
+
+		//属性操作
+		$('h1').attr('id','d1');
+		console.log($('h1').attr('id'));
+
+		$('h1').removeAttr('id');
+		console.log($('h1').attr('id'));
+
+
+
+
+
+
+
+	</script>
+ </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!-- 包含 02-head.html 内容到当前模板中来 -->
+    {% include '02-head.html' %}
+    <!-- 网页的主体 -->
+    <div class="container">
+        <div class="f1">
+            <h2>这是主体内容</h2>
+        </div>
+    </div>
+    <p>
+        <img src="/static/0/b04.jpg" width="350">
+        <img src="{{url_for('static',filename='images/b04.jpg')}}" width="350">
+    </p>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>邮箱</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <script>
+                /**
+                 * 确认是否要删除用户
+                 * 参数 id :要删除的用户的id
+                 * */
+                function deleteUser(id){
+                    if(confirm('确定删除吗')){
+                        //向服务器端发送请求
+                        location.href='/delete?id='+id;
+                    }
+                }
+            </script>
+
+            {% for u in params.users %}
+            <tr>
+                <td>
+                    <!-- <a href="/query_by_id/{{u.id}}">
+                        {{u.username}}
+                    </a> -->
+
+                    <a href="/query_by_id?id={{u.id}}">
+                        {{u.username}}
+                    </a>
+                    
+                </td>
+                <td>{{u.age}}</td>
+                <td>{{u.email}}</td>
+                <td>
+                    <a href="javascript:deleteUser({{u.id}})">删除</a>
+                    <a href="/update?id={{u.id}}">修改</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
