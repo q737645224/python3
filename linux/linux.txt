@@ -1,4 +1,4 @@
-linux.txt
+﻿linux.txt
 24个个人最常用命令如下：
     cd        ls          rm         cp         mv       pwd        head   tail       more      less      cat       wc      
     sort      uniq     cut         paste   split      join         diff       cmp     comm    grep     sed      awk   
@@ -55,7 +55,9 @@ linux.txt
     23 sed: 在线编辑器，一次处理一行文本，功能强大。
 
     24 awk: 强大的行文本处理工具。
-
+      25 wget 链接  下载软件
+      25 tar -zxvf 名字 解压
+	tar -cvf  压缩
 cd ls rm cp mv pwd 前6个命令是跟目录切换、移动文件等相关的命令； 
 head tail more less cat wc 是显示文件内容的命令； 
 sort uniq跟文件排序有关； 
